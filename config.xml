@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.jbpaladinpatriotsclock" version="1.3.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>JbPaladinPatriotsClock</name>
+    <description>This is a unique and revolutionary way of telling time, designed by Jeffrey Wayne Birge and developed by Ehllen Quezada. Our clock doesn't use hands to tell time; it uses lights to tell time.</description>
+    <author email="jeffbirgepaladin@gmail.com">Jeffrey Wayne Birge (Designer/Inventor); Ehllen Quezada (Programmer/Developer)</author>
+    <content src="index.html" />
+    <access origin="*" /> <!-- Allows all local access -->
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+
+    <platform name="android">
+        <icon src="res/icon/android/icon.png" density="mdpi" />
+        <icon src="res/icon/android/icon.png" density="hdpi" />
+        <icon src="res/icon/android/icon.png" density="xhdpi" />
+        <icon src="res/icon/android/icon.png" density="xxhdpi" />
+        <icon src="res/icon/android/icon.png" density="xxxhdpi" />
+
+        <preference name="android-targetSdkVersion" value="34" />
+        <preference name="android-minSdkVersion" value="27" /> <!-- Added minimum SDK version -->
+        <preference name="android-manifest/application/uses-feature" value="android.hardware.touchscreen" />
+        <preference name="android-manifest/application/uses-feature" value="android.hardware.touchscreen.multitouch" />
+     <preference name="AndroidWindowSplashScreen" value="res/screen/android/splash.png" />
+     <preference name="AndroidWindowSplashScreenBackgroundColor" value="white" />
+    <preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/screen/android/splash.png" /> 
+    <preference name="SplashScreenDelay" value="3000" />
+        <preference name="AndroidPersistentFileLocation" value="Compatibility" />
+        <preference name="android:hardwareAccelerated" value="true" />
+        <preference name="MediaPlaybackRequiresUser  Action" value="false" />
+        <preference name="AllowInlineMediaPlayback" value="true" />
+        <preference name="Zoom" value="yes" />
+    </platform>
+</widget>
