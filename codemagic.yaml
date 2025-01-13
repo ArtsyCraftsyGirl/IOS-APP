@@ -5,8 +5,6 @@ workflows:
       ios_signing:
         distribution_type: app_store  # or ad_hoc | development | enterprise
         bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock  # Your app's bundle ID
-        provisioning_profiles:
-          - JB Paladin Patriots Clock App Store Profile  # Reference name of your provisioning profile
     scripts:
       - name: Install npm dependencies
         script: |
