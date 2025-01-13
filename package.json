@@ -14,7 +14,8 @@
   "license": "Apache-2.0",
   "cordova": {
     "platforms": [
-      "android"
+      "android",
+      "ios"
     ],
     "plugins": {
       "cordova-plugin-background-mode": {},
@@ -29,6 +30,7 @@
   },
   "devDependencies": {
     "cordova-android": "^13.0.0",
+    "cordova-ios": "^7.1.1",
     "cordova-plugin-background-mode": "^0.7.3",
     "cordova-plugin-device": "^3.0.0",
     "cordova-plugin-file": "^8.1.2",
