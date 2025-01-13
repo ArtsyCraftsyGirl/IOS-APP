@@ -6,8 +6,13 @@ workflows:
         distribution_type: app_store  # or ad_hoc | development | enterprise
         bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock  # Your app's bundle ID
     scripts:
-      - name: Build ipa for distribution
+      - name: Install npm dependencies
         script: |
-          xcode-project build-ipa \
-            --workspace "$CM_BUILD_DIR/YourApp.xcworkspace" \
-            --scheme "YourAppScheme"  # Replace with your Xcode scheme
+          npm install
+      - name: Build iOS Cordova App
+        script: |
+          cordova build ios --release --device
+      - name: Build IPA for distribution
+        script: |
+          xcodebuild -project "$CM_BUILD_DIR/platforms/ios/JbPaladinPatriotsClock.xcodeproj" -scheme "JbPaladinPatriotsClock" -configuration Release archive -archivePath "$CM_BUILD_DIR/build/JbPaladinPatriotsClock.xcarchive"
+          xcodebuild -exportArchive -archivePath "$CM_BUILD_DIR/build/JbPaladinPatriotsClock.xcarchive" -exportPath "$CM_BUILD_DIR/build" -exportOptionsPlist "$CM_BUILD_DIR/ExportOptions.plist"
