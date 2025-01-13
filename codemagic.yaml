@@ -5,7 +5,7 @@ workflows:
       ios_signing:
         distribution_type: app_store  # or ad_hoc | development | enterprise
         bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock  # Your app's bundle ID
-        certificate: jbpaladinpatriotsclock.p12  # Name of your .p12 file
+        certificate: jbpaladinpatriotsclock  # Reference name of your uploaded certificate
         certificate_password: jbpaladin  # Password for the .p12 file
     scripts:
       - name: Install npm dependencies
