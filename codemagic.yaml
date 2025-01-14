@@ -3,7 +3,7 @@ workflows:
     name: iOS Workflow
     environment:
       ios_signing:
-        distribution_type: app_store  # or ad_hoc | development | enterprise
+        distribution_type: development  # Change this to 'development' for testing on devices
         bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock  # Your app's bundle ID
     scripts:
       - name: Install npm dependencies
@@ -14,5 +14,22 @@ workflows:
           cordova build ios --release --device
       - name: Build IPA for distribution
         script: |
-          xcodebuild -project "$CM_BUILD_DIR/platforms/ios/JbPaladinPatriotsClock.xcodeproj" -scheme "JbPaladinPatriotsClock" -configuration Release archive -archivePath "$CM_BUILD_DIR/build/JbPaladinPatriotsClock.xcarchive"
-          xcodebuild -exportArchive -archivePath "$CM_BUILD_DIR/build/JbPaladinPatriotsClock.xcarchive" -exportPath "$CM_BUILD_DIR/build" -exportOptionsPlist "$CM_BUILD_DIR/ExportOptions.plist"
+          # Ensure that the correct certificate and provisioning profile are used in the build
+          export CODE_SIGN_IDENTITY="iPhone Developer"  # Use your development certificate name (e.g., iPhone Developer)
+          export PROVISIONING_PROFILE_SPECIFIER="Your Development Provisioning Profile Name"  # The name of your development provisioning profile
+          
+          # Archive the app
+          xcodebuild -project "$CM_BUILD_DIR/platforms/ios/JbPaladinPatriotsClock.xcodeproj" \
+            -scheme "JbPaladinPatriotsClock" \
+            -configuration Release archive \
+            -archivePath "$CM_BUILD_DIR/build/JbPaladinPatriotsClock.xcarchive" \
+            CODE_SIGN_IDENTITY="iPhone Developer" \
+            PROVISIONING_PROFILE_SPECIFIER="Your Development Provisioning Profile Name"
+
+          # Export the IPA for distribution (even though it's for testing on devices)
+          xcodebuild -exportArchive \
+            -archivePath "$CM_BUILD_DIR/build/JbPaladinPatriotsClock.xcarchive" \
+            -exportPath "$CM_BUILD_DIR/build" \
+            -exportOptionsPlist "$CM_BUILD_DIR/ExportOptions.plist" \
+            CODE_SIGN_IDENTITY="iPhone Developer" \
+            PROVISIONING_PROFILE_SPECIFIER="Your Development Provisioning Profile Name"
