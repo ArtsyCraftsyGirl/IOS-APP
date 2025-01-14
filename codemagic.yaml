@@ -4,7 +4,7 @@ workflows:
     environment:
       ios_signing:
         distribution_type: app_store
-        bundle_identifier: com.example.yourapp
+        bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock 
     scripts:
       - name: Decode provisioning profile
         script: echo $PROVISIONING_PROFILE | base64 --decode > provisioning_profile.mobileprovision
