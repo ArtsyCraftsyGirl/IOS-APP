@@ -2,16 +2,23 @@ workflows:
   ios-workflow:
     name: iOS Workflow
     environment:
-      groups:
-        - appstore_credentials
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.example.yourapp
     scripts:
-      - name: Set up code signing
+      - name: Decode provisioning profile
+        script: echo $PROVISIONING_PROFILE | base64 --decode > provisioning_profile.mobileprovision
+      - name: Decode certificate
+        script: echo $CERTIFICATE | base64 --decode > certificate.p12
+      - name: Build IPA
         script: |
-          echo $PROVISIONING_PROFILE | base64 --decode > provisioning_profile.mobileprovision
-          echo $CERTIFICATE | base64 --decode > certificate.p12
-          # Use the variables in your build commands
-      - name: Build IPA for distribution
-        script: |
-          xcode-project build-ipa \
-          --project "YourApp.xcworkspace" \
-          --scheme "YourAppScheme"
+          xcodebuild -workspace "YourApp.xcworkspace" \
+          -scheme "YourAppScheme" \
+          -configuration Release \
+          -archivePath build/YourApp.xcarchive archive
+          xcodebuild -exportArchive \
+          -archivePath build/YourApp.xcarchive \
+          -exportPath build/YourApp.ipa \
+          -exportOptionsPlist ExportOptions.plist
+    artifacts:
+      - build/*.ipa
