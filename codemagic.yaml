@@ -1,21 +1,17 @@
 workflows:
-  ios-build:
-    name: iOS Build
+  ios-workflow:
+    name: iOS Workflow
+    environment:
+      groups:
+        - appstore_credentials
     scripts:
-      - name: Decode Certificate and Provisioning Profile
+      - name: Set up code signing
         script: |
+          echo $PROVISIONING_PROFILE | base64 --decode > provisioning_profile.mobileprovision
           echo $CERTIFICATE | base64 --decode > certificate.p12
-          echo $PROVISIONING_PROFILE | base64 --decode > profile.mobileprovision
-
-      - name: Build iOS App
+          # Use the variables in your build commands
+      - name: Build IPA for distribution
         script: |
-          # Ensure these values are correct
-          xcodebuild -workspace YourApp.xcworkspace -scheme YourAppScheme -configuration Release -archivePath build/YourApp.xcarchive archive
-          xcodebuild -exportArchive -archivePath build/YourApp.xcarchive -exportPath build/YourApp.ipa -exportOptionsPlist ExportOptions.plist
-
-    publishing:
-      scripts:
-        - name: Upload to App Store
-          script: |
-            # Ensure Fastlane is configured properly
-            fastlane deliver
+          xcode-project build-ipa \
+          --project "YourApp.xcworkspace" \
+          --scheme "YourAppScheme"
