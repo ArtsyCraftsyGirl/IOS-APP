@@ -1,15 +1,6 @@
 workflows:
   ios-build:
     name: iOS Build
-    environment:
-      # Environment variables
-      PROVISIONING_PROFILE: $PROVISIONING_PROFILE
-      CERTIFICATE_PASSWORD: $CERTIFICATE_PASSWORD
-      CERTIFICATE: $CERTIFICATE
-      APP_STORE_CONNECT_API_KEY: $APP_STORE_CONNECT_API_KEY
-      APP_STORE_CONNECT_KEY_IDENTIFIER: $APP_STORE_CONNECT_KEY_IDENTIFIER
-      APP_STORE_CONNECT_ISSUER_ID: $APP_STORE_CONNECT_ISSUER_ID
-
     scripts:
       - name: Decode Certificate and Provisioning Profile
         script: |
@@ -18,7 +9,7 @@ workflows:
 
       - name: Build iOS App
         script: |
-          # Add your build command here, e.g., using xcodebuild or Fastlane
+          # Replace with your actual build command
           xcodebuild -workspace YourApp.xcworkspace -scheme YourAppScheme -archivePath build/YourApp.xcarchive archive
           xcodebuild -exportArchive -archivePath build/YourApp.xcarchive -exportPath build/YourApp.ipa -exportOptionsPlist ExportOptions.plist
 
