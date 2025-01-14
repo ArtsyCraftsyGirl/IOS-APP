@@ -8,8 +8,9 @@ workflows:
       - npm install
       - cordova prepare ios
       - cordova build ios --release
-    ios:
-      code_signing:
-        method: manual
-        certificate: combined.p12
-        provisioning_profile: jbpaladin.mobileprovision
+    build:
+      ios:
+        code_signing:
+          method: manual
+          certificate: comnbined.p12
+          provisioning_profile: jbpaladin.mobileprovision
