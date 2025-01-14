@@ -9,13 +9,13 @@ workflows:
 
       - name: Build iOS App
         script: |
-          # Replace with your actual build command
-          xcodebuild -workspace YourApp.xcworkspace -scheme YourAppScheme -archivePath build/YourApp.xcarchive archive
+          # Ensure these values are correct
+          xcodebuild -workspace YourApp.xcworkspace -scheme YourAppScheme -configuration Release -archivePath build/YourApp.xcarchive archive
           xcodebuild -exportArchive -archivePath build/YourApp.xcarchive -exportPath build/YourApp.ipa -exportOptionsPlist ExportOptions.plist
 
     publishing:
       scripts:
         - name: Upload to App Store
           script: |
-            # Use Fastlane or any other method to upload
+            # Ensure Fastlane is configured properly
             fastlane deliver
