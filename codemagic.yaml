@@ -1,20 +1,25 @@
 workflows:
-  ios-workflow:
-    name: iOS Workflow
+  ios-development-workflow:
+    name: iOS Development Workflow
+    max_build_duration: 120
+    instance_type: mac_mini_m2
     environment:
       ios_signing:
-        distribution_type: app_store
-        bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock 
+        distribution_type: development  # Change to development for development builds
+        bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
+      vars:
+        APP_STORE_CONNECT_PRIVATE_KEY: $APP_STORE_CONNECT_PRIVATE_KEY
+        APP_STORE_CONNECT_KEY_IDENTIFIER: $APP_STORE_CONNECT_KEY_IDENTIFIER
+        APP_STORE_CONNECT_ISSUER_ID: $APP_STORE_CONNECT_ISSUER_ID
     scripts:
-      - name: Decode provisioning profile
-        script: echo $PROVISIONING_PROFILE | base64 --decode > provisioning_profile.mobileprovision
-      - name: Decode certificate
-        script: echo $CERTIFICATE | base64 --decode > certificate.p12
-      - name: Build IPA
+      - name: Fetch signing files
+        script: |
+          app-store-connect fetch-signing-files "$BUNDLE_ID" --platform IOS --type IOS_DEVELOPMENT --create
+      - name: Build IPA for development
         script: |
           xcodebuild -workspace "YourApp.xcworkspace" \
           -scheme "YourAppScheme" \
-          -configuration Release \
+          -configuration Debug \  # Use Debug configuration for development
           -archivePath build/YourApp.xcarchive archive
           xcodebuild -exportArchive \
           -archivePath build/YourApp.xcarchive \
