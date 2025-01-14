@@ -2,24 +2,30 @@ workflows:
   ios-build:
     name: iOS Build
     environment:
-      vars:
-        APP_STORE_CONNECT_ISSUER_ID: $APP_STORE_CONNECT_ISSUER_ID
+      # Environment variables
+      variables:
+        PROVISIONING_PROFILE: $PROVISIONING_PROFILE
+        CERTIFICATE_PASSWORD: $CERTIFICATE_PASSWORD
+        CERTIFICATE: $CERTIFICATE
+        APP_STORE_CONNECT_API_KEY: $APP_STORE_CONNECT_API_KEY
         APP_STORE_CONNECT_KEY_IDENTIFIER: $APP_STORE_CONNECT_KEY_IDENTIFIER
-        APP_STORE_CONNECT_PRIVATE_KEY: $APP_STORE_CONNECT_PRIVATE_KEY
+        APP_STORE_CONNECT_ISSUER_ID: $APP_STORE_CONNECT_ISSUER_ID
+
     scripts:
-      - name: Install dependencies
+      - name: Decode Certificate and Provisioning Profile
         script: |
-          npm install
-          cordova prepare ios
-      - name: Build iOS
+          echo $CERTIFICATE | base64 --decode > certificate.p12
+          echo $PROVISIONING_PROFILE | base64 --decode > profile.mobileprovision
+
+      - name: Build iOS App
         script: |
-          cordova build ios --release --device
-    artifacts:
-      - build/ios/*.ipa
+          # Add your build command here, e.g., using xcodebuild or Fastlane
+          xcodebuild -workspace YourApp.xcworkspace -scheme YourAppScheme -archivePath build/YourApp.xcarchive archive
+          xcodebuild -exportArchive -archivePath build/YourApp.xcarchive -exportPath build/YourApp.ipa -exportOptionsPlist ExportOptions.plist
+
     publishing:
-      app_store_connect:
-        api_key:
-          key_id: $APP_STORE_CONNECT_KEY_IDENTIFIER
-          issuer_id: $APP_STORE_CONNECT_ISSUER_ID
-          private_key: $APP_STORE_CONNECT_PRIVATE_KEY
-        submit_to_app_store: true
+      scripts:
+        - name: Upload to App Store
+          script: |
+            # Use Fastlane or any other method to upload
+            fastlane deliver
