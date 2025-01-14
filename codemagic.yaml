@@ -1,16 +1,25 @@
 workflows:
-  ios-workflow:
-    name: iOS Manual Signing
+  ios-build:
+    name: iOS Build
     environment:
       vars:
-        CODE_SIGN_IDENTITY: "iPhone Distribution"
+        APP_STORE_CONNECT_ISSUER_ID: $APP_STORE_CONNECT_ISSUER_ID
+        APP_STORE_CONNECT_KEY_IDENTIFIER: $APP_STORE_CONNECT_KEY_IDENTIFIER
+        APP_STORE_CONNECT_PRIVATE_KEY: $APP_STORE_CONNECT_PRIVATE_KEY
     scripts:
-      - npm install
-      - cordova prepare ios
-      - cordova build ios --release
-    build:
-      ios:
-        code_signing:
-          method: manual
-          certificate: comnbined.p12
-          provisioning_profile: jbpaladin.mobileprovision
+      - name: Install dependencies
+        script: |
+          npm install
+          cordova prepare ios
+      - name: Build iOS
+        script: |
+          cordova build ios --release --device
+    artifacts:
+      - build/ios/*.ipa
+    publishing:
+      app_store_connect:
+        api_key:
+          key_id: $APP_STORE_CONNECT_KEY_IDENTIFIER
+          issuer_id: $APP_STORE_CONNECT_ISSUER_ID
+          private_key: $APP_STORE_CONNECT_PRIVATE_KEY
+        submit_to_app_store: true
