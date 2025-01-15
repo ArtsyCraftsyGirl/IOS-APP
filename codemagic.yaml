@@ -1,26 +1,26 @@
 workflows:
-  ios-development-workflow:
-    name: iOS Development Workflow
+  ios-build:
+    name: iOS Build with Provisioning Profile
     max_build_duration: 120
-    instance_type: mac_mini_m2
     environment:
-   vars:
-        APP_STORE_CONNECT_API_KEY: $APP_STORE_CONNECT_API_KEY
-        APP_STORE_CONNECT_KEY_IDENTIFIER: $APP_STORE_CONNECT_KEY_IDENTIFIER
-        APP_STORE_CONNECT_ISSUER_ID: $APP_STORE_CONNECT_ISSUER_ID
+      node: 14 # Specify the Node.js version you need
     scripts:
-      - name: Fetch signing files
+      - name: Install npm dependencies
         script: |
-          app-store-connect fetch-signing-files "$BUNDLE_ID" --platform IOS --type IOS_APP_DEVELOPMENT --create
-      - name: Build IPA for development
+          npm install
+      - name: Add iOS platform
         script: |
-          xcodebuild -workspace "YourApp.xcworkspace" \
-          -scheme "YourAppScheme" \
-          -configuration Debug \  # Use Debug configuration for development
-          -archivePath build/YourApp.xcarchive archive
-          xcodebuild -exportArchive \
-          -archivePath build/YourApp.xcarchive \
-          -exportPath build/YourApp.ipa \
-          -exportOptionsPlist ExportOptions.plist
+          cordova platform add ios --save
+      - name: Install CocoaPods dependencies
+        script: |
+          cd platforms/ios && pod install
+      - name: Build the app
+        script: |
+          cordova build ios --release --device --codeSignIdentity="iPhone Distribution" --provisioningProfile="my_app_distribution_profile"
+    code_signing:
+      distribution:
+        method: app-store
+        profile: my_app_distribution_profile # Your provisioning profile name
+        certificate: Distribution Certificate # Your distribution certificate name
     artifacts:
-      - build/*.ipa
+      - platforms/ios/build/device/*.ipa # Adjust the path if necessary
