@@ -17,7 +17,6 @@ workflows:
       - name: Build the app
         script: |
           cordova build ios --release --device --codeSignIdentity="iPhone Distribution" --provisioningProfile="my_app_distribution_profile"
-    code_signing:
       distribution:
         method: app-store
         profile: my_app_distribution_profile # Your provisioning profile name
