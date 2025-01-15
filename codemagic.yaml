@@ -21,6 +21,5 @@ workflows:
       - build/*.ipa
     publishing:
       email:
-        subject: YourApp IPA is ready
         recipients:
           - jbpaladin122@gmail.com
