@@ -11,6 +11,5 @@ workflows:
       - name: Build Cordova App
         script: |
           cordova build ios --release --device
-    ios:
     artifacts:
       - platforms/ios/build/device/YourAppName.ipa
