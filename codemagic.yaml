@@ -1,25 +1,16 @@
 workflows:
-  ios-build:
+  ios-workflow:
     name: iOS Build
     environment:
       xcode: latest
-      node: latest
     scripts:
-      - name: Install dependencies
+      - name: Install Dependencies
         script: |
-          npm install
-          cd ios
-          pod install
-      - name: Build the app
+          npm install  # Install any Node.js dependencies if needed
+      - name: Build IPA for distribution
         script: |
-          cd ios
-          xcodebuild -workspace YourApp.xcworkspace -scheme YourApp -configuration Release -archivePath build/YourApp.xcarchive archive
-      - name: Export IPA
-        script: |
-          xcodebuild -exportArchive -archivePath build/YourApp.xcarchive -exportPath build -exportOptionsPlist exportOptions.plist
+          cd platforms/ios
+          xcodebuild -workspace JbPaladinPatriotsClock.xcworkspace -scheme JbPaladinPatriotsClock -configuration Release -archivePath build/JbPaladinPatriotsClock.xcarchive archive
+          xcodebuild -exportArchive -archivePath build/JbPaladinPatriotsClock.xcarchive -exportPath build -exportOptionsPlist exportOptions.plist
     artifacts:
-      - build/*.ipa
-    publishing:
-      email:
-        recipients:
-          - jbpaladin122@gmail.com
+      - platforms/ios/build/*.ipa
