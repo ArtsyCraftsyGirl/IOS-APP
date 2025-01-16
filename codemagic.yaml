@@ -1,27 +1,16 @@
 workflows:
-  ios-build:
-    name: iOS Build
-    environment:
-      node: 16 # Use Node.js version 16 or higher
+  ios-workflow:
+    name: iOS Workflow
+    max_build_duration: 120
+    instance_type: mac_mini_m2
     scripts:
       - name: Install dependencies
         script: |
           npm install
-          npm install -g cordova
-      - name: Clean and Reinstall Plugins
+      - name: Build iOS
         script: |
-          cordova plugin remove cordova-plugin-background-mode
-          cordova plugin remove cordova-plugin-ionic-webview
-          cordova plugin remove cordova-plugin-splashscreen
-          cordova plugin add cordova-plugin-background-mode
-          cordova plugin add cordova-plugin-ionic-webview
-          cordova plugin add cordova-plugin-splashscreen
-      - name: Prepare Cordova Project
-        script: |
-          cordova prepare
-      - name: Build Cordova App
-        script: |
-          cordova build ios --release --device --verbose
-
-    artifacts:
-      - platforms/ios/build/device/YourAppName.ipa
+          cordova build ios --release
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_app_store: true
