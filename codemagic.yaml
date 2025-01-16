@@ -1,13 +1,25 @@
 workflows:
-  ios-workflow:
-    name: iOS Workflow
+  ios-build:
+    name: iOS Build
     environment:
-      ios_signing:
-        distribution_type: app_store  # or ad_hoc | development | enterprise
-        bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock  # Your app's bundle ID
+      xcode: latest
+      node: latest
     scripts:
-      - name: Build ipa for distribution
+      - name: Install dependencies
         script: |
-          xcode-project build-ipa \
-            --workspace "$CM_BUILD_DIR/YourApp.xcworkspace" \
-            --scheme "YourAppScheme"  # Replace with your Xcode scheme
+          npm install
+          cd ios
+          pod install
+      - name: Build the app
+        script: |
+          cd ios
+          xcodebuild -workspace YourApp.xcworkspace -scheme YourApp -configuration Release -archivePath build/YourApp.xcarchive archive
+      - name: Export IPA
+        script: |
+          xcodebuild -exportArchive -archivePath build/YourApp.xcarchive -exportPath build -exportOptionsPlist exportOptions.plist
+    artifacts:
+      - build/*.ipa
+    publishing:
+      email:
+        recipients:
+          - jbpaladin122@gmail.com
