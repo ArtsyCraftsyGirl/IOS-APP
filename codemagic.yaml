@@ -12,8 +12,5 @@ workflows:
         script: |
           cordova build ios --release --device
     ios:
-    
-      # Optional: specify the build configuration (Debug/Release)
-      build_configuration: "Release"
     artifacts:
       - platforms/ios/build/device/YourAppName.ipa
