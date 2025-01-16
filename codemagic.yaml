@@ -7,7 +7,7 @@ workflows:
       - name: Install Dependencies
         script: |
           npm install  # Install any Node.js dependencies if needed
-      - name: Build IPA for distribution
+      - name: Build the Cordova app
         script: |
           cd platforms/ios
           xcodebuild -workspace JbPaladinPatriotsClock.xcworkspace -scheme JbPaladinPatriotsClock -configuration Release -archivePath build/JbPaladinPatriotsClock.xcarchive archive
