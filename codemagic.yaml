@@ -22,7 +22,7 @@ workflows:
       - name: Build the Cordova app
         script: |
           cd platforms/ios
-          xcodebuild -workspace JbPaladinPatriotsClock.xcworkspace -scheme JbPaladinPatriotsClock -configuration Release -archivePath build/JbPaladinPatriotsClock.xcarchive archive
+          xcodebuild -project JbPaladinPatriotsClock.xcodeproj -scheme JbPaladinPatriotsClock -configuration Release -archivePath build/JbPaladinPatriotsClock.xcarchive archive
           xcodebuild -exportArchive -archivePath build/JbPaladinPatriotsClock.xcarchive -exportPath build -exportOptionsPlist exportOptions.plist
     artifacts:
       - platforms/ios/build/*.ipa
