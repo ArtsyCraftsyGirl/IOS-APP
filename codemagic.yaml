@@ -2,8 +2,8 @@ workflows:
   cordova-workflow:
     name: Cordova Build
     environment:
+      xcode: latest
       node: latest
-      cordova: latest
     scripts:
       - name: Install Cordova dependencies
         script: |
