@@ -4,10 +4,15 @@ workflows:
     environment:
       xcode: latest
     scripts:
+      - name: Install Dependencies
+        script: |
+          npm install
+          # If you have any specific Cordova plugins to install, you can add them here
+          # cordova plugin add <plugin-name>
       - name: Build IPA for distribution
         script: |
           cd platforms/ios
-          xcodebuild -workspace JbPaladinPatriotsClock.xcworkspace -scheme YourAppScheme -configuration Release -archivePath build/JbPaladinPatriotsClock.xcarchive archive
+          xcodebuild -workspace JbPaladinPatriotsClock.xcworkspace -scheme JbPaladinPatriotsClock -configuration Release -archivePath build/JbPaladinPatriotsClock.xcarchive archive
           xcodebuild -exportArchive -archivePath build/JbPaladinPatriotsClock.xcarchive -exportPath build -exportOptionsPlist exportOptions.plist
     artifacts:
       - platforms/ios/build/*.ipa
