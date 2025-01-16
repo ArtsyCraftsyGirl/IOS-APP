@@ -1,19 +1,13 @@
 workflows:
-  cordova-workflow:
-    name: Cordova Build
+  ios-workflow:
+    name: iOS Build
     environment:
       xcode: latest
-      node: latest
     scripts:
-      - name: Install Cordova dependencies
+      - name: Build IPA for distribution
         script: |
-          npm install
-      - name: Build Android app
-        script: |
-          cordova build android --release
-      - name: Build iOS app
-        script: |
-          cordova build ios --release
+          xcode-project build-ipa \
+          --workspace "YourApp.xcworkspace" \
+          --scheme "YourAppScheme"
     artifacts:
-      - platforms/android/app/build/outputs/apk/release/*.apk
-      - platforms/ios/build/device/*.ipa
+      - build/ios/ipa/*.ipa
