@@ -2,14 +2,26 @@ workflows:
   ios-build:
     name: iOS Build
     environment:
-      node: 14 # Specify your Node.js version
+      node: 16 # Use Node.js version 16 or higher
     scripts:
       - name: Install dependencies
         script: |
           npm install
           npm install -g cordova
+      - name: Clean and Reinstall Plugins
+        script: |
+          cordova plugin remove cordova-plugin-background-mode
+          cordova plugin remove cordova-plugin-ionic-webview
+          cordova plugin remove cordova-plugin-splashscreen
+          cordova plugin add cordova-plugin-background-mode
+          cordova plugin add cordova-plugin-ionic-webview
+          cordova plugin add cordova-plugin-splashscreen
+      - name: Prepare Cordova Project
+        script: |
+          cordova prepare
       - name: Build Cordova App
         script: |
-          cordova build ios --release --device
+          cordova build ios --release --device --verbose
+
     artifacts:
       - platforms/ios/build/device/YourAppName.ipa
