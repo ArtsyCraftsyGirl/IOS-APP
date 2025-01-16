@@ -1,15 +1,14 @@
 workflows:
   ios-build:
     name: iOS Build
-    environment:
-      xcode: latest
-      node: 14
     scripts:
-      - name: Install Dependencies
+      - name: Install dependencies
         script: |
           npm install
-      - name: Build Cordova App
-        script: |
-          cordova build ios --release --device
+          npm install -g cordova
+    environment:
+      node: 14 # Specify your Node.js version
+    ios:
+      build_configuration: "Release"
     artifacts:
-      - platforms/ios/build/device/*.ipa
+      - build/ios/YourAppName.ipa
