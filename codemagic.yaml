@@ -12,10 +12,7 @@ workflows:
         script: |
           cordova build ios --release --device
     ios:
-      code_sign_identity: "iPhone Distribution: Jeffrey Wayne Birge (XAJF22HXCQ)"
-      provisioning_profile: "my_app_distribution_profile"
-      signing_certificate: "distribution.p12"
-      apple_developer_account: "jbpaladin122@gmail.com"
+    
       # Optional: specify the build configuration (Debug/Release)
       build_configuration: "Release"
     artifacts:
