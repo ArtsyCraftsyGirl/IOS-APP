@@ -9,16 +9,9 @@ workflows:
           npm install  # Install any Node.js dependencies if needed
       - name: Build the Cordova app
         script: |
-          # Navigate to the iOS platform directory
           cd platforms/ios
-          
-          # Clean the build folder to remove any previous builds
-          xcodebuild clean
-
-          # Build the Cordova app
+          xcodebuild clean  # Clean previous builds
           xcodebuild -workspace JbPaladinPatriotsClock.xcworkspace -scheme JbPaladinPatriotsClock -configuration Release -archivePath build/JbPaladinPatriotsClock.xcarchive archive
-          
-          # Export the IPA file
           xcodebuild -exportArchive -archivePath build/JbPaladinPatriotsClock.xcarchive -exportPath build -exportOptionsPlist exportOptions.plist
     artifacts:
       - platforms/ios/build/*.ipa
