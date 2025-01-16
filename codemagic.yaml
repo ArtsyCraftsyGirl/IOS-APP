@@ -6,9 +6,7 @@ workflows:
     scripts:
       - name: Install Dependencies
         script: |
-          npm install
-          # If you have any specific Cordova plugins to install, you can add them here
-          # cordova plugin add <plugin-name>
+          npm install  # Install any Node.js dependencies if needed
       - name: Build IPA for distribution
         script: |
           cd platforms/ios
