@@ -1,25 +1,19 @@
 workflows:
-  ios-build:
-    name: iOS Build
+  cordova-workflow:
+    name: Cordova Build
     environment:
-      xcode: latest
       node: latest
+      cordova: latest
     scripts:
-      - name: Install dependencies
+      - name: Install Cordova dependencies
         script: |
           npm install
-          cd ios
-          pod install
-      - name: Build the app
+      - name: Build Android app
         script: |
-          cd ios
-          xcodebuild -workspace YourApp.xcworkspace -scheme YourApp -configuration Release -archivePath build/YourApp.xcarchive archive
-      - name: Export IPA
+          cordova build android --release
+      - name: Build iOS app
         script: |
-          xcodebuild -exportArchive -archivePath build/YourApp.xcarchive -exportPath build -exportOptionsPlist exportOptions.plist
+          cordova build ios --release
     artifacts:
-      - build/*.ipa
-    publishing:
-      email:
-        recipients:
-          - jbpaladin122@gmail.com
+      - platforms/android/app/build/outputs/apk/release/*.apk
+      - platforms/ios/build/device/*.ipa
