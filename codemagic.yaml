@@ -14,5 +14,7 @@ workflows:
     artifacts:
       - platforms/ios/build/device/*.ipa
     code-signing:
-      identity: "iPhone Distribution: Jeffrey Wayne Birge (XAJF22HXCQ)"
+      # Use the correct format for automatic code signing
+      identity: "iPhone Distribution: Jeffrey Wayne Birge"
       provisioning_profile: "my_app_distribution_profile"
+      team_id: "XAJF22HXCQ"
