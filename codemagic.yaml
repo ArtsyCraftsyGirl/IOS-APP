@@ -7,10 +7,21 @@ workflows:
       - name: Install Dependencies
         script: |
           npm install  # Install any Node.js dependencies if needed
-      - name: Build the Cordova app
+      - name: Clean CocoaPods References
+        script: |
+          # Remove any CocoaPods-related files if they exist
+          rm -rf platforms/ios/Podfile
+          rm -rf platforms/ios/Podfile.lock
+          rm -rf platforms/ios/Pods
+          rm -rf platforms/ios/*.xcworkspace
+          rm -rf platforms/ios/cordova/build-release.xcconfig
+      - name: Clean the build folder
         script: |
           cd platforms/ios
           xcodebuild clean  # Clean previous builds
+      - name: Build the Cordova app
+        script: |
+          cd platforms/ios
           xcodebuild -workspace JbPaladinPatriotsClock.xcworkspace -scheme JbPaladinPatriotsClock -configuration Release -archivePath build/JbPaladinPatriotsClock.xcarchive archive
           xcodebuild -exportArchive -archivePath build/JbPaladinPatriotsClock.xcarchive -exportPath build -exportOptionsPlist exportOptions.plist
     artifacts:
