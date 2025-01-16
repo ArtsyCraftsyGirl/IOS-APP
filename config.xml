@@ -8,6 +8,7 @@
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
 
+    <!-- Android Configuration -->
     <platform name="android">
         <icon src="res/icon/android/icon.png" density="mdpi" />
         <icon src="res/icon/android/icon.png" density="hdpi" />
@@ -19,14 +20,27 @@
         <preference name="android-minSdkVersion" value="27" /> <!-- Added minimum SDK version -->
         <preference name="android-manifest/application/uses-feature" value="android.hardware.touchscreen" />
         <preference name="android-manifest/application/uses-feature" value="android.hardware.touchscreen.multitouch" />
-     <preference name="AndroidWindowSplashScreen" value="res/screen/android/splash.png" />
-     <preference name="AndroidWindowSplashScreenBackgroundColor" value="white" />
-    <preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/screen/android/splash.png" /> 
-    <preference name="SplashScreenDelay" value="3000" />
+        <preference name="AndroidWindowSplashScreen" value="res/screen/android/splash.png" />
+        <preference name="AndroidWindowSplashScreenBackgroundColor" value="white" />
+        <preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/screen/android/splash.png" /> 
+        <preference name="SplashScreenDelay" value="3000" />
         <preference name="AndroidPersistentFileLocation" value="Compatibility" />
         <preference name="android:hardwareAccelerated" value="true" />
-        <preference name="MediaPlaybackRequiresUser  Action" value="false" />
+        <preference name="MediaPlaybackRequiresUserAction" value="false" />
         <preference name="AllowInlineMediaPlayback" value="true" />
         <preference name="Zoom" value="yes" />
+    </platform>
+
+    <!-- iOS Configuration -->
+    <platform name="ios">
+        <preference name="deployment-target" value="12.0" />
+        <icon src="res/icon/ios/icon.png" />
+        <splash src="res/screen/ios/splash.png" />
+        <preference name="SplashScreen" value="screen" />
+        <preference name="SplashScreenDelay" value="3000" />
+        <preference name="ShowSplashScreenSpinner" value="false" />
+        <preference name="FadeSplashScreen" value="true" />
+        <preference name="FadeSplashScreenDuration" value="300" />
+        <!-- Add any other iOS specific preferences or configurations here -->
     </platform>
 </widget>
