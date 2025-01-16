@@ -1,20 +1,18 @@
 workflows:
-  ios-workflow:
+  ios-build:
     name: iOS Build
     environment:
       xcode: latest
+      node: 14
     scripts:
       - name: Install Dependencies
         script: |
-          npm install  # Install any Node.js dependencies if needed
-      - name: Clean the build folder
+          npm install
+      - name: Build Cordova App
         script: |
-          cd platforms/ios
-          xcodebuild clean  # Clean previous builds
-      - name: Build the Cordova app
-        script: |
-          cd platforms/ios
-          xcodebuild -project JbPaladinPatriotsClock.xcodeproj -scheme JbPaladinPatriotsClock -configuration Release -archivePath build/JbPaladinPatriotsClock.xcarchive archive
-          xcodebuild -exportArchive -archivePath build/JbPaladinPatriotsClock.xcarchive -exportPath build -exportOptionsPlist exportOptions.plist
+          cordova build ios --release --device
     artifacts:
-      - platforms/ios/build/*.ipa
+      - platforms/ios/build/device/*.ipa
+    code-signing:
+      identity: "iPhone Distribution: Jeffrey Wayne Birge (XAJF22HXCQ)"
+      provisioning_profile: "my_app_distribution_profile"
