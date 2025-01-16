@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.jbpaladinpatriotsclock" version="1.5.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <feature name="Device">
+        <param name="android-package" value="org.apache.cordova.device.Device" />
+    </feature>
+    <feature name="File">
+        <param name="android-package" value="org.apache.cordova.file.FileUtils" />
+        <param name="onload" value="true" />
+    </feature>
+    <allow-navigation href="cdvfile:*" />
+    <feature name="BackgroundMode">
+        <param name="android-package" value="de.appplant.cordova.plugin.background.BackgroundMode" />
+    </feature>
+    <feature name="BackgroundModeExt">
+        <param name="android-package" value="de.appplant.cordova.plugin.background.BackgroundModeExt" />
+    </feature>
+    <feature name="Media">
+        <param name="android-package" value="org.apache.cordova.media.AudioHandler" />
+    </feature>
+    <feature name="NativeKeyboard">
+        <param name="android-package" value="nl.xservices.plugins.nativekeyboard.NativeKeyboard" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="SplashScreen">
+        <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
+        <param name="onload" value="true" />
+    </feature>
+    <allow-navigation href="http://localhost/*" />
+    <allow-navigation href="https://localhost/*" />
+    <allow-navigation href="ionic://*" />
+    <feature name="IonicWebView">
+        <param name="android-package" value="com.ionicframework.cordova.webview.IonicWebView" />
+    </feature>
+    <name>JbPaladinPatriotsClock</name>
+    <description>This is a unique and revolutionary way of telling time, designed by Jeffrey Wayne Birge and developed by Ehllen Quezada. Our clock doesn't use hands to tell time; it uses lights to tell time.</description>
+    <author email="jeffbirgepaladin@gmail.com">Jeffrey Wayne Birge (Designer/Inventor); Ehllen Quezada (Programmer/Developer)</author>
+    <content src="index.html" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <icon density="mdpi" src="res/icon/android/icon.png" />
+    <icon density="hdpi" src="res/icon/android/icon.png" />
+    <icon density="xhdpi" src="res/icon/android/icon.png" />
+    <icon density="xxhdpi" src="res/icon/android/icon.png" />
+    <icon density="xxxhdpi" src="res/icon/android/icon.png" />
+    <preference name="loglevel" value="DEBUG" />
+    <preference name="KeepRunning" value="true" />
+    <preference name="webView" value="com.ionicframework.cordova.webview.IonicWebViewEngine" />
+    <preference name="android-targetSdkVersion" value="34" />
+    <preference name="android-minSdkVersion" value="27" />
+    <preference name="android-manifest/application/uses-feature" value="android.hardware.touchscreen.multitouch" />
+    <preference name="AndroidWindowSplashScreen" value="res/screen/android/splash.png" />
+    <preference name="AndroidWindowSplashScreenBackgroundColor" value="white" />
+    <preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/screen/android/splash.png" />
+    <preference name="SplashScreenDelay" value="3000" />
+    <preference name="AndroidPersistentFileLocation" value="Compatibility" />
+    <preference name="android:hardwareAccelerated" value="true" />
+    <preference name="MediaPlaybackRequiresUser  Action" value="false" />
+    <preference name="AllowInlineMediaPlayback" value="true" />
+    <preference name="Zoom" value="yes" />
+    <feature name="Camera">
+        <param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
+    </feature>
+</widget>

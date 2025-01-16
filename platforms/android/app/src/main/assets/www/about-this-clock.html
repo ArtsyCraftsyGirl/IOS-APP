@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About This Clock</title>
+
+
+<style>
+     body {
+        margin: 0;
+        height: 100vh; /* Ensure the body takes the full height of the viewport */
+        overflow: hidden; /* Prevent scrolling if necessary */
+           }
+
+#video-background {
+    transition: opacity 0.5s ease;
+    position: fixed; /* Fix the video in place */
+    top: 350px; /* Move the video down by 100 pixels (adjust as needed) */
+    left: 0; /* Align to the left */
+    width: 100%; /* Set the width to 100% */
+    height: 500px; /* Set a specific height for the video */
+    object-fit: cover; /* Scale the video to cover the container */
+    z-index: -1; /* Place the video behind other content */
+    opacity: 0; /* Initially hidden */
+    display: block; /* Ensure the video is displayed */
+}
+</style>
+
+<video autoplay muted loop id="video-background">
+    <source src="BackgroundVideo.mp4" type="video/mp4">
+</video>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const video = document.getElementById('video-background'); // Ensure you have the video element
+    // Add event listener for when the video is ready to play
+    video.addEventListener('canplaythrough', function () {
+        video.style.display = 'block'; // Show the video
+        video.style.opacity = 1; // Fade in the video
+    });
+
+    // Add event listener for error handling
+    video.addEventListener('error', function () {
+        console.error("Error loading video.");
+        // If the video fails to load, default to a white background
+        document.body.style.backgroundColor = "white";
+    });
+
+    // Start loading the video
+    video.load();
+});
+
+</script>
+
+
+
+
+    <style>
+     
+body {
+            font-family: 'Open Sans', sans-serif; /* Ensure proper font family */
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevent scrolling */
+        }
+
+     
+
+    .slideshow-container {
+            position: relative;
+            max-width: 800px;
+            max-height: 490px; 
+            margin: auto;
+            overflow: hidden;
+            border: 3px solid black;
+            border-radius: 10px;
+            background: beige;
+            padding: 28px;
+            z-index: 1;
+                    }
+
+/* Media query for larger screens (laptops and desktops) */
+@media (min-width: 601px) {
+    .slideshow-container {
+        max-height: 300px; /* Set height to 400px for larger screens */
+    }
+}
+
+
+
+.slide {
+    display: none; /* Hide all slides by default */
+    flex: 1; /* Allow slides to grow and fill the container */
+    min-height: 435px; /* Set a minimum height for all slides */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    text-align: center; /* Center text */
+    overflow: auto; /* Allow overflow to be scrollable */
+}
+
+.slide p {
+    text-align: justify; /* Justify text */
+    margin: 0; /* Remove default margin */
+    line-height: 1.1; /* Improve readability */
+    letter-spacing: 0.1px; /* Adjust letter spacing */
+    overflow: visible; /* Allow overflow to be visible */
+    padding: 1px; /* Add padding around the text */
+    transform-origin: center; /* Set the origin for scaling */
+    transition: transform 0.3s ease; /* Smooth transition for scaling */
+    font-family: 'Open Sans', sans-serif; /* Set Open Sans as the default font */
+    font-size: 24sp; /* Default font size */
+    color: black; 
+}
+
+
+
+/* Media query for older Android devices */
+@media (max-width: 480px) {
+    .slide p {
+        font-size: 15px; /* Font size for older Android devices */
+    }
+}
+
+
+.fade {
+    animation: fade 1s;
+}
+
+@keyframes fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+
+
+h1 span {
+    text-shadow: 
+        -1px -1px 0 black,  
+        1px -1px 0 black,
+        -1px 1px 0 black,
+        1px 1px 0 black; /* Create a stroke effect */
+    white-space: nowrap; /* Prevent text wrapping */
+    color: white; /* Set the text color (change as needed) */
+}
+
+/* Media Queries for smaller devices */
+@media (max-width: 600px) {
+    .slideshow-container {
+        padding: 10px; /* Reduce padding on smaller screens */
+    }
+
+    .slide {
+        padding: 10px; /* Reduce padding on slides */
+    }
+
+ 
+    .slide p {
+        line-height: 1.4; /* Adjust line height for better readability */
+    }
+}
+  
+
+
+
+.fade {
+    animation: fade 1s;
+}
+
+@keyframes fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 15%; /* Adjust this value to move the buttons down */
+    margin-top: 10px; /* Add margin to provide space from the text */
+    width: 55px;
+    height: 50px; /* Adjust height to give more 3D effect */
+    padding: 0; /* Remove padding for shape */
+    color: white;
+    background-color: #4b4340;
+    border: none;
+    border-radius: 3px;
+    user-select: none;
+    transform: translateY(-50%) translateZ(0); /* Center and enable 3D */
+    font-size: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.1); /* Creates depth */
+    transition: transform 0.2s, box-shadow 0.2s; /* Smooth transition */
+    
+    /* Flexbox properties for centering text */
+    display: flex;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+}
+
+.prev:hover, .next:hover {
+    transform: translateY(-50%) translateZ(0) scale(1.05); /* Slightly enlarge on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3), 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+}
+
+.prev {
+    left: 0;
+}
+
+.next {
+    right: 0;
+}
+
+.clicked {
+    background-color: darkred; /* Change background color to dark red */
+}
+
+/* Text shadow for the heading */
+h2 span {
+    text-shadow: 2px 2px 1px black; /* Apply text shadow */
+    white-space: nowrap;
+}
+
+img {
+            width: 20%; /* Default size for larger screens */
+            height: auto; /* Maintain aspect ratio */
+            max-width: 300px; /* Limit size on larger screens */
+            margin-bottom: 15px; /* Spacing below the image */
+            border-radius: 50%; /* Rounded corners */
+            overflow: hidden; /* Hide overflow */
+            display: block; /* Block display */
+            margin-left: auto; /* Center horizontally */
+            margin-right: auto; /* Center horizontally */
+        }
+
+        @media only screen and (max-width: 480px) { /* For mobile devices */
+            img {
+                width: 40%; /* Increase size for mobile */
+                max-width: none; /* Remove max-width restriction */
+            }
+        }
+
+.three-d-text {
+    font-size: 30px; /* Adjust the font size as needed */
+    text-align: center; /* Center the text */
+    color: white; /* Base text color */
+    text-shadow: 
+        1px 1px 0 rgba(0, 0, 0, 0.5), /* Shadow to the right and down */
+        2px 2px 0 rgba(0, 0, 0, 0.5), /* Shadow further down */
+        3px 3px 0 rgba(0, 0, 0, 0.5); /* Shadow even further down */
+}
+
+ 
+    </style>
+</head>
+<body>
+
+
+
+
+
+ <div class="slideshow-container">
+    <div class="slide fade" style="text-align: center; padding: 20px;"> <!-- Center text and add padding -->
+<img src="logo.jpg" alt="Logo">
+<h2 style="text-align: center; font-size: 16px; font-style: italic; color: black; font-weight: bold;"> " A unique and revolutionary way of telling time " </h2>
+
+      <h1 class="three-d-text">
+ <span style="color: #36bbf5;">ABOUT</span>
+  <span style="color: #36bbf5;">THIS</span>
+   <span style="color: #36bbf5;">CLOCK</span>
+</h1>
+        <p style="font-weight: bold;">
+The "JB PALADIN PATRIOTS CLOCK" is a truly unique and revolutionary way of telling time. Our clock’s original and innovative design will amaze the world in the exciting way that people will perceive and tell time. This is not a typical or traditional clock which uses hands or digital numbers to tell the time that is found on ordinary clocks.
+
+           </p>
+        </div>
+
+
+
+        <div class="slide fade">
+<img src="logo.jpg" alt="Logo">
+<h2 style="text-align: center; font-size: 16px; font-style: italic; color: black; font-weight: bold;"> " A unique and revolutionary way of telling time " </h2>
+<h2> </h2>
+             <p style="font-weight: bold;">
+Instead, our groundbreaking and revolutionary clock uses colorful lights to indicate the time! This makes our clock extraordinary and ensures that it will stand out as unique and special among the myriad of clocks that can be found around the world today. The "JB PALADIN PATRIOTS CLOCK" stands as a heartfelt tribute to our enduring love for America, celebrating the courageous men and women who have selflessly dedicated themselves 
+           </p>
+        </div>
+
+  <div class="slide fade">
+<img src="logo.jpg" alt="Logo">
+<h2 style="text-align: center; font-size: 16px; font-style: italic; color: black; font-weight: bold;"> " A unique and revolutionary way of telling time " </h2>
+<h2> </h2>
+          <p style="font-weight: bold;">  
+to serving our nation, both past and present. At "JB Paladin,"  we take immense pride in designing clocks that reflect not just the passage of time but also capture the spirit of patriotism that binds us as a nation in a way that no other clock can. The name "Patriots Clock" embodies our commitment to honoring the values and freedoms that define our great country, the United States of America. By integrating our brand name,
+
+
+           </p>
+        </div>
+
+
+
+
+
+        <div class="slide fade">
+<img src="logo.jpg" alt="Logo">
+<h2 style="text-align: center; font-size: 16px; font-style: italic; color: black; font-weight: bold;"> " A unique and revolutionary way of telling time " </h2>
+<h2> </h2>
+             <p style="font-weight: bold;">  
+"JB Paladin," we add a personal touch that emphasizes our identity and dedication to craftsmanship. In celebration of the Semiquincentennial, (250<sup>th</sup>) birthday of the United States of America on July 4, 2026, we proudly introduce the "JB PALADIN PATRIOTS CLOCK." This stunning clock draws inspiration from the bold colors and iconic design of the American flag, capturing the spirit of America's Declaration of Independence in 1776. 
+          </p>
+        </div>
+
+
+      <div class="slide fade">
+<img src="logo.jpg" alt="Logo">
+<h2 style="text-align: center; font-size: 16px; font-style: italic; color: black; font-weight: bold;"> " A unique and revolutionary way of telling time " </h2>
+<h2> </h2>
+              <p style="font-weight: bold;">  
+In addition to the 12 stars located at the hour positions, a radiant gold-colored 13<sup>th</sup> star at the very center of the clock symbolizes the original 13 colonies of the United States of America and honors the brave individuals who have paid the ultimate price for defending our country. The star that denotes the correct hour of time is dark blue, which stands for those who are currently serving on active duty, while the light blue five-minute star pays 
+          </p>
+        </div>
+
+
+  <div class="slide fade">
+<img src="logo.jpg" alt="Logo">
+<h2 style="text-align: center; font-size: 16px; font-style: italic; color: black; font-weight: bold;"> " A unique and revolutionary way of telling time " </h2>
+<h2> </h2>
+         <p style="font-weight: bold;">  
+
+ tribute to all who have served in the past. We chose a color inspired by the iconic Statue of Liberty for the clock's face, adding a meaningful touch that reinforces our connection to freedom and hope. The creative genius behind this remarkable clock is none other than Mr. Jeff Birge, whose vision shines through in every intricate detail. After years of anticipation, we are thrilled to see his dream come to life, with the help of his programmer,           </p>
+        </div>
+
+
+
+
+
+      <div class="slide fade">
+<img src="logo.jpg" alt="Logo">
+<h2 style="text-align: center; font-size: 16px; font-style: italic; color: black; font-weight: bold;"> " A unique and revolutionary way of telling time " </h2>
+<h2> </h2>
+          <p style="font-weight: bold;">  
+Ehllen Quezada, who collaborated with Jeff on this project. Ehllen’s skill in programming languages such as HTML5, CSS, and JavaScript brought this clock to fruition. Additionally, Ehllen’s extensive knowledge in Information Technology played a crucial role in transforming Jeff’s ideas and concepts into a vibrant, fully functional app,
+          </p>
+        </div>
+
+    <div class="slide fade">
+<img src="logo.jpg" alt="Logo">
+
+<h2 style="text-align: center; font-size: 16px; font-style: italic; color: black; font-weight: bold;"> " A unique and revolutionary way of telling time " </h2>
+<h2> </h2>
+                <p style="font-weight: bold;">  
+which will now be available for all electronic devices. There is no doubt that the "JB PALADIN PATRIOTS CLOCK" is bound to inspire admiration with its exclusive design and unique functions. The moment has finally arrived; we know every American will love this magnificent clock as it pays homage to the greatest country that the world has ever seen: the United States of America!
+
+
+          </p>
+        </div>
+
+
+
+
+
+
+
+ <div class="slide fade">
+<img src="logo.jpg" alt="Logo">
+<h2 style="text-align: center; font-size: 16px; font-style: italic; color: black; font-weight: bold;"> " A unique and revolutionary way of telling time " </h2>
+
+              <h1 class="three-d-text"><span style="color: #36bbf5;">HOW IT WORKS ?</span> </h1>
+             <p style="font-weight: bold;">  
+What's unique in our clock?</p>
+<p style="font-weight: bold;">  &#9733; Our clock has 12 white stars instead of hourly digits </p>
+<p style="font-weight: bold;">  &#9733; Each white stars represents an hour </p>
+<p style="font-weight: bold;">  &#9733; A star lights up dark-blue to show the current hour </p>
+<p style="font-weight: bold;">  &#9733; A star lights up every 5 minutes in a light-blue to represent every 5 minutes of time that has gone by. </p>
+
+</div>
+
+ <div class="slide fade">
+<img src="logo.jpg" alt="Logo">
+<h2 style="text-align: center; font-size: 16px; font-style: italic; color: black; font-weight: bold;"> " A unique and revolutionary way of telling time " </h2>
+
+           
+             <p style="font-weight: bold;">  
+What's unique in our clock?</p>
+<p style="font-weight: bold;">  &#9733; A red stripe or white stripe represents 1 minute </p>
+<p style="font-weight: bold;">  &#9733; At the center of the clock, we have the second's indicator, which is a colored circle that can represent either a Swiss or a sweeping movement. It will be filled until it completes one full rotation, which is equal to 60 seconds.<p>
+</div>
+
+<div class="slide fade">
+<img src="logo.jpg" alt="Logo">
+<h2 style="text-align: center; font-size: 16px; font-style: italic; color: black; font-weight: bold;"> " A unique and revolutionary way of telling time " </h2>
+
+           
+             <p style="font-weight: bold;">  
+What's unique in our clock? </p>
+<p style="font-weight: bold;">  &#9733; Example 1:  When time is 12:00 o&#39;clock the 12th star lit up to dark-blue color and no stripes are showing </p>
+<p style="font-weight: bold;">  &#9733; Example 2:  When time is 6: 00 o&#39;clock the 6th star lit up to dark-blue color , while the 12th star lit up to light-blue
+color and no stripes are showing </p>
+<p style="font-weight: bold;">  &#9733; Example 3: When time is 12:06, the 12th star lit up to dark-blue color, while the appropriate number of stripes are
+showing after 12th star, the 1st star is lit up to light-blue and then 1 stripe after 1st star. </p>      
+
+</div>
+
+
+
+<script>
+
+let scale = 1; // Initial scale
+const minScale = 1; // Minimum scale
+const maxScale = 2; // Maximum scale (adjust as needed)
+let startDistance = 0; // Distance between two touch points
+
+// Function to calculate distance between two touch points
+function getDistance(touches) {
+    const dx = touches[0].clientX - touches[1].clientX;
+    const dy = touches[0].clientY - touches[1].clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+}
+
+// Event listeners for touch events
+document.addEventListener('touchstart', (e) => {
+    if (e.touches.length === 2) {
+        startDistance = getDistance(e.touches);
+    }
+}, { passive: false });
+
+document.addEventListener('touchmove', (e) => {
+    if (e.touches.length === 2) {
+        const currentDistance = getDistance(e.touches);
+        const scaleChange = currentDistance / startDistance;
+        scale = Math.min(maxScale, Math.max(minScale, scale * scaleChange));
+        
+       
+       const elementsToScale = document.querySelectorAll('.slide p');
+        elementsToScale.forEach((el) => {
+            el.style.transform = `scale(${scale})`;
+            el.style.transformOrigin = 'center'; // Ensure scaling is from the center
+        });
+
+        startDistance = currentDistance; // Update startDistance
+        e.preventDefault(); // Prevent default behavior
+    }
+}, { passive: false });
+
+document.addEventListener('touchend', (e) => {
+    if (e.touches.length < 2) {
+        // Reset scale if only one touch remains
+        scale = Math.max(minScale, Math.min(scale, maxScale));
+        const elementsToScale = document.querySelectorAll('.slide p');
+        elementsToScale.forEach((el) => {
+            el.style.transform = `scale(${scale})`;
+        });
+    }
+});
+</script>
+   
+
+
+
+        <a class="prev" onclick="changeSlide(-1)">PREV</a>
+        <a class="next" onclick="changeSlide(1)">NEXT</a>
+    </div>
+
+    <script>
+      let slideIndex = 0;
+const slides = document.getElementsByClassName("slide");
+const prevButton = document.querySelector('.prev');
+const nextButton = document.querySelector('.next');
+
+showSlide(slideIndex);
+
+function showSlide(index) {
+    for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";  
+    }
+    slides[index].style.display = "block";  
+}
+
+function changeSlide(n) {
+    // Change the slide index
+    slideIndex += n;
+    if (slideIndex >= slides.length) { slideIndex = 0; }    
+    if (slideIndex < 0) { slideIndex = slides.length - 1; }
+    
+    // Show the new slide
+    showSlide(slideIndex);
+    
+    // Change button colors
+    prevButton.classList.add('clicked');
+    nextButton.classList.add('clicked');
+
+    // Optionally, you can remove the clicked class after a short delay
+    setTimeout(() => {
+        prevButton.classList.remove('clicked');
+        nextButton.classList.remove('clicked');
+    }, 200); // Change the duration as needed (200ms in this case)
+}
+
+// Function to adjust slide height
+function adjustSlideHeight() {
+    const slides = document.getElementsByClassName("slide");
+    let maxHeight = 0;
+
+    // Reset heights to calculate the maximum
+    for (let slide of slides) {
+        slide.style.height = 'auto'; // Reset height
+        maxHeight = Math.max(maxHeight, slide.offsetHeight); // Find the maximum height
+    }
+
+    // Set all slides to the maximum height
+    for (let slide of slides) {
+        slide.style.height = maxHeight + 'px';
+    }
+}
+
+// Call this function whenever you change slides
+adjustSlideHeight();
+
+// Optionally call it on window resize
+window.addEventListener('resize', adjustSlideHeight);
+</script>
+
+
+
+
+
+
+
+
+   <style>
+
+.go-home {
+    position: absolute; /* Keep absolute positioning */
+    bottom: 10px; /* Position it 20px from the bottom */
+    left: 50%; /* Position it in the middle horizontally */
+    display: inline-flex; /* Use flexbox for alignment */
+    align-items: center; /* Center items vertically */
+    padding: 10px;
+    text-decoration: none; /* Remove underline from the link */
+    border-radius: 5px; /* Rounded corners */
+    color: beige; /* Text color */
+    z-index: 2; /* Ensure it's above other content */
+    transform: translateX(-50%); /* Adjust position to center horizontally */
+}
+
+.arrow-container {
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
+    width: 49px; /* Width of the circle */
+    height: 49px; /* Height of the circle */
+    background-color: black;
+    border-radius: 50%; /* Make it circular */
+    margin-right: 10px; /* Space between the circle and text */
+    border: 3px inset beige; /* Border style */
+    margin-left: 9px; /* Move the entire container slightly to the right */
+}
+
+.back-arrow {
+    position: relative; /* Make it relative for the pseudo-element */
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent; /* Adjust size */
+    border-bottom: 10px solid transparent; /* Adjust size */
+    border-right: 18px solid beige; /* Default left-facing arrow color */
+    display: inline-block;
+    margin-left: 0; /* Remove left margin to keep the arrow aligned within the container */
+    margin-right: 3px; /* Adjust this value to connect the arrows */
+  
+}
+
+.back-arrow:first-child {
+    border-right: 18px solid beige; /* Change color of the first arrow to blue */
+    margin-right: 0; /* Remove space between the two arrows */
+}
+.social-icons {
+    display: flex;
+    justify-content: center;
+}
+.social-icon {
+    display: inline-block;
+    padding: 10px 15px; /* Adjust padding for better spacing */
+    color: beige; /* Default text color */
+    font-size: 2.40rem; /* Font size */
+    font-weight: bold;
+    text-decoration: underline; /* Add underline */
+    text-decoration-color: red; /* Set underline color to red */
+    text-decoration-thickness: 2px; /* Set thickness of the underline */
+    margin: 0 10px; /* Add horizontal margin for space between icons */
+    position: relative; /* Position for pseudo-element */
+    overflow: hidden; /* Prevent overflow of the text */
+    clip-path: polygon(20% 0%, 100% 0%, 80% 100%, 0% 100%); /* Create parallelogram shape */
+    white-space: nowrap; /* Prevent text wrapping */
+ text-shadow: 
+        -1px -1px 0 black,  
+        1px -1px 0 black,
+        -1px 1px 0 black,
+        1px 1px 0 black; /* Create a stroke effect */
+line-height: 0.1; /* Decrease line height to move text up */.
+   }
+
+
+.info-icon {
+    position: fixed; /* Fixed positioning */
+    bottom: 20px; /* Space from the bottom */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-280%); /* Adjusted to move slightly to the right */
+    width: 49px; /* Size of the icon */
+    height: 49px; /* Size of the icon */
+    background-color: black; /* Set to transparent initially */
+    border: 3px inset beige;
+    border-radius: 50%; /* Makes it a circle */
+    display: flex; /* Centering the letter */
+    align-items: center; /* Centering vertically */
+    justify-content: center; /* Centering horizontally */
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+.info-letter {
+    color: beige; /* Letter color */
+    font-size: 28px; /* Size of the letter */
+    font-family: Georgia, serif; /* Font style */
+    font-weight: bold; /* Make the letter bold */
+}       
+    </style>
+</head>
+<body>
+
+<div class="info-icon" onclick="toggleTable()">
+    <span class="info-letter">i</span>
+</div>
+
+<script>
+    function toggleTable() {
+        const infoIcon = document.querySelector('.info-icon');
+        infoIcon.classList.toggle('active'); // Toggle the active class
+        // Add any additional functionality for toggling the table here
+    }
+</script>
+
+    <a href="index.html" class="go-home">
+  <div class="arrow-container">
+        <div class="back-arrow"></div>
+  <div class="back-arrow"></div>
+  </div>
+    </a>
+
+
+
+    <div class="social-icons">
+        <a href="https://www.facebook.com/profile.php?id=61566460534685&mibextid=ZbWKwL" target="_blank" class="social-icon facebook"><p>FB</p></a>
+        <a href="https://www.instagram.com/jbpaladinclocks/profilecard/?igsh=Z2ViaGZ5aDl5YXlj" target="_blank" class="social-icon instagram"><p>IG</p></a>
+        <a href="https://youtube.com/@jbpaladin?si=Dlgiqc0I8gWH9RIz" target="_blank" class="social-icon youtube"><p>YT</p></a>
+    </div>
+
+
+<style>
+.circle {
+    width: 49px; /* Diameter of the black circle */
+    height: 49px; /* Diameter of the black circle */
+    background-color: black;
+    border: 3px inset beige;
+    border-radius: 50%; /* Makes the circle */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer; /* Change cursor to pointer on hover */
+    position: fixed; /* Fix position relative to the viewport */
+    bottom: 20px; /* Distance from the bottom */
+    left: calc(48% + 130px); /* Center horizontally + 10px to the right */
+    transform: translateX(-50%); /* Adjust to center the circle */
+}
+
+.human-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+     
+}
+
+.head {
+    width: 12px; /* Smaller head size */
+    height: 12px; /* Smaller head size */
+    background-color: beige; /* Head color */
+    border-radius: 50%; /* Makes the head a circle */
+}
+
+.body {
+    width: 25px; /* Width of the half-circle */
+    height: 12px; /* Height of the half-circle */
+    background-color: blue; /* Body color */
+    border-top-left-radius: 25px; /* Make the top left corner round */
+    border-top-right-radius: 25px; /* Make the top right corner round */
+    position: relative;
+    top: -4px; /* Adjust position to overlap the head */
+}
+
+.tooltip {
+    display: none; /* Hidden by default */
+    position: absolute;
+    bottom: 60px; /* Position above the icon */
+    left: 50%; /* Center tooltip horizontally */
+    transform: translate(-80%, 0); /* Center tooltip */
+    background-color: beige; 
+    color: black;
+    padding: 10px 15px; /* Increased horizontal padding for oval shape */
+    border: 3px inset black; /* Black border */
+    border-radius: 10px; /* High border-radius for oval shape */
+    font-size: 24sp; /* Font size */
+    font-weight: bold; /* Bold text */
+    font-family: 'Open Sans', sans-serif; /* Font family */
+    white-space: nowrap; /* Prevent text wrapping */
+    text-align: center; /* Center text */
+}
+
+
+
+
+
+.info-table {
+    font-family: 'Open Sans', sans-serif; /* Corrected font-family */
+    display: none; /* Initially hidden */
+    position: fixed; /* Fixed positioning */
+    top: 0; /* Position at the top */
+    left: 0; /* Align to the left */
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: white; /* Table background */
+    z-index: 1000; /* Ensure it is above other elements */
+    padding: 20px; /* Padding around the table */
+    box-sizing: border-box; /* Include padding and border in width and height */
+    overflow-y: auto; /* Add scroll if content overflows */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Space out children */
+    border-radius: 0; /* Remove any border radius if present */
+    outline: none; /* Remove any outline */
+}
+
+.info-table table {
+    border-collapse: collapse; /* Collapse borders */
+    width: 100%; /* Full width of the parent */
+    margin: 0; /* Remove margin */
+    padding: 0; /* Remove padding */
+}
+
+.info-table th,
+.info-table td {
+    padding: 5px; /* Add padding for spacing within cells */
+    text-align: center; /* Center-align text in cells */
+    border: 1px solid black; /* Set a single border for all cells */
+    background-color: beige; /* Background color for cells */
+    font-size: 20px; /* Set font size to 20px */
+}
+
+.info-table th {
+    background-color: #e5190b; /* Set background color to gray for headers */
+    color: white; /* Text color for headers */
+}
+
+
+.info-table .close-icon {
+    display: flex; /* Centering the icon */
+    justify-content: center; /* Center horizontally */
+    margin: 20px 0; /* Space around the icon */
+}
+
+
+ 
+
+.info-table span.star {
+    display: inline-block; /* Make the span an inline-block element */
+    margin-left: 0; /* Remove the left margin if needed */
+}
+
+.info-table .double-circle-icon {
+    display: inline-block; /* Make the span an inline-block element */
+    margin-left: 0; /* Remove the left margin if needed */
+}
+
+
+        .star {
+            width: 52px; /* Size of the star icon */
+            height: 52px; /* Size of the star icon */
+            display: inline-block; /* Ensure inline display */
+        }
+
+    .horizontal-icon {
+    background-color: red; /* Color of the horizontal icon */
+    width: 100px; /* Width of the rectangle */
+    height: 40px; /* Reduced height to make it look like a line */
+    display: inline-block; /* Ensure inline display */
+    border-radius: 0; /* No rounded corners for a line effect */
+}
+        .double-circle-icon {
+            position: relative; /* Position for the inner elements */
+            width: 50px; /* Outer circle diameter */
+            height: 50px; /* Outer circle diameter */
+            border: 5px solid blue; /* Outer circle color and thickness */
+            border-radius: 50%; /* Makes it a circle */
+            display: flex; /* Centering the inner circle */
+            align-items: center; /* Centering vertically */
+            justify-content: center; /* Centering horizontally */
+            background-color: white; /* Inner circle background */
+        }
+
+        .double-circle-icon::before {
+            content: ""; /* Create the inner circle */
+            width: 5px; /* Inner circle diameter */
+            height: 5px; /* Inner circle diameter */
+            border-radius: 50%; /* Makes it a circle */
+            background-color: beige; /* Inner circle color */
+            position: absolute; /* Positioning */
+        }
+
+       .double-circle-icon::after {
+    content: ""; /* Create the small star */
+    width: 48px; /* Size of the star */
+    height: 48px; /* Size of the star */
+    background-color: gold; /* Star color */
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); /* Star shape */
+    position: absolute; /* Positioning */
+    top: 50%; /* Move to the vertical center */
+    left: 50%; /* Move to the horizontal center */
+    transform: translate(-50%, -50%); /* Adjust position to center */
+}
+
+
+  .menu-container {
+            position: relative; /* Position relative for the dropdown */
+            display: inline-block; /* Inline block for the container */
+        }
+
+        .hamburger {
+            cursor: pointer; /* Pointer cursor for the hamburger icon */
+            width: 45px; /* Width of the hamburger icon */
+            height: 45px; /* Height of the hamburger icon */
+            display: flex;
+            flex-direction: column; /* Stack bars vertically */
+            justify-content: space-between; /* Space between bars */
+            margin: 0 auto; /* Center the icon horizontally */
+        }
+
+        .bar {
+            height: 6px; /* Height of each bar */
+            transition: 0.3s; /* Transition for smooth effect */
+            border: 1px solid black;
+        }
+
+        .bar:nth-child(1) {
+            background-color: red; /* Color of the first bar */
+        }
+
+        .bar:nth-child(2) {
+            background-color: white; /* Color of the second bar */
+        }
+
+        .bar:nth-child(3) {
+            background-color: blue; /* Color of the third bar */
+        }
+
+
+
+.info-table span.menu-bar-icon {
+    display: inline-block; /* Make the span an inline-block element */
+    margin-left: 0; /* Remove the left margin if needed */
+}
+
+        .display-clock-icon {
+            display: inline-block; /* Allows padding and margin */
+            background-color: beige; /* Background color of the rectangle */
+            border: 4px solid black; /* Thinner black border */
+            border-radius: 5px; /* Rounded corners */
+            padding: 2px 4px; /* Reduced padding around the text */
+            font-weight: bold; /* Make the text bold */
+            color: black; /* Text color */
+            font-size: 10px; /* Smaller text size */
+        }
+
+
+
+th, td {
+    padding: 15px; /* Consistent padding */
+    vertical-align: middle; /* Center content vertically */
+    height: 60px; /* Set a specific height */
+}
+
+/* Optional: Adding some styling to headers */
+th {
+    background-color: #f0f0f0; /* Light gray background for headers */
+    height: 60px; /* Ensure the same height as td */
+}
+.note {
+    
+    text-align: center;
+    color: black; /* Set font color to black */
+    margin: 20px 0; /* Space around the note */
+    font-size: 20px; /* Font size for the note (adjust as needed) */
+    font-family: Arial, sans-serif; /* Font family (choose your preferred font) */
+}
+
+.table-container {
+    position: relative; /* Position context for absolute elements */
+}
+
+.exit-icon {
+    display: inline-block;
+   width: 54px; /* Increased size */
+    height: 52px; /* Increased size */
+    background-color: black;
+    border-radius: 50%;
+    position: relative;
+    border: 3px inset beige;
+}
+
+.exit-icon::before {
+    content: "×";
+    font-size: 45px; /* Increased size */
+    color: red;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold; 
+}
+
+.exit-icon2 {
+    display: inline-block;
+    width: 35px; /* Increased size */
+    height: 35px; /* Increased size */
+    background-color: black;
+    border-radius: 50%;
+    position: absolute; /* Position it absolutely */
+    left: 10px; /* Adjust to your preference */
+    top: 10px; /* Adjust to your preference */
+    cursor: pointer; /* Change cursor to pointer for better UX */
+}
+
+.exit-icon2::before {
+    content: "×";
+    font-size: 35px; /* Increased font size */
+    font-weight: bold; /* Make it bold */
+    color: red;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.clock-icon-cell {
+    display: flex;
+    justify-content: center; /* Center the icon */
+    align-items: center; /* Center the content vertically */
+    height: 85px; /* Adjust height as needed */
+    margin: 10px; /* Spacing around the cell */
+}
+
+.clock-icon {
+    background-color: white; /* Background color */
+    border: 4px solid black; /* Black border */
+    border-radius: 10px; /* Rounded corners */
+    padding: 10px; /* Inner padding */
+    text-align: center; /* Center text inside */
+    max-width: 85px; 
+    max-height: 15px;
+    display: flex; /* Use flexbox for centering */
+    flex-direction: column; /* Stack text vertically */
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+}
+.clock-text {
+    font-weight: bold; /* Make the main text bold */
+    margin: 0; /* Remove default margins */
+}
+
+.clock-description {
+    font-size: 14px; /* Make description smaller */
+    color: gray; /* Use a different color for the description */
+    margin: 0; /* Remove default margins */
+}
+
+
+.circle-icon {
+    position: relative; /* Change to relative for table context */
+    width: 49px; /* Circle width */
+    height: 49px; /* Circle height */
+    background-color: transparent; /* Set to transparent */
+    border: 3px inset white; /* Border color */
+    border-radius: 50%; /* Make it circular */
+    display: flex; /* Flexbox for alignment */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    cursor: pointer; /* Pointer cursor on hover */
+    margin: 0 auto; /* Center the icon in the table cell */
+}
+
+.calendar-icon {
+    width: 30px; /* Width of the calendar */
+    height: 30px; /* Height of the calendar */
+    background-color: red; /* Calendar background */
+    border-radius: 4px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    display: flex; /* Flexbox for alignment */
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center horizontally */
+    border: 2px inset white; /* Border for the calendar */
+}
+
+.month-label {
+    font-size: 8px; /* Font size for the month */
+    color: white; /* Change text color to white */
+    background-color: blue; /* Set background color to blue */
+    margin-bottom: 4px; /* Space below the month label */
+    padding: 2px; /* Add some padding for better appearance */
+    border-radius: 2px; /* Slightly rounded corners */
+    font-family: 'Calibri', sans-serif; /* Set font face to Calibri */
+}
+
+.date-number {
+    font-size: 13px; /* Font size for the date number */
+    color: beige; /* Color of the date number */
+    font-weight: bold; /* Make the font bold */
+    font-family: 'Calibri', sans-serif; /* Set font face to Calibri */
+    margin-top: -4px; /* Move the number up slightly */
+}
+
+.logo-close {
+    display: inline-block; /* Make it a block element */
+    width: 50px; /* Set width of the circle */
+    height: 50px; /* Set height of the circle */
+    border: 3px inset white; /* Inset beige border */
+    border-radius: 50%; /* Make it a circle */
+    background-color: black; 
+    color: red; /* Red color for the 'X' */
+    text-align: center; /* Center the text */
+    line-height: 40px; /* Center the 'X' vertically */
+    font-size: 24px; /* Adjust font size for the 'X' */
+    font-weight: bold; /* Make the 'X' bold */
+    position: relative; /* Positioning context for pseudo-elements */
+}
+
+.logo-close::before {
+    content: '✖'; /* Unicode character for 'X' */
+    position: absolute; /* Position it absolutely */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust for centering */
+}
+
+.arrow-next {
+    display: inline-block; /* Make it a block element */
+    width: 49px; /* Set width of the circle */
+    height: 49px; /* Set height of the circle */
+    border: 3px inset white; /* Inset white border */
+    border-radius: 50%; /* Make it a circle */
+    background-color: none;
+    position: relative; /* Positioning context for pseudo-elements */
+}
+
+.arrow-next::before,
+.arrow-next::after {
+    content: ''; /* Empty content for the arrows */
+    position: absolute; /* Position them absolutely */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust for vertical centering */
+}
+
+.arrow-next::before {
+    width: 0; 
+    height: 0; 
+    border-top: 10px solid transparent; /* Adjust thickness */
+    border-bottom: 10px solid transparent; /* Adjust thickness */
+    border-left: 15px solid blue; /* First arrow color */
+    left: 20%; /* Position the first arrow */
+}
+
+.arrow-next::after {
+    width: 0; 
+    height: 0; 
+    border-top: 10px solid transparent; /* Adjust thickness */
+    border-bottom: 10px solid transparent; /* Adjust thickness */
+    border-left: 15px solid red; /* Second arrow color */
+    left: 50%; /* Position the second arrow */
+}
+
+.arrow-back {
+    display: inline-block; /* Make it a block element */
+    width: 49px; /* Set width of the circle */
+    height: 49px; /* Set height of the circle */
+    border: 3px inset white; /* Inset white border */
+    border-radius: 50%; /* Make it a circle */
+    background-color: black; 
+    position: relative; /* Positioning context for pseudo-elements */
+}
+
+.arrow-back::before,
+.arrow-back::after {
+    content: ''; /* Empty content for the arrows */
+    position: absolute; /* Position them absolutely */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust for vertical centering */
+}
+
+.arrow-back::before {
+    width: 0; 
+    height: 0; 
+    border-top: 10px solid transparent; /* Adjust thickness */
+    border-bottom: 10px solid transparent; /* Adjust thickness */
+    border-right: 15px solid beige; /* First arrow color */
+    left: 20%; /* Position the first arrow */
+}
+
+.arrow-back::after {
+    width: 0; 
+    height: 0; 
+    border-top: 10px solid transparent; /* Adjust thickness */
+    border-bottom: 10px solid transparent; /* Adjust thickness */
+    border-right: 15px solid beige; /* Second arrow color */
+    left: 50%; /* Position the second arrow */
+}
+
+
+.human-icon2 {
+    display: inline-block; /* Make it a block element */
+    width: 49px; /* Set width of the circle */
+    height: 49px; /* Set height of the circle */
+    border: 3px inset beige; /* Inset beige border */
+    border-radius: 50%; /* Make it a circle */
+    background-color: black; /* Set background color to black */
+    position: relative; /* Positioning context for child elements */
+}
+
+.head {
+    width: 15px; /* Smaller head size */
+    height: 15px; /* Smaller head size */
+    background-color: beige; /* Head color */
+    border-radius: 50%; /* Makes the head a circle */
+    position: absolute; /* Position it absolutely */
+    top: 10%; /* Position from the top */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, 0); /* Adjust for centering */
+}
+
+.body {
+    width: 35px; /* Width of the half-circle */
+    height: 18px; /* Height of the half-circle */
+    background-color: blue; /* Body color */
+    border-top-left-radius: 25px; /* Make the top left corner round */
+    border-top-right-radius: 25px; /* Make the top right corner round */
+    position: absolute; /* Position it absolutely */
+    top: 30%; /* Position below the head */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, 0); /* Adjust for centering */
+}
+
+.lastbutton-container {
+    display: flex; /* Use flexbox to align buttons */
+    justify-content: center; /* Center the buttons horizontally */
+    gap: 10px; /* Space between buttons */
+    margin-bottom: 10px; /* Space below the buttons */
+}
+
+.button {
+    width: 30px; /* Width of the button */
+    height: 30px; /* Height of the button */
+    background-color: darkred; /* Background color of the button */
+    border: 1px solid black; /* Border color */
+    border-radius: 2px; /* Rounded corners */
+    display: flex; /* Use flexbox for centering */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    font-size: 20px; /* Font size for the signs */
+    color: white; /* Text color */
+    cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+.button:hover {
+    opacity: 0.8; /* Slightly change opacity on hover */
+}
+ </style>
+
+
+
+
+
+
+
+</head>
+<body>
+    <div class="circle" id="tooltip-icon">
+        <div class="human-logo">
+            <div class="head"></div>
+            <div class="body"></div>
+        </div>
+        <div class="tooltip" id="tooltip">Clock Inventor : Mr. Jeff Birge <br> Programmer : Ehllen Quezada </div>
+    </div>
+
+
+
+
+
+
+    <script>
+        // Function to initialize the tooltip behavior
+        function initializeTooltip() {
+            const tooltipIcon = document.getElementById('tooltip-icon');
+            const tooltip = document.getElementById('tooltip');
+
+            tooltipIcon.addEventListener('click', function() {
+                tooltip.style.display = tooltip.style.display === 'none' || tooltip.style.display === '' ? 'block' : 'none';
+            });
+        }
+
+        // Initialize tooltip when the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', initializeTooltip);
+    </script>
+
+
+
+<div class="info-table" id="infoTable" style="display: none;">
+    <table style="width: 100%; margin-bottom: 20px;">
+        <thead>
+            <tr>
+                <th>Clock Icons</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+               <td style="background-color: white;">
+                    <span class="star" style="background-color: darkblue; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);"> </span>
+                </td>
+                 <td style="background-color: white;"> (Dark blue star) - This is an hour marker</td>
+            </tr>
+            <tr>
+                 <td style="background-color: white;">
+                    <span class="star" style="background-color: lightblue; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);"></span>
+                </td>
+                 <td style="background-color: white;">(Light blue star) - This is a 5 minutes marker</td>
+            </tr>
+            <tr>
+                <td style="background-color: white;">
+                    <span class="star" style="background-color: red; width: 80px; height: 8px; display: inline-block;"></span>
+                </td>
+                 <td style="background-color: white;">(Red stripe or White stripe) - This is a 1 minute marker</td>
+            </tr>
+            <tr>
+              <td style="background-color: white;">
+                    <span class="double-circle-icon"></span>
+                </td>
+                 <td style="background-color: white;">(Double circle w/ star) - This is a seconds marker</td>
+            </tr>
+            <tr>
+                <th>App Icons</th>
+                <th>Description</th>
+            </tr>
+<tr>
+ <td style="background-color: #99f8f6;">
+<div class="clock-icon-cell">
+    <div class="clock-icon">
+        <span class="clock-text">Select</span>
+    </div>
+</div>
+</td>
+
+<td style="background-color: #99f8f6;"> (Clock dropdown menu) - Use to display and hides the clocks</td>
+
+</tr>
+           
+  
+ <tr>
+          <td class="center-cell" style="text-align: center; background-color:  #99f8f6;"> <!-- Center the content -->
+                <span class="menu-container">
+                    <div class="hamburger">
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                    </div>
+                </span>
+            </td>
+               <td style="background-color: #99f8f6;">(Menu bar) - Use to update page background and customize your own clock design </td>
+        </tr>
+
+         
+        </tr>
+     
+      
+<tr>
+       <td style="background-color: #99f8f6;">
+        <div class="circle-icon">
+            <div class="calendar-icon">
+                <div class="month-label">August</div>
+                <div class="date-number">14</div>
+            </div>
+        </div>
+    </td>
+      <td style="background-color: #99f8f6;">(Calendar icon) - To show the current date today</td>
+</tr>
+
+
+
+
+
+
+<tr>
+    <td style="background-color: #99f8f6;">
+        <span class="logo-close">
+        </span> <!-- New close icon -->
+    </td>
+         <td style="background-color: #99f8f6;">(Exit table icon) - Use to exit the table page</td>
+</tr>
+
+
+<tr>
+     <td style="background-color: #99f8f6;">
+        <span class="arrow-next">
+        </span> 
+    </td>
+       <td style="background-color: #99f8f6;">(Arrow right icon) - Use to go to the next page</td>
+</tr>
+
+
+
+<tr>
+     <td style="background-color: #99f8f6;">
+        <span class="arrow-back">
+        </span> 
+    </td>
+       <td style="background-color: #99f8f6;">(Arrow left icon) - Use to go back to the main page</td>
+</tr>
+
+<tr>
+       <td style="text-align: center; background-color: #99f8f6;">
+            <div class="human-icon2">
+                <div class="head"></div>
+                <div class="body"></div>
+            </div>
+            <td style="background-color: #99f8f6;">(Human icon) - To show who invented the clock and who programmed this app.</td>
+        </td>
+    </tr>
+
+<tr>
+        <td style="text-align: center; background-color: #99f8f6;">
+            <div class="lastbutton-container">
+                <div class="button plus">+</div>
+                <div class="button minus">-</div>
+            </div>
+             <td style="background-color: #99f8f6;"> (Text control icon) -  Use plus to increase the size of the text and minus to decrease.</td>
+        </td>
+    </tr>
+
+
+
+<div class="note">
+        <div class="exit-icon" id="exitIcon2"></div> <!-- Added exit icon -->
+         <p><span style="color: red;"><b>NOTE:</b></span> Click this exit button above to close this page,
+To guide you on how to use our app we have listed here all the icons please read the details below.</p>
+
+<p><b><span style="color: red;"> TO UPDATE THE CLOCK DESIGN:</b></span>  Select a clock and click on the menu bar, pick an option to customize your own design </p>
+ <p><span style="color: blue;"><b>ZOOM FEATURE:</b></span> Using touch gestures users can resize our clock make it bigger or smaller.  </p>
+
+<p><span style="color: blue;">To Zoom in:</span> Place two fingers on the screen and move them apart.</p>
+<p><span style="color: blue;">To Zoom out:</span> Place two fingers on the screen and bring them together. <p>
+
+
+<p><span style="color: blue;"> To Move Up/Down/Left/Right:</span> Keep your finger on the clock and slide it up , down, left or right position </p>
+
+
+<p><span style="color: red;"><b>LINKS REQUIRES INTERNET:</b></span> Just click the links to go to our facebook, instagram and youtube account.</p>
+<p> Click this link to read our privacy policy: <a href="https://artsycraftsygirl.github.io/PrivacyPolicy/" target="_blank">privacy policy</a>.</p>
+<p> Our app works offline, but keep in mind to go to our facebook, youtube or instragram account as well as our privacy policy please ensure you are connected to the internet. </p>
+
+    </div>
+
+
+        </tbody>
+    </table>
+ 
+
+</div>
+
+<script>
+    // Function to toggle the visibility of the info table
+    function toggleTable() {
+        const table = document.getElementById('infoTable');
+        const textSizeControls = document.querySelector('.text-size-controls'); // Select the text size controls
+
+        if (table.style.display === 'none' || table.style.display === '') {
+            table.style.display = 'flex'; // Show the table
+            textSizeControls.style.display = 'none'; // Hide the text size buttons
+        } else {
+            table.style.display = 'none'; // Hide the table
+            textSizeControls.style.display = 'flex'; // Show the text size buttons
+        }
+    }
+
+    // Event listener for the exit icon
+    const exitIcon = document.getElementById('exitIcon2');
+
+    exitIcon.addEventListener('click', () => {
+        const table = document.getElementById('infoTable');
+        table.style.display = 'none'; // Hide the info table
+        document.querySelector('.text-size-controls').style.display = 'flex'; // Show the text size buttons
+    });
+</script>
+
+
+
+
+    
+  <!-- Add the buttons for increasing and decreasing text size -->
+<div class="text-size-controls">
+    <button id="increaseText" class="text-size-button">&#x2B;</button> <!-- Unicode for plus -->
+    <button id="decreaseText" class="text-size-button">&#x2212;</button> <!-- Unicode for minus -->
+</div>
+
+
+<style>
+.text-size-controls {
+    display: flex;
+    justify-content: center; /* Center buttons */
+    position: fixed; /* Keep buttons fixed */
+    top: 10px; /* Position from the top */
+    width: 100%; /* Full width of the container */
+    z-index: 1000; /* Ensure buttons are above other content */
+    padding: 0 20px; /* Add some padding to the sides */
+}
+
+.text-size-button {
+    background-color: darkred; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Set border-radius to 5px for square shape */
+    width: 45px; /* Set a smaller fixed width */
+    height: 25px; /* Set a smaller fixed height (should be equal to width) */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 24px; /* Increase font size for the Unicode characters */
+    margin: 0 5px; /* Add some margin between buttons */
+    display: flex; /* Use flexbox for centering text */
+    align-items: center; /* Center text vertically */
+    justify-content: center; /* Center text horizontally */
+    border: 2px solid black;
+}
+
+.text-size-button:hover {
+    background-color: darkblue; /* Change color on hover */
+}
+/* Adjust the position of the increase text button */
+#increaseText {
+    margin-left: 800px; /* Move it to the right */
+    margin-top: -10px; /* Move it up (negative value) */
+}
+
+/* Adjust the position of the increase text button */
+#decreaseText {
+    margin-right: 600px; /* Move it to the right */
+    margin-top: -10px; /* Move it up (negative value) */
+}
+</style>
+
+<script>
+
+let currentFontSize = 24; // Default font size in pixels
+
+document.getElementById("increaseText").addEventListener("click", function() {
+    currentFontSize += 2; // Increase font size by 2 pixels
+    updateTextSize();
+});
+
+document.getElementById("decreaseText").addEventListener("click", function() {
+    currentFontSize = Math.max(12, currentFontSize - 2); // Decrease font size by 2 pixels, but not below 12
+    updateTextSize();
+});
+
+function updateTextSize() {
+    const elementsToScale = document.querySelectorAll('.slide p');
+    elementsToScale.forEach((el) => {
+        el.style.fontSize = currentFontSize + 'px'; // Update font size
+    });
+}
+
+</script>
+
+
+
+
+
+
+
+
+</body>
+</html>
