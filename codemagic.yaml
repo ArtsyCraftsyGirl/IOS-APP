@@ -1,12 +1,98 @@
+Newhttps://stackoverflow.com/questions/54978234/how-t...
+
+How to create IOS apk using cordova (angular js web) - Stack Overflow
+Unfortunately for build and deploy and IPA (it's the APK but for Apple) you need a Apple dev account and a P12 file AND mobileprovision. P12 and ...
+
+Build Mac App IPA without Xcode - Stack Overflow
+Phonegap/Cordova to ipa file without Phonegap build - Stack Overflow
+How to generate IOS .IPA file using cordova command
+Apache Cordova: build .ipa file on Windows 8 - ios - Stack Overflow
+BLACKBOXAI
+
+How to create IOS apk using cordova (angular js web) - Stack Overflow
+
+
+stackoverflow
+How to build app for iPhone without Mac? - Ionic Forum
+
+
+forum.ionicframework
+Apache Cordova: build .ipa file on Windows 8 - Stack Overflow
+
+
+stackoverflow
+How to build and distribute iOS apps without Mac with Flutter ...
+
+
+blog.codemagic
+Building an IPA file for iOS without a Mac can be challenging, as you typically need Xcode for the process. However, you can consider using cloud-based services or CI/CD platforms that offer macOS environments to build your app remotely. Options for Building an IPA File Without a Mac
+
+Use PhoneGap Build
+
+PhoneGap Build is a cloud service that allows you to upload your Cordova project and build it for iOS without needing a Mac.
+You can create an account and upload your project files, and the service will handle the building process for you.
+Utilize CI/CD Services
+
+Services like Codemagic or App Center provide macOS environments for building iOS applications.
+You can set up your project in these platforms, configure the necessary settings, and trigger builds to generate the IPA file.
+Codemagic, for example, allows you to connect your repository and automate the build process, including code signing.
+Remote Mac Access
+
+If you have access to a friend or colleague with a Mac, you can ask them to build the IPA file for you.
+Alternatively, consider using a service that provides remote access to a Mac environment, allowing you to run Xcode and build your app.
+Virtual Machines
+
+Some users have successfully run macOS on virtual machines (VMware or VirtualBox) on Windows. However, this method can be complex and may violate Apple's licensing agreements.
+Steps to Build Using CI/CD Services
+
+Sign Up for a CI/CD Service
+
+Create an account on a service like Codemagic or App Center.
+Connect Your Repository
+
+Link your code repository (e.g., GitHub, Bitbucket) to the CI/CD service.
+Configure Build Settings
+
+Set up the build configuration, including selecting the iOS platform and specifying the necessary build commands.
+Set Up Code Signing
+
+Ensure you have the correct provisioning profiles and certificates set up in the service for code signing.
+Trigger the Build
+
+Start the build process and wait for the service to generate the IPA file.
+Download the IPA
+
+Once the build is complete, download the generated IPA file from the service.
+Conclusion
+
+While building an IPA file without a Mac is not straightforward, using cloud services or remote access can help you achieve your goal. Consider the options above to find the best solution for your needs.
+
+You
+
+Phonegap build is gone right?
+
+BLACKBOXAI
+
+Today, we are announcing the end of development for PhoneG
+
 workflows:
   ios-workflow:
-    name: iOS Build
+    name: iOS Workflow
+    environment:
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.example.app
     scripts:
-      - name: Install dependencies
+      - name: Install npm dependencies
         script: |
           npm install
-      - name: Build iOS
+          npm ci
+      - name: Setup Cordova iOS platform
         script: |
-          cordova build ios --release
+          ionic cordova platform remove ios --nosave
+          ionic cordova platform add ios --confirm --no-interactive --noresources
+      - name: Build IPA for distribution
+        script: |
+          cordova build ios --release --device
     artifacts:
-      - build/ios/*.ipa
+      - build/ios/ipa/*.ipa
