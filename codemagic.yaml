@@ -5,6 +5,7 @@ workflows:
       ios_signing:
         distribution_type: app_store
         bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
+        development_team: YOUR_DEVELOPMENT_TEAM_ID  # Replace with your actual development team ID
     scripts:
       - name: Clean up previous builds
         script: |
@@ -20,6 +21,8 @@ workflows:
         script: |
           # Update the Podfile to set the deployment target
           echo "platform :ios, '12.0'" > platforms/ios/Podfile
+          # Update the project.pbxproj to set the deployment target
+          sed -i '' 's/IPHONEOS_DEPLOYMENT_TARGET = 11.0;/IPHONEOS_DEPLOYMENT_TARGET = 12.0;/' platforms/ios/JbPaladinPatriotsClock.xcodeproj/project.pbxproj
       - name: Build IPA for distribution
         script: |
           cordova build ios --release --device
