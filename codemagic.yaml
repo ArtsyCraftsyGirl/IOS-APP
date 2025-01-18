@@ -1,8 +1,6 @@
 workflows:
   ios-workflow:
-    name: iOS Workflow
-    max_build_duration: 120
-    instance_type: mac_mini_m2
+    name: iOS Build
     scripts:
       - name: Install dependencies
         script: |
@@ -10,4 +8,5 @@ workflows:
       - name: Build iOS
         script: |
           cordova build ios --release
-    
+    artifacts:
+      - build/ios/*.ipa
