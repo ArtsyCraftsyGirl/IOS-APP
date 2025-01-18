@@ -1,16 +1,21 @@
 workflows:
   ios-workflow:
-    name: iOS Build
+    name: iOS Workflow
     environment:
-      xcode: latest
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
     scripts:
-      - name: Install Dependencies
+      - name: Install npm dependencies
         script: |
-          npm install  # Install any Node.js dependencies if needed
+          npm install
+          npm ci
+      - name: Setup Cordova iOS platform
+        script: |
+          cordova platform remove ios --nosave
+          cordova platform add ios --confirm --no-interactive
       - name: Build IPA for distribution
         script: |
-          cd platforms/ios
-          xcodebuild -workspace JbPaladinPatriotsClock.xcworkspace -scheme JbPaladinPatriotsClock -configuration Release -archivePath build/JbPaladinPatriotsClock.xcarchive archive
-          xcodebuild -exportArchive -archivePath build/JbPaladinPatriotsClock.xcarchive -exportPath build -exportOptionsPlist exportOptions.plist
+          cordova build ios --release --device
     artifacts:
-      - platforms/ios/build/*.ipa
+      - build/ios/ipa/*.ipa
