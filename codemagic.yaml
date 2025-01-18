@@ -5,7 +5,7 @@ workflows:
       ios_signing:
         distribution_type: app_store
         bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
-        development_team: YOUR_DEVELOPMENT_TEAM_ID  # Add this line
+        development_team: XAJF22HXCQ
     scripts:
       - name: Clean up previous builds
         script: |
