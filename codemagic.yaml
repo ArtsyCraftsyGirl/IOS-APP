@@ -1,21 +1,19 @@
 workflows:
-  ios-workflow:
-    name: iOS Workflow
+  ios-build:
+    name: iOS Build
     environment:
-      ios_signing:
-        distribution_type: app_store
-        bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
+      xcode: latest  # Use the latest version of Xcode
+      node: latest
     scripts:
-      - name: Install npm dependencies
+      - name: Install Dependencies
         script: |
           npm install
-          npm ci
-      - name: Setup Cordova iOS platform
+          npm install -g cordova
+          cordova platform add ios
+
+      - name: Build iOS App
         script: |
-          cordova platform remove ios --nosave
-          cordova platform add ios --confirm --no-interactive
-      - name: Build IPA for distribution
-        script: |
-          cordova build ios --release --device
+          cordova build ios --release --device --codeSignIdentity="iPhone Distribution" --provisioningProfile="MyApp Distribution Profile"
+
     artifacts:
-      - build/ios/ipa/*.ipa
+      - platforms/ios/build/device/*.ipa   # Adjust this path as needed
