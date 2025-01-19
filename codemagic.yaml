@@ -2,8 +2,6 @@ workflows:
   ios-release:
     name: Build iOS Release
     platform: ios
-    environment:
-      node_version: '16.x'  # or another LTS version of Node.js
     scripts:
       - name: Install Dependencies
         script: |
