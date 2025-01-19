@@ -1,29 +1,19 @@
 workflows:
-  ios-workflow:
-    name: iOS Workflow
+  ios-build:
+    name: iOS Build
     environment:
-      ios_signing:
-        distribution_type: app_store
-        bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
+      xcode: latest  # Use the latest version of Xcode
+      node: latest
     scripts:
-      - name: Clean up previous builds
-        script: |
-          rm -rf platforms plugins
-      - name: Install npm dependencies
+      - name: Install Dependencies
         script: |
           npm install
-          npm ci
-      - name: Setup Cordova iOS platform
+          npm install -g cordova
+          cordova platform add ios
+
+      - name: Build iOS App
         script: |
-          cordova platform add ios --confirm --no-interactive
-      - name: Update iOS Deployment Target
-        script: |
-          # Update the Podfile to set the deployment target
-          echo "platform :ios, '12.0'" > platforms/ios/Podfile
-          # Update the project.pbxproj to set the deployment target
-          sed -i '' 's/IPHONEOS_DEPLOYMENT_TARGET = 11.0;/IPHONEOS_DEPLOYMENT_TARGET = 12.0;/' platforms/ios/JbPaladinPatriotsClock.xcodeproj/project.pbxproj
-      - name: Build IPA for distribution
-        script: |
-          cordova build ios --release --device
+          cordova build ios --release --device --codeSignIdentity="iPhone Distribution" --provisioningProfile="MyApp Distribution Profile"
+
     artifacts:
-      - build/ios/ipa/*.ipa
+      - platforms/ios/build/device/*.ipa   # Adjust this path as needed
