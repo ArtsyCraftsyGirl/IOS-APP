@@ -1,9 +1,6 @@
 workflows:
   ios-release:
     name: Build iOS Release
-    platform: ios
-    flutter: false  # Set to false if you're not using Flutter
-    xcode: true  # Indicate that it uses Xcode to build the app
     scripts:
       - name: Install Dependencies
         script: |
