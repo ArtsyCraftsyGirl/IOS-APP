@@ -1,46 +1,24 @@
-<?xml version='1.0' encoding='utf-8'?>
-<widget id="com.jbpaladinpatriotsclock.jbpaladinpatriotsclock" version="1.5.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>JbPaladinPatriotsClock</name>
-    <description>This is a unique and revolutionary way of telling time, designed by Jeffrey Wayne Birge and developed by Ehllen Quezada. Our clock doesn't use hands to tell time; it uses lights to tell time.</description>
-    <author email="jeffbirgepaladin@gmail.com">Jeffrey Wayne Birge (Designer/Inventor); Ehllen Quezada (Programmer/Developer)</author>
-    <content src="index.html" />
-    <access origin="*" /> <!-- Allows all local access -->
-    <allow-intent href="http://*/*" />
-    <allow-intent href="https://*/*" />
+workflows:
+  build_ios:
+    name: Build iOS App
+    environment:
+      xcode: latest  # Use the latest stable version of Xcode
+      node: "14"  # Specify the Node.js version you want to use (adjust as needed)
+    scripts:
+      - name: Install Dependencies
+        script: |
+          npm install  # Install npm packages
+          npm install -g cordova  # Install Cordova globally
+          cordova platform add ios  # Add iOS platform if not added yet
+      
+      - name: Build iOS
+        script: |
+          cordova build ios --release --device  # Build a release version of the iOS app
 
-    <!-- Android Configuration -->
-    <platform name="android">
-        <icon src="res/icon/android/icon.png" density="mdpi" />
-        <icon src="res/icon/android/icon.png" density="hdpi" />
-        <icon src="res/icon/android/icon.png" density="xhdpi" />
-        <icon src="res/icon/android/icon.png" density="xxhdpi" />
-        <icon src="res/icon/android/icon.png" density="xxxhdpi" />
+      - name: Export IPA
+        script: |
+          mkdir -p output  # Create an output directory to store the IPA file
+          cp -R platforms/ios/build/device/*.ipa output/  # Copy the generated IPA file to the output directory
 
-        <preference name="android-targetSdkVersion" value="34" />
-        <preference name="android-minSdkVersion" value="27" /> <!-- Added minimum SDK version -->
-        <preference name="android-manifest/application/uses-feature" value="android.hardware.touchscreen" />
-        <preference name="android-manifest/application/uses-feature" value="android.hardware.touchscreen.multitouch" />
-        <preference name="AndroidWindowSplashScreen" value="res/screen/android/splash.png" />
-        <preference name="AndroidWindowSplashScreenBackgroundColor" value="white" />
-        <preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/screen/android/splash.png" /> 
-        <preference name="SplashScreenDelay" value="3000" />
-        <preference name="AndroidPersistentFileLocation" value="Compatibility" />
-        <preference name="android:hardwareAccelerated" value="true" />
-        <preference name="MediaPlaybackRequiresUserAction" value="false" />
-        <preference name="AllowInlineMediaPlayback" value="true" />
-        <preference name="Zoom" value="yes" />
-    </platform>
-
-    <!-- iOS Configuration -->
-    <platform name="ios">
-        <preference name="deployment-target" value="12.0" />
-        <icon src="res/icon/ios/icon.png" />
-        <splash src="res/screen/ios/splash.png" />
-        <preference name="SplashScreen" value="screen" />
-        <preference name="SplashScreenDelay" value="3000" />
-        <preference name="ShowSplashScreenSpinner" value="false" />
-        <preference name="FadeSplashScreen" value="true" />
-        <preference name="FadeSplashScreenDuration" value="300" />
-        <!-- Add any other iOS specific preferences or configurations here -->
-    </platform>
-</widget>
+artifacts:
+  - output/*.ipa  # Specify the path to the IPA files generated
