@@ -1,7 +1,6 @@
 workflows:
   ios-release:
     name: Build iOS Release
-    platform: ios
     scripts:
       - name: Install Dependencies
         script: |
