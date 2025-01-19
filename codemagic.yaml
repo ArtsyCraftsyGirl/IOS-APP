@@ -1,15 +1,15 @@
 workflows:
   ios-release:
     name: Build iOS Release
+    platform: ios
+    environment:
+      node_version: '16.x'  # or another LTS version of Node.js
     scripts:
       - name: Install Dependencies
         script: |
           npm install
-          brew install node
           npm install -g cordova
       - name: Build Cordova Project
         script: |
           cordova platform add ios
           cordova build ios --release --device
-    artifacts:
-      - build/ios/platforms/ios/build/device/*.ipa
