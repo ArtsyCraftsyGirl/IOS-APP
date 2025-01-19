@@ -1,14 +1,18 @@
 workflows:
-  ionic-cordova-ios-app:
-    name: Ionic Cordova iOS App
-    environment:
-      vars:
-        XCODE_WORKSPACE: "jbpaladinpatriotsclock.xcworkspace"
-        XCODE_SCHEME: "jbpaladinpatriotsclock"
+  ios-release:
+    name: Build iOS Release
+    platform: ios
+    flutter: false  # Set to false if you're not using Flutter
+    xcode: true  # Indicate that it uses Xcode to build the app
     scripts:
-      - npm install
-      - ionic cordova platform add ios --no-interactive
-      - cd platforms/ios
-      - xcodebuild -workspace "$XCODE_WORKSPACE" -scheme "$XCODE_SCHEME" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
+      - name: Install Dependencies
+        script: |
+          npm install
+          brew install node
+          npm install -g cordova
+      - name: Build Cordova Project
+        script: |
+          cordova platform add ios
+          cordova build ios --release --device
     artifacts:
-      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
+      - build/ios/platforms/ios/build/device/*.ipa
