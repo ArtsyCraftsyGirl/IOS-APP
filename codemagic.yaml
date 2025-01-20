@@ -6,8 +6,6 @@ workflows:
       ios_signing:
         distribution_type: app_store
         bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
-        code_sign_identity: "iPhone Distribution: Jeffrey Wayne Birge (XAJF22HXCQ)"
-        provisioning_profile: MyApp Distribution Profile
     scripts:
       - name: Install npm dependencies
         script: |
