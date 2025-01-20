@@ -6,14 +6,16 @@ workflows:
       ios_signing:
         distribution_type: app_store
         bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
+        code_sign_identity: "iPhone Distribution: Jeffrey Wayne Birge (XAJF22HXCQ)"
+        provisioning_profile: MyApp Distribution Profile
     scripts:
       - name: Install npm dependencies
         script: |
           npm install
       - name: Setup Cordova iOS platform
         script: |
-         cordova platform remove ios --nosave
-         cordova platform add ios --confirm --no-interactive --noresources
+          cordova platform remove ios --nosave
+          cordova platform add ios --confirm --no-interactive --noresources
       - name: Build IPA for distribution
         script: |
           cordova build ios --release --device
