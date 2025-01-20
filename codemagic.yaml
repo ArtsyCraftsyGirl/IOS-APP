@@ -35,13 +35,4 @@ workflows:
           echo "IPA Path: $IPA_PATH"
     artifacts:
       - platforms/ios/build/device/**/*.ipa  # Adjust the path based on where the IPA is generated
-    publishing:
-      email:
-        recipients:
-          - jbpaladin122@gmail.com  # Your email for notifications
-        notify:
-          success: true
-          failure: false
-    publishing:
-  app_store:
-    credentials: "MyApp API Key"
+ 
