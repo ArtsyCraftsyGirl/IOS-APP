@@ -16,6 +16,6 @@ workflows:
           cordova platform add ios --confirm --no-interactive --noresources
       - name: Build IPA for distribution
         script: |
-          cordova build ios --release --device
+          cordova build ios --release --device --no-cocoaPods
     artifacts:
       - build/ios/ipa/*.ipa
