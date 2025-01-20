@@ -12,8 +12,8 @@ workflows:
         script: | 
           npm install
           npm ci  # equivalent of npm install for CI systems
-          cvm install 9.0.0  # Specify the Cordova version you want to use
-          cvm use 9.0.0 
+          cvm install 12.0.0  # Specify Cordova version 12
+          cvm use 12.0.0 
       - name: Setup Cordova iOS platform
         script: | 
           cordova platform remove ios --nosave
@@ -35,3 +35,4 @@ workflows:
           echo "IPA Path: $IPA_PATH"
     artifacts:
       - platforms/ios/build/device/**/*.ipa  # Adjust the path based on where the IPA is generated
+    publishing:
