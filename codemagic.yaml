@@ -35,4 +35,3 @@ workflows:
           echo "IPA Path: $IPA_PATH"
     artifacts:
       - platforms/ios/build/device/**/*.ipa  # Adjust the path based on where the IPA is generated
-    publishing:
