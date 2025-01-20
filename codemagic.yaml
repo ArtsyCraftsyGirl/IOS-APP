@@ -1,22 +1,48 @@
 workflows:
   ios-workflow:
-    name: iOS Workflow
+    name: Ionic Cordova iOS Workflow
     max_build_duration: 120
     environment:
       ios_signing:
-        distribution_type: app_store
-        bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
-      xcode: "16.2"  # Specify Xcode version if needed
+        distribution_type: app_store  # or ad_hoc, development based on your needs
+        bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock  # Update with your app's bundle ID
+      node: latest  # Use the latest Node.js version
     scripts:
-      - name: Install npm dependencies
-        script: |
+      - name: Install npm dependencies and update Cordova version
+        script: | 
           npm install
+          npm ci  # equivalent of npm install for CI systems
+          cvm install 9.0.0  # Specify the Cordova version you want to use
+          cvm use 9.0.0 
       - name: Setup Cordova iOS platform
-        script: |
-          cordova platform remove ios --nosave
-          cordova platform add ios --confirm --no-interactive --noresources
-      - name: Build IPA for distribution
-        script: |
-          cordova build ios --release --device
+        script: | 
+          ionic cordova platform remove ios --nosave
+          ionic cordova platform add ios \
+            --confirm \
+            --no-interactive \
+            --noresources 
+      - name: Build iOS Cordova App
+        script: | 
+          ionic cordova build ios \
+            --release \
+            --no-interactive \
+            --prod \
+            --device
+      - name: Export IPA
+        script: | 
+          # Specify the path to the generated IPA file
+          IPA_PATH=$(find platforms/ios/build/device -name "*.ipa" | head -1)
+          echo "IPA Path: $IPA_PATH"
     artifacts:
-      - build/ios/ipa/*.ipa
+      - platforms/ios/build/device/**/*.ipa  # Adjust the path based on where the IPA is generated
+    publishing:
+      email:
+        recipients:
+          - jbpaladin122@gmail.com
+        
+        notify:
+          success: true
+          failure: false
+      app_store:
+        credentials: $APP_STORE_CONNECT_API_KEY  # Use your App Store Connect API key
+        submit_as_draft: true  # Set to true if you want to submit as a draft
