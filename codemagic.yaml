@@ -42,6 +42,6 @@ workflows:
         notify:
           success: true
           failure: false
-      app_store:
-        credentials: "MyApp API Key"  # Directly use your API key here
-        submit_as_draft: true  # Set to true if you want to submit as a draft
+    publishing:
+  app_store:
+    credentials: "MyApp API Key"
