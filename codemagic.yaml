@@ -12,8 +12,8 @@ workflows:
           npm install
       - name: Setup Cordova iOS platform
         script: |
-          ionic cordova platform remove ios --nosave
-          ionic cordova platform add ios --confirm --no-interactive --noresources
+         cordova platform remove ios --nosave
+         cordova platform add ios --confirm --no-interactive --noresources
       - name: Build IPA for distribution
         script: |
           cordova build ios --release --device
