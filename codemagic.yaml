@@ -4,7 +4,7 @@ workflows:
     max_build_duration: 120
     environment:
       ios_signing:
-        distribution_type: app_store  # or ad_hoc, development based on your needs
+        distribution_type: app_store  
         bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock  # Update with your app's bundle ID
       node: latest  # Use the latest Node.js version
     scripts:
