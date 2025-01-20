@@ -1,6 +1,6 @@
 workflows:
   ios-workflow:
-    name: Ionic Cordova iOS Workflow
+    name: Cordova iOS Workflow
     max_build_duration: 120
     environment:
       ios_signing:
@@ -16,8 +16,8 @@ workflows:
           cvm use 9.0.0 
       - name: Setup Cordova iOS platform
         script: | 
-        cordova platform remove ios --nosave
-         cordova platform add ios \
+          cordova platform remove ios --nosave
+          cordova platform add ios \
             --confirm \
             --no-interactive \
             --noresources 
@@ -35,4 +35,3 @@ workflows:
           echo "IPA Path: $IPA_PATH"
     artifacts:
       - platforms/ios/build/device/**/*.ipa  # Adjust the path based on where the IPA is generated
- 
