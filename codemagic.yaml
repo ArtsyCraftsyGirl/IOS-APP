@@ -5,9 +5,9 @@ workflows:
     environment:
       ios_signing:
         distribution_type: app_store
-        bundle_identifier: com.example.id
+        bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
     scripts:
       - name: Set up code signing settings
         script: xcode-project use-profiles
       - name: Build IPA
-        script: xcode-project build-ipa --workspace "YourApp.xcworkspace" --scheme "YourApp"
+        script: xcode-project build-ipa --workspace "JbPaladinPatriotsClock.xcworkspace" --scheme "JbPaladinPatriotsClock"
