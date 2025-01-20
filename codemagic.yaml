@@ -38,11 +38,10 @@ workflows:
     publishing:
       email:
         recipients:
-          - jbpaladin122@gmail.com
-        
+          - jbpaladin122@gmail.com  # Your email for notifications
         notify:
           success: true
           failure: false
       app_store:
-        credentials: $APP_STORE_CONNECT_API_KEY  # Use your App Store Connect API key
+        credentials: "MyApp API Key"  # Directly use your API key here
         submit_as_draft: true  # Set to true if you want to submit as a draft
