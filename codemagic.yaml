@@ -6,7 +6,7 @@ workflows:
       ios_signing:
         distribution_type: app_store
         bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
-          xcode: "16.2" 
+      xcode: "16.2"  # Specify Xcode version
     scripts:
       - name: Install npm dependencies
         script: |
@@ -17,6 +17,6 @@ workflows:
           cordova platform add ios --confirm --no-interactive --noresources
       - name: Build IPA for distribution
         script: |
-          cordova build ios --release --device --no-cocoaPods
+          cordova build ios --release --device
     artifacts:
       - build/ios/ipa/*.ipa
