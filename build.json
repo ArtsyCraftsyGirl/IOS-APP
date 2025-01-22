@@ -1,10 +1,10 @@
 {
   "ios": {
     "release": {
-      "codeSignIdentity": "iPhone Distribution",  // Use "iPhone Distribution" for App Store distribution
-      "provisioningProfile": "my_app_distribution_profile",  // Replace with your provisioning profile name
-      "developmentTeam": "XAJF22HXCQ",  // Optional, if needed
-      "packageType": "app-store"  // Use "app-store" for App Store distribution
+      "codeSignIdentity": "iPhone Distribution",
+      "provisioningProfile": "my_app_distribution_profile",  
+      "developmentTeam": "XAJF22HXCQ",
+      "packageType": "app-store"
     }
   }
 }
