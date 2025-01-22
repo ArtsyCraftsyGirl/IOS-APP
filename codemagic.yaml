@@ -1,11 +1,11 @@
 workflows:
   ios-workflow:
-    name: iOS Workflow
+    name: Cordova iOS Workflow
+    max_build_duration: 120
     environment:
       ios_signing:
-        distribution_type: app_store
-        bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
-        development_team: XAJF22HXCQ
+        distribution_type: app_store  
+        bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock  # Update with your app's bundle ID
       node: latest  # Use the latest Node.js version
     scripts:
       - name: Install npm dependencies and update Cordova version
