@@ -2,7 +2,6 @@ workflows:
   ios-workflow:
     name: Cordova iOS Workflow
     max_build_duration: 120
-    environment:
     scripts:
       - name: Install npm dependencies and update Cordova version
         script: | 
