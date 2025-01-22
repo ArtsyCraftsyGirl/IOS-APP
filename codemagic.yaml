@@ -5,7 +5,8 @@ workflows:
     environment:
       ios_signing:
         distribution_type: app_store  
-        bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock  # Update with your app's bundle ID
+        bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
+        development_team: Jeffrey Wayne Birge
       node: latest  # Use the latest Node.js version
     scripts:
       - name: Install npm dependencies and update Cordova version
@@ -14,6 +15,12 @@ workflows:
           npm ci  # equivalent of npm install for CI systems
           cvm install 12.0.0  # Specify Cordova version 12
           cvm use 12.0.0 
+      - name: Update iOS Deployment Target
+        script: |
+          sed -i '' 's/<preference name="deployment-target" value=".*" \/>/<preference name="deployment-target" value="12.0" \/>/' config.xml
+      - name: Clean Build Directory
+        script: |
+          rm -rf platforms/ios/build
       - name: Setup Cordova iOS platform
         script: | 
           cordova platform remove ios --nosave
@@ -27,10 +34,10 @@ workflows:
             --release \
             --no-interactive \
             --prod \
-            --device
+            --device \
+            --verbose
       - name: Export IPA
         script: | 
-          # Specify the path to the generated IPA file
           IPA_PATH=$(find platforms/ios/build/device -name "*.ipa" | head -1)
           echo "IPA Path: $IPA_PATH"
     artifacts:
