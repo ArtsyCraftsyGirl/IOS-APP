@@ -6,7 +6,7 @@ workflows:
       ios_signing:
         distribution_type: app_store  
         bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
-        development_team: Jeffrey Wayne Birge
+        development_team: XAJF22HXCQ
       node: latest  # Use the latest Node.js version
     scripts:
       - name: Install npm dependencies and update Cordova version
