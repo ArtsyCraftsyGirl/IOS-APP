@@ -1,10 +1,9 @@
 workflows:
   ios-workflow:
-    name: Cordova iOS Workflow
-    max_build_duration: 120
+    name: iOS Workflow
     environment:
       ios_signing:
-        distribution_type: app_store  
+        distribution_type: app_store
         bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
         development_team: XAJF22HXCQ
       node: latest  # Use the latest Node.js version
