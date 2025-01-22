@@ -1,11 +1,10 @@
 {
-    "android": {
-        "release": {
-            "keystore": "C:\\Users\\Ehllen Joy\\Desktop\\jbpaladin\\jbpaladinclock.jks",
-            "storePassword": "jbpaladin",
-            "alias": "ellie",
-            "password": "jbpaladin",
-            "keystoreType": "jks"
-        }
+  "ios": {
+    "release": {
+      "codeSignIdentity": "iPhone Distribution",  // Use "iPhone Distribution" for App Store distribution
+      "provisioningProfile": "my_app_distribution_profile",  // Replace with your provisioning profile name
+      "developmentTeam": "XAJF22HXCQ",  // Optional, if needed
+      "packageType": "app-store"  // Use "app-store" for App Store distribution
     }
+  }
 }
