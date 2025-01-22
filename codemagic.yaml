@@ -3,10 +3,6 @@ workflows:
     name: Cordova iOS Workflow
     max_build_duration: 120
     environment:
-      vars:
-        # Update with your app's actual workspace and scheme if needed
-        # XCODE_WORKSPACE: "platforms/ios/YOUR_APP.xcworkspace"
-        # XCODE_SCHEME: "YOUR_SCHEME"
     scripts:
       - name: Install npm dependencies and update Cordova version
         script: | 
