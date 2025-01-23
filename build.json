@@ -2,7 +2,7 @@
   "ios": {
     "release": {
       "codeSignIdentity": "iPhone Distribution",
-      "provisioningProfile": "MyApp Distribution Profile",
+      "provisioningProfile": "MyApp Distribution Profile",  // Replace with your actual provisioning profile name
       "developmentTeam": "XAJF22HXCQ",
       "packageType": "app-store",
       "bundleIdentifier": "com.jbpaladinpatriotsclock.jbpaladinpatriotsclock"
