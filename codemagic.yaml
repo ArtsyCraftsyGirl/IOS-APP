@@ -6,7 +6,7 @@ workflows:
     environment:
       ios_signing:
         distribution_type: app_store
-        bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock  # Your actual bundle identifier
+        bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
     scripts:
       - name: Install CocoaPods dependencies
         script: |
@@ -16,6 +16,7 @@ workflows:
         script: |
           xcode-project build-ipa \
           --workspace "$CM_BUILD_DIR/platforms/ios/JbPaladinPatriotsClock.xcworkspace" \
-          --scheme "JbPaladinPatriotsClock"  # Ensure this matches your scheme name
+          --scheme "JbPaladinPatriotsClock" \
+          --export-options-plist "$CM_BUILD_DIR/export_options.plist"
     artifacts:
       - build/ios/ipa/*.ipa
