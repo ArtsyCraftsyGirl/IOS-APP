@@ -1,29 +1,21 @@
 workflows:
   ios-workflow:
-    name: Cordova iOS Workflow
+    name: iOS Workflow
     max_build_duration: 120
+    instance_type: mac_mini_m2
+    environment:
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock  # Your actual bundle identifier
     scripts:
-      - name: Install npm dependencies and update Cordova version
-        script: | 
-          npm install
-          npm ci  # equivalent of npm install for CI systems
-          cvm install 12.0.0  # Specify your Cordova version
-          cvm use 12.0.0 
-      - name: Setup Cordova iOS platform
-        script: | 
-          cordova platform remove ios --nosave
-          cordova platform add ios \
-            --confirm \
-            --no-interactive \
-            --noresources
-      - name: Cocoapods installation
-        script: | 
-          cd platforms/ios && pod install
+      - name: Install CocoaPods dependencies
+        script: |
+          cd platforms/ios
+          pod install
       - name: Build ipa for distribution
-        script: | 
-          cordova build ios --release --device --buildConfig='build.json'
+        script: |
+          xcode-project build-ipa \
+          --workspace "$CM_BUILD_DIR/platforms/ios/JbPaladinPatriotsClock.xcworkspace" \
+          --scheme "JbPaladinPatriotsClock"  # Ensure this matches your scheme name
     artifacts:
       - build/ios/ipa/*.ipa
-      - /tmp/xcodebuild_logs/*.log
-      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
-      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
