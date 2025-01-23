@@ -3,13 +3,10 @@
 <plist version="1.0">
 <dict>
     <key>method</key>
-    <string>app-store</string> <!-- or 'ad-hoc', 'development', etc. -->
-    <key>provisioningProfiles</key>
-    <dict>
-        <key>com.jbpaladinpatriotsclock.jbpaladinpatriotsclock</key>
-        <string>MyApp Distribution Profile</string>
-    </dict>
-    <key>signingStyle</key>
-    <string>automatic</string>
+    <string>app-store</string>
+    <key>uploadBitcode</key>
+    <true/>
+    <key>teamID</key>
+    <string>XAJF22HXCQ</string> <!-- Replace with your actual team ID -->
 </dict>
 </plist>
