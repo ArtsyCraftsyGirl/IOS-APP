@@ -18,6 +18,6 @@ workflows:
           --workspace "$CM_BUILD_DIR/platforms/ios/JbPaladinPatriotsClock.xcworkspace" \
           --scheme "JbPaladinPatriotsClock" \
           --export-options-plist "$CM_BUILD_DIR/export_options.plist" \
-          --target "ios"  # Specify the target as iOS
+          --target "JbPaladinPatriotsClock"  # Specify the correct target name
     artifacts:
       - build/ios/ipa/*.ipa
