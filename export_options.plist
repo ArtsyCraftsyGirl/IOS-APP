@@ -7,6 +7,11 @@
     <key>uploadBitcode</key>
     <true/>
     <key>teamID</key>
-    <string>XAJF22HXCQ</string> <!-- Replace with your actual team ID -->
+    <string>XAJF22HXCQ</string>
+    <key>provisioningProfiles</key>
+    <dict>
+        <key>com.jbpaladinpatriotsclock.jbpaladinpatriotsclock</key>
+        <string>MyApp Distribution Profile</string> <!-- Replace with your actual provisioning profile name -->
+    </dict>
 </dict>
 </plist>
