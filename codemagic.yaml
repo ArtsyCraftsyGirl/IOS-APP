@@ -12,14 +12,12 @@ workflows:
         script: |
           cd platforms/ios
           pod install
-      - name: Check xcode-project version
-        script: |
-          xcode-project --version
       - name: Build ipa for distribution
         script: |
           xcode-project build-ipa \
           --workspace "$CM_BUILD_DIR/platforms/ios/JbPaladinPatriotsClock.xcworkspace" \
           --scheme "JbPaladinPatriotsClock" \
-          --export-options-plist "$CM_BUILD_DIR/export_options.plist"
+          --export-options-plist "$CM_BUILD_DIR/export_options.plist" \
+          --configuration "Debug"  # Specify Debug configuration for simulator
     artifacts:
       - build/ios/ipa/*.ipa
