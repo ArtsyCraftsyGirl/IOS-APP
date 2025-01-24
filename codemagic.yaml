@@ -3,58 +3,29 @@ workflows:
     name: iOS Workflow
     max_build_duration: 120
     integrations:
-      app_store_connect: MyApp API Key
-    environments:
+      app_store_connect:
+        auth: MyApp API Key 
+    environment:
       ios_signing:
         distribution_type: app_store
-        bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
+        bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock  
+    scripts:
+      - name: Install npm dependencies
+        script: |
+          npm install
+          npm ci
+      - name: Setup Cordova iOS platform
         script: |
           cordova platform remove ios --nosave
-          cordova platform add ios --save
-          cordova prepare
+          cordova platform add ios --confirm --no-interactive --noresources --save
+      - name: Build IPA for distribution
         script: |
-          xcode-project use-profiles
-
-      - name: Build ipa for distribution
-        script: |
-          package_type=$(defaults read ~/export_options.plist method)
-          identity=$(defaults read ~/export_options.plist signingCertificate)
-          team=$(defaults read ~/export_options.plist teamID)
-          profile=$(find '/Users/builder/Library/MobileDevice/Provisioning Profiles' -name "*.mobileprovision")
-          profile_uuid=$(grep UUID -A1 -a "$profile" | grep -io "[-A-F0-9]\{36\}")
-
-          cat <<EOF > build.json
-          {
-            "ios": {
-              "release": {
-                "codeSignIdentity": "$identity",
-                "developmentTeam": "$team",
-                "packageType": "$package_type",
-                "provisioningProfile": "$profile_uuid"
-              }
-            }
-          }EOF
-          cordova build ios --release --device --archs armv7 arm64
-
-      - name: Generate archive and ipa file
-        script: |
-          export CODESIGNIDENTITY=$identity
-          export DEVELOPMENT_TEAM=$team
-          xcode-archive -archivePath ~/Documents/archive.xcarchive --exportOptionsPlist build.json
-          xcode-export -archivePath ~/Documents/archive.xcarchive -exportPath ~/Documents/export.ipa
-
+          cordova build ios --release --device
     artifacts:
-      - '/Users/builder/Documents/export.ipa'
-
+      - platforms/ios/build/device/*.ipa
     publishing:
-      email:
-        recipients:
-          - jbpaladin122@gmail.com
-        notify:
-          success: true
-          failure: false
       app_store_connect:
-        auth: integration
+        auth: MyApp API Key  # Reference your API key here
         submit_to_testflight: true
         beta_groups:
           - group name 1
