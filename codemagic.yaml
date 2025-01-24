@@ -13,20 +13,23 @@ workflows:
         script: |
           cd platforms/ios
           pod install
-      - name: Build ipa for distribution
+      - name: Archive the app
         script: |
           cd platforms/ios
           xcodebuild \
             -workspace "$CM_BUILD_DIR/platforms/ios/JbPaladinPatriotsClock.xcworkspace" \
             -scheme "JbPaladinPatriotsClock" \
-            -configuration Release \
+            -archivePath "$CM_BUILD_DIR/platforms/ios/JbPaladinPatriotsClock.xcarchive" \
             CODE_SIGN_STYLE=Manual \
             CODE_SIGN_IDENTITY="Apple Distribution" \
             PROVISIONING_PROFILE_SPECIFIER="JbPaladinPatriotsClock Distribution Profile" \
-            archive
+            archive \
+            -allowProvisioningUpdates \
+            -verbose
+      - name: Export the ipa
+        script: |
           xcodebuild -exportArchive \
             -archivePath "$CM_BUILD_DIR/platforms/ios/JbPaladinPatriotsClock.xcarchive" \
-            -exportOptionsPlist "$CM_BUILD_DIR/export_options.plist" \
-            -exportOptionsplistPath "$CM_BUILD_DIR/export_options.plist"
+            -exportOptionsPlist "$CM_BUILD_DIR/export_options.plist"
     artifacts:
       - build/ios/ipa/*.ipa
