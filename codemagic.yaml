@@ -8,8 +8,6 @@ workflows:
       ios_signing:
         distribution_type: app_store
         bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
-    steps:
-      - name: Setup Cordova iOS platform
         script: |
           cordova platform remove ios --nosave
           cordova platform add ios --save
