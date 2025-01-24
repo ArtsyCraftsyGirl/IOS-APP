@@ -5,8 +5,9 @@ workflows:
     instance_type: mac_mini_m2
     environment:
       ios_signing:
-        distribution_type: app_store  # or ad_hoc, depending on your needs
-        bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
+        distribution_type: app_store  
+        provisioning_profiles:
+          - "JbPaladinPatriotsClock Distribution Profile"  
     scripts:
       - name: Install CocoaPods dependencies
         script: |
