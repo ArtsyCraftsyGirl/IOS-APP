@@ -11,7 +11,7 @@
     <key>provisioningProfiles</key>
     <dict>
         <key>com.jbpaladinpatriotsclock.jbpaladinpatriotsclock</key>
-        <string>MyApp Distribution Profile</string> 
+        <string>JbPaladinPatriotsClock Distribution Profile</string> 
     </dict>
 </dict>
 </plist>
