@@ -12,8 +12,6 @@ workflows:
           cordova platform remove ios --nosave
           cordova platform add ios --save
           cordova prepare
-
-      - name: Set up code signing settings on Xcode project
         script: |
           xcode-project use-profiles
 
