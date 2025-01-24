@@ -4,25 +4,23 @@ workflows:
     max_build_duration: 120
     integrations:
       app_store_connect: MyApp API Key
-    environment:
+    environments:
       ios_signing:
         distribution_type: app_store
         bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
-      # Setup Cordova iOS platform
-      -  name: Setup Cordova iOS platform
-         script: | 
-           cordova platform remove ios --nosave
-           cordova platform add ios --save
-           cordova prepare
+    steps:
+      - name: Setup Cordova iOS platform
+        script: |
+          cordova platform remove ios --nosave
+          cordova platform add ios --save
+          cordova prepare
 
-      # Set up code signing settings on Xcode project
       - name: Set up code signing settings on Xcode project
-        script: | 
+        script: |
           xcode-project use-profiles
 
-      # Build ipa for distribution
       - name: Build ipa for distribution
-        script: | 
+        script: |
           package_type=$(defaults read ~/export_options.plist method)
           identity=$(defaults read ~/export_options.plist signingCertificate)
           team=$(defaults read ~/export_options.plist teamID)
@@ -42,9 +40,8 @@ workflows:
           }EOF
           cordova build ios --release --device --archs armv7 arm64
 
-      # Generate archive and ipa file
       - name: Generate archive and ipa file
-        script: | 
+        script: |
           export CODESIGNIDENTITY=$identity
           export DEVELOPMENT_TEAM=$team
           xcode-archive -archivePath ~/Documents/archive.xcarchive --exportOptionsPlist build.json
