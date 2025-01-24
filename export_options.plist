@@ -4,14 +4,14 @@
 <dict>
     <key>method</key>
     <string>app-store</string>
-    <key>uploadBitcode</key>
-    <true/>
-    <key>teamID</key>
-    <string>XAJF22HXCQ</string>
     <key>provisioningProfiles</key>
     <dict>
         <key>com.jbpaladinpatriotsclock.jbpaladinpatriotsclock</key>
         <string>JbPaladinPatriotsClock Distribution Profile</string>
     </dict>
+    <key>signingStyle</key>
+    <string>manual</string>
+    <key>teamID</key>
+    <string>XAJF22HXCQ</string>
 </dict>
 </plist>
