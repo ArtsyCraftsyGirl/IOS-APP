@@ -468,6 +468,9 @@
 					"$(inherited)",
 					"\"JbPaladinPatriotsClock/Plugins/cordova-plugin-native-keyboard\"",
 				);
+				CODE_SIGN_STYLE = Manual;  
+				PROVISIONING_PROFILE = "MyApp Distribution Profile"; 
+				CODE_SIGN_IDENTITY = "iPhone Distribution"; 
 			};
 			name = Debug;
 		};
@@ -488,7 +491,7 @@
 				INFOPLIST_FILE = "JbPaladinPatriotsClock/JbPaladinPatriotsClock-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.jbpaladinpatriotsclock;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jbpaladinpatriotsclock.jbpaladinpatriotsclock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -497,6 +500,9 @@
 					"$(inherited)",
 					"\"JbPaladinPatriotsClock/Plugins/cordova-plugin-native-keyboard\"",
 				);
+				CODE_SIGN_STYLE = Manual;  
+				PROVISIONING_PROFILE = "MyApp Distribution Profile"; 
+				CODE_SIGN_IDENTITY = "iPhone Distribution"; 
 			};
 			name = Release;
 		};
