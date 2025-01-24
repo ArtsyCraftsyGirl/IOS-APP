@@ -8,16 +8,6 @@ workflows:
       ios_signing:
         distribution_type: app_store
         bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
-    scripts:
-      # Install Cordova dependencies and plugins
-      - name: Install Cordova dependencies and plugins
-        script: |
-          npm install
-          npm ci
-          cordova plugin add cordova-plugin-device
-          cordova plugin add cordova-plugin-geolocation
-          cordova plugin add cordova-plugin-camera
-
       # Setup Cordova iOS platform
       -  name: Setup Cordova iOS platform
          script: | 
