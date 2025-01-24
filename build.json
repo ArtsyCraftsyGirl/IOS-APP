@@ -1,10 +1,10 @@
 {
   "ios": {
     "release": {
-      "codeSignIdentity": "iPhone Distribution",
-      "provisioningProfile": "my_app_distribution_profile",  
+      "codeSignIdentity": "Apple Distribution",
+      "provisioningProfile": "JbPaladinPatriotsClock Distribution Profile",  
       "developmentTeam": "XAJF22HXCQ",
-      "packageType": "app-store",
+      "packageType": "app_store",
       "bundleIdentifier": "com.jbpaladinpatriotsclock.jbpaladinpatriotsclock"
     }
   }
