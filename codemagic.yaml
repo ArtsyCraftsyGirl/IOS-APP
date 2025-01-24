@@ -4,11 +4,11 @@ workflows:
     max_build_duration: 120
     integrations:
       app_store_connect:
-        auth: integration  # Use "integration" as the value
+        auth: integration  
     environment:
       ios_signing:
         distribution_type: app_store
-        bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock  # Your specified bundle identifier
+        bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock  
     scripts:
       - name: Install npm dependencies
         script: |
@@ -25,7 +25,7 @@ workflows:
       - platforms/ios/build/device/*.ipa
     publishing:
       app_store_connect:
-        auth: integration  # Use "integration" here as well
+        auth: integration  
         submit_to_testflight: true
         beta_groups:
           - group name 1
