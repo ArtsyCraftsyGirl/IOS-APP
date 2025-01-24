@@ -1,11 +1,12 @@
 workflows:
   ios-workflow:
     name: iOS Workflow
+    group: beta-release  
     max_build_duration: 120
     instance_type: mac_mini_m2
     environment:
       ios_signing:
-        distribution_type: app_store  
+        distribution_type: app_store  # or ad_hoc, depending on your needs
         bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
     scripts:
       - name: Install CocoaPods dependencies
