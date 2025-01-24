@@ -2,34 +2,78 @@ workflows:
   ios-workflow:
     name: iOS Workflow
     max_build_duration: 120
-    instance_type: mac_mini_m2
+    integrations:
+      app_store_connect: codemagic
     environment:
       ios_signing:
         distribution_type: app_store
-        provisioning_profiles:
-          - "JbPaladinPatriotsClock Distribution Profile"
+        bundle_identifier: io.cordova.example
     scripts:
-      - name: Install CocoaPods dependencies
+      # Install Cordova dependencies and plugins
+      - name: Install Cordova dependencies and plugins
         script: |
-          cd platforms/ios
-          pod install
-      - name: Archive the app
-        script: |
-          cd platforms/ios
-          xcodebuild \
-            -workspace "$CM_BUILD_DIR/platforms/ios/JbPaladinPatriotsClock.xcworkspace" \
-            -scheme "JbPaladinPatriotsClock" \
-            -archivePath "$CM_BUILD_DIR/platforms/ios/JbPaladinPatriotsClock.xcarchive" \
-            CODE_SIGN_STYLE=Manual \
-            CODE_SIGN_IDENTITY="Apple Distribution" \
-            PROVISIONING_PROFILE_SPECIFIER="JbPaladinPatriotsClock Distribution Profile" \
-            archive \
-            -allowProvisioningUpdates \
-            -verbose
-      - name: Export the ipa
-        script: |
-          xcodebuild -exportArchive \
-            -archivePath "$CM_BUILD_DIR/platforms/ios/JbPaladinPatriotsClock.xcarchive" \
-            -exportOptionsPlist "$CM_BUILD_DIR/export_options.plist"
+          npm install
+          npm ci
+          cordova plugin add cordova-plugin-device
+          cordova plugin add cordova-plugin-geolocation
+          cordova plugin add cordova-plugin-camera
+
+      # Setup Cordova iOS platform
+      -  name: Setup Cordova iOS platform
+         script: | 
+           cordova platform remove ios --nosave
+           cordova platform add ios --save
+           cordova prepare
+
+      # Set up code signing settings on Xcode project
+      - name: Set up code signing settings on Xcode project
+        script: | 
+          xcode-project use-profiles
+
+      # Build ipa for distribution
+      - name: Build ipa for distribution
+        script: | 
+          package_type=$(defaults read ~/export_options.plist method)
+          identity=$(defaults read ~/export_options.plist signingCertificate)
+          team=$(defaults read ~/export_options.plist teamID)
+          profile=$(find '/Users/builder/Library/MobileDevice/Provisioning Profiles' -name "*.mobileprovision")
+          profile_uuid=$(grep UUID -A1 -a "$profile" | grep -io "[-A-F0-9]\{36\}")
+
+          cat <<EOF > build.json
+          {
+            "ios": {
+              "release": {
+                "codeSignIdentity": "$identity",
+                "developmentTeam": "$team",
+                "packageType": "$package_type",
+                "provisioningProfile": "$profile_uuid"
+              }
+            }
+          }EOF
+          cordova build ios --release --device --archs armv7 arm64
+
+      # Generate archive and ipa file
+      - name: Generate archive and ipa file
+        script: | 
+          export CODESIGNIDENTITY=$identity
+          export DEVELOPMENT_TEAM=$team
+          xcode-archive -archivePath ~/Documents/archive.xcarchive --exportOptionsPlist build.json
+          xcode-export -archivePath ~/Documents/archive.xcarchive -exportPath ~/Documents/export.ipa
+
     artifacts:
-      - build/ios/ipa/*.ipa
+      - '/Users/builder/Documents/export.ipa'
+
+    publishing:
+      email:
+        recipients:
+          - jbpaladin122@gmail.com
+        notify:
+          success: true
+          failure: false
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
+        beta_groups:
+          - group name 1
+          - group name 2
+        submit_to_app_store: false
