@@ -469,7 +469,7 @@
 					"\"JbPaladinPatriotsClock/Plugins/cordova-plugin-native-keyboard\"",
 				);
 				CODE_SIGN_STYLE = Manual;  
-				PROVISIONING_PROFILE = "MyApp Distribution Profile"; 
+				PROVISIONING_PROFILE = "my_app_distribution_profile"; 
 				CODE_SIGN_IDENTITY = "iPhone Distribution"; 
 			};
 			name = Debug;
@@ -501,7 +501,7 @@
 					"\"JbPaladinPatriotsClock/Plugins/cordova-plugin-native-keyboard\"",
 				);
 				CODE_SIGN_STYLE = Manual;  
-				PROVISIONING_PROFILE = "MyApp Distribution Profile"; 
+				PROVISIONING_PROFILE = "my_app_distribution_profile"; 
 				CODE_SIGN_IDENTITY = "iPhone Distribution"; 
 			};
 			name = Release;
