@@ -2,22 +2,74 @@ workflows:
   ios-workflow:
     name: iOS Workflow
     max_build_duration: 120
+    integrations:
+      app_store_connect: codemagic
     environment:
       ios_signing:
         distribution_type: app_store
-        bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock  
+        bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
     scripts:
-      - name: Install npm dependencies
-        script: |
+      - name: Install npm dependencies and update Cordova version
+        script: | 
           npm install
-          npm ci
-      - name: Setup Cordova iOS platform
-        script: |
-          cordova platform remove ios --nosave
-          cordova platform add ios --confirm --no-interactive --noresources --save
-      - name: Build IPA for distribution
-        script: |
-          cordova build ios --release --device
-    artifacts:
-      - platforms/ios/build/device/*.ipa
+          npm ci # equivalent of npm install for CI systems.
+            # Requires package-lock.json or npm-shrinkwrap.json to be present
+          cvm install 9.0.0
+          cvm use 9.0.0
+          npm install -g ionic
+          ionic info  
+      -  name: Setup Cordova iOS platform
+         script: | 
+           ionic cordova platform remove ios --nosave
+           ionic cordova platform add ios \
+             --confirm \
+             --no-interactive \
+             --noresources \
+             --save
+      - name: Set up code signing settings on Xcode project
+        script: | 
+          xcode-project use-profiles
+      - name: Build ipa for distribution
+        script: | 
+          package_type=$(defaults read ~/export_options.plist method)
+          identity=$(defaults read ~/export_options.plist signingCertificate)
+          team=$(defaults read ~/export_options.plist teamID)
+          profile=$(find '/Users/builder/Library/MobileDevice/Provisioning Profiles' -name "*.mobileprovision")
+          profile_uuid=$(grep UUID -A1 -a "$profile" | grep -io "[-A-F0-9]\{36\}")
 
+          cat <<EOF > build.json
+          {
+            "ios": {
+              "release": {
+                "codeSignIdentity": "$identity",
+                "developmentTeam": "$team",
+                "packageType": "$package_type",
+                "provisioningProfile": "$profile_uuid"
+              }
+            }
+          }EOF
+          cordova build ios --release --device --buildConfig='build.json'
+    artifacts:
+      - /Users/builder/clone/platforms/ios/build/device/*.ipa
+      - /tmp/xcodebuild_logs/*.log 
+    publishing:
+      email:
+        recipients:
+          - jbpaladin122@gmail.com
+          - ehllenjoyquezada.creative@gmail.com
+        notify:
+          success: true
+          failure: false
+      app_store_connect:
+        auth: integration
+
+        # Configuration related to TestFlight (optional)
+        # Note: This action is performed during post-processing.
+        submit_to_testflight: true
+        beta_groups: # Specify the names of beta tester groups that will get access to the build once it has passed beta review.
+          - group name 1
+          - group name 2
+
+        # Configuration related to App Store (optional)
+        # Note: This action is performed during post-processing.
+        submit_to_app_store: false
