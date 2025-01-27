@@ -48,4 +48,10 @@ workflows:
     artifacts:
       - /Users/builder/clone/platforms/ios/build/device/*.ipa
       - /tmp/xcodebuild_logs/*.log 
+      publishing:
+  github:
+    repo: ArtsyCraftsyGirl/IOS-APP
+    path: ELLIE/                      
+    token: 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            
+    branch: master  
 
