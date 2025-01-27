@@ -2,8 +2,6 @@ workflows:
   ios-workflow:
     name: iOS Workflow
     max_build_duration: 120
-    integrations:
-     app_store_connect: codemagic 
     environment:
       ios_signing:
         distribution_type: app_store
@@ -12,20 +10,19 @@ workflows:
       - name: Install npm dependencies and update Cordova version
         script: | 
           npm install
-          npm ci # equivalent of npm install for CI systems.
-            # Requires package-lock.json or npm-shrinkwrap.json to be present
+          npm ci
           cvm install 9.0.0
           cvm use 9.0.0
           npm install -g ionic
           ionic info  
-      -  name: Setup Cordova iOS platform
-         script: | 
-           ionic cordova platform remove ios --nosave
-           ionic cordova platform add ios \
-             --confirm \
-             --no-interactive \
-             --noresources \
-             --save
+      - name: Setup Cordova iOS platform
+        script: | 
+          ionic cordova platform remove ios --nosave
+          ionic cordova platform add ios \
+            --confirm \
+            --no-interactive \
+            --noresources \
+            --save
       - name: Set up code signing settings on Xcode project
         script: | 
           xcode-project use-profiles
@@ -61,15 +58,13 @@ workflows:
           success: true
           failure: false
       app_store_connect:
-        auth: integration
+        auth: integration  # This should reference the integration you set up
 
         # Configuration related to TestFlight (optional)
-        # Note: This action is performed during post-processing.
         submit_to_testflight: true
-        beta_groups: # Specify the names of beta tester groups that will get access to the build once it has passed beta review.
+        beta_groups:
           - group name 1
           - group name 2
 
         # Configuration related to App Store (optional)
-        # Note: This action is performed during post-processing.
         submit_to_app_store: false
