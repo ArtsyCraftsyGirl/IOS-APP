@@ -11,17 +11,17 @@ workflows:
         script: | 
           npm install
           npm ci # equivalent of npm install for CI systems.
-            # Requires package-lock.json or npm-shrinkwrap.json to be present
+          # Requires package-lock.json or npm-shrinkwrap.json to be present
           cvm install 9.0.0
           cvm use 9.0.0
-      -  name: Setup Cordova iOS platform
-         script: | 
-            cordova platform remove ios --nosave
-            cordova platform add ios \
-             --confirm \
-             --no-interactive \
-             --noresources \
-             --save
+      - name: Setup Cordova iOS platform
+        script: | 
+          cordova platform remove ios --nosave
+          cordova platform add ios \
+            --confirm \
+            --no-interactive \
+            --noresources \
+            --save
       - name: Set up code signing settings on Xcode project
         script: | 
           xcode-project use-profiles
@@ -47,11 +47,10 @@ workflows:
           cordova build ios --release --device --buildConfig='build.json'
     artifacts:
       - /Users/builder/clone/platforms/ios/build/device/*.ipa
-      - /tmp/xcodebuild_logs/*.log 
-      publishing:
-  github:
-    repo: ArtsyCraftsyGirl/IOS-APP
-    path: ELLIE/                      
-    token: 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            
-    branch: master  
-
+      - /tmp/xcodebuild_logs/*.log
+    publishing:
+      github:
+        repo: ArtsyCraftsyGirl/IOS-APP
+        path: ELLIE/                       
+        token: Encrypted(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)            
+        branch: master
