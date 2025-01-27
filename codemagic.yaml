@@ -48,4 +48,10 @@ workflows:
     artifacts:
       - /Users/builder/clone/platforms/ios/build/device/*.ipa
       - /tmp/xcodebuild_logs/*.log 
-
+publishing:
+  email:
+    recipients:
+      - jbpaladin122@gmail.com
+    notify:
+      success: true  
+      failure: false  
