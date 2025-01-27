@@ -54,4 +54,4 @@ workflows:
         notify:
           success: true
           failure: true
-          publish_artifacts_even_if_tests_fail: true
+      
