@@ -11,7 +11,6 @@ workflows:
         script: | 
           npm install
           npm ci # equivalent of npm install for CI systems.
-          # Requires package-lock.json or npm-shrinkwrap.json to be present
           cvm install 9.0.0
           cvm use 9.0.0
       - name: Setup Cordova iOS platform
@@ -49,8 +48,9 @@ workflows:
       - /Users/builder/clone/platforms/ios/build/device/*.ipa
       - /tmp/xcodebuild_logs/*.log
     publishing:
-      github:
-        repo: ArtsyCraftsyGirl/IOS-APP
-        path: ELLIE/                       
-        token: Encrypted(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)            
-        branch: master
+      email:
+        recipients:
+          - ehllenjoyquezada.creative@gmail.com
+        notify:
+          success: true
+          failure: true
