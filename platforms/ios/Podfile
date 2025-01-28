@@ -13,13 +13,4 @@ target 'JbPaladinPatriotsClock' do
 
 end
 
-# Add a new target for macCatalyst
-target 'JbPaladinPatriotsClock macCatalyst' do
-  platform :macos, '11.0'
-  project 'JbPaladinPatriotsClock.xcodeproj'
-  
-  # Include NativeKeyboard if required
-  # Uncomment and configure if you need to link with it
-  # pod 'NativeKeyboard' # Specify the version if applicable
-  
-end
+
