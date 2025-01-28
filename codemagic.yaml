@@ -19,11 +19,12 @@ workflows:
         script: |
           cd platforms/ios  # Change directory to where the Podfile is located
           pod install  # Install CocoaPods dependencies
-      - name: Verify export_options.plist
+      - name: Remove iOS Platform
         script: |
-          echo "Current Directory: $(pwd)"
-          echo "Contents of current directory:"
-          ls -la
+          cordova platform rm ios  # Remove the iOS platform
+      - name: Add iOS Platform
+        script: |
+          cordova platform add ios  # Add the iOS platform again
       - name: Build IPA for Distribution
         script: |
           xcode-project build-ipa \
