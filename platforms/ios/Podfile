@@ -3,6 +3,23 @@
 platform :ios, '12.0'
 
 target 'JbPaladinPatriotsClock' do
-	project 'JbPaladinPatriotsClock.xcodeproj'
+  project 'JbPaladinPatriotsClock.xcodeproj'
+  
+  # Add this line if your app uses NativeKeyboard or other CocoaPods dependencies
+  # Use_frameworks! allows usage of dynamic frameworks
 
+  # Add any other pod dependencies if needed
+  # pod 'NativeKeyboard' # Uncomment and specify version if applicable
+
+end
+
+# Add a new target for macCatalyst
+target 'JbPaladinPatriotsClock macCatalyst' do
+  platform :macos, '11.0'
+  project 'JbPaladinPatriotsClock.xcodeproj'
+  
+  # Include NativeKeyboard if required
+  # Uncomment and configure if you need to link with it
+  # pod 'NativeKeyboard' # Specify the version if applicable
+  
 end
