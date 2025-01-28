@@ -32,7 +32,6 @@
 		2841E3E07A494130B6AE4B7D /* CDVWKProcessPoolFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747FE3392904559808F2BD7 /* CDVWKProcessPoolFactory.m */; };
 		581FECB2F6524B339B9AF03E /* IONAssetHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B8D9D1309164939A7805F2A /* IONAssetHandler.m */; };
 		5605774FBB674D9C9C712552 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33E3FB8094FC42E7B843D311 /* WebKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		C1277273324D47AE84560458 /* CDVNativeKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = B673058B3C6A49718C49BCCB /* CDVNativeKeyboard.m */; };
 		E75B191A323249F697A74B7A /* NKSLKTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D7E22CE5034E479968CFE0 /* NKSLKTextViewController.m */; };
 		02D591F3A6724D15AFD60B73 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C597A8001A4B4EB4B9CA2655 /* FontAwesome.ttf */; };
 		413F8211A6734582BD56A5AC /* ionicons.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2899B54179484A928A694BC0 /* ionicons.bundle */; };
