@@ -153,7 +153,6 @@
 			files = (
 				301BF552109A68D80062928A /* libCordova.a in Frameworks */,
 				5605774FBB674D9C9C712552 /* WebKit.framework in Frameworks */,
-				D5FDBDAFCC034B67B8C8261E /* NativeKeyboard.framework in Frameworks */,
 				DB06CB4FF27F469AA54A1C6E /* ImageIO.framework in Frameworks */,
 				25519F99D4184C26AD5C7012 /* CoreLocation.framework in Frameworks */,
 				937B6CCC0E764FEA9916A288 /* AVFoundation.framework in Frameworks */,
