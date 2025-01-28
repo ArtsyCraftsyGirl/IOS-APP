@@ -32,9 +32,6 @@
 		2841E3E07A494130B6AE4B7D /* CDVWKProcessPoolFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747FE3392904559808F2BD7 /* CDVWKProcessPoolFactory.m */; };
 		581FECB2F6524B339B9AF03E /* IONAssetHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B8D9D1309164939A7805F2A /* IONAssetHandler.m */; };
 		5605774FBB674D9C9C712552 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33E3FB8094FC42E7B843D311 /* WebKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		E75B191A323249F697A74B7A /* NKSLKTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D7E22CE5034E479968CFE0 /* NKSLKTextViewController.m */; };
-		02D591F3A6724D15AFD60B73 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C597A8001A4B4EB4B9CA2655 /* FontAwesome.ttf */; };
-		413F8211A6734582BD56A5AC /* ionicons.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2899B54179484A928A694BC0 /* ionicons.bundle */; };
 		540F5A0C51F640899B018AB5 /* UIImage+CropScaleOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D2842412CA34A5B8C8D73E3 /* UIImage+CropScaleOrientation.m */; };
 		9A94FB102B5A4BE39895AB71 /* CDVCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = AE7B981584E94C1DAF14F0C3 /* CDVCamera.m */; };
 		7CA7A125FEFB4254A782A576 /* CDVJpegHeaderWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0B962AF8F840F5B5910B17 /* CDVJpegHeaderWriter.m */; };
@@ -130,8 +127,6 @@
 		9CE72F8F424F42D99F8D44EC /* CDVWKProcessPoolFactory.h */ = {isa = PBXFileReference; name = "CDVWKProcessPoolFactory.h"; path = "cordova-plugin-ionic-webview/CDVWKProcessPoolFactory.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 		8C5E9227DC604A48A5BAD34C /* IONAssetHandler.h */ = {isa = PBXFileReference; name = "IONAssetHandler.h"; path = "cordova-plugin-ionic-webview/IONAssetHandler.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 		33E3FB8094FC42E7B843D311 /* WebKit.framework */ = {isa = PBXFileReference; name = "WebKit.framework"; path = "System/Library/Frameworks/WebKit.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
-		C597A8001A4B4EB4B9CA2655 /* FontAwesome.ttf */ = {isa = PBXFileReference; name = "FontAwesome.ttf"; path = "FontAwesome.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		2899B54179484A928A694BC0 /* ionicons.bundle */ = {isa = PBXFileReference; name = "ionicons.bundle"; path = "ionicons.bundle"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.plug-in; explicitFileType = undefined; includeInIndex = 0; };
 		2D2842412CA34A5B8C8D73E3 /* UIImage+CropScaleOrientation.m */ = {isa = PBXFileReference; name = "UIImage+CropScaleOrientation.m"; path = "cordova-plugin-camera/UIImage+CropScaleOrientation.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
 		AE7B981584E94C1DAF14F0C3 /* CDVCamera.m */ = {isa = PBXFileReference; name = "CDVCamera.m"; path = "cordova-plugin-camera/CDVCamera.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
 		1A0B962AF8F840F5B5910B17 /* CDVJpegHeaderWriter.m */ = {isa = PBXFileReference; name = "CDVJpegHeaderWriter.m"; path = "cordova-plugin-camera/CDVJpegHeaderWriter.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
@@ -211,8 +206,6 @@
 				4C27BFA6748E42A2B972A5A8 /* CDVDevice.bundle */,
 				D94F23CCA52445A98BFDD301 /* CDVFile.bundle */,
 				12F6BE4295984FBB884E5D21 /* appbeep.wav */,
-				C597A8001A4B4EB4B9CA2655 /* FontAwesome.ttf */,
-				2899B54179484A928A694BC0 /* ionicons.bundle */,
 			);
 			name = Resources;
 			path = "JbPaladinPatriotsClock/Resources";
@@ -273,8 +266,6 @@
 				CB3B65225962466B9C76DE4E /* CDVWKWebViewUIDelegate.h */,
 				9CE72F8F424F42D99F8D44EC /* CDVWKProcessPoolFactory.h */,
 				8C5E9227DC604A48A5BAD34C /* IONAssetHandler.h */,
-				04D7E22CE5034E479968CFE0 /* NKSLKTextViewController.m */,
-				90DC29C6F0764337BB752932 /* NKSLKTextViewController.h */,
 				2D2842412CA34A5B8C8D73E3 /* UIImage+CropScaleOrientation.m */,
 				AE7B981584E94C1DAF14F0C3 /* CDVCamera.m */,
 				1A0B962AF8F840F5B5910B17 /* CDVJpegHeaderWriter.m */,
@@ -384,8 +375,6 @@
 				0A7D3EEC1C574BA88E613996 /* CDVDevice.bundle in Resources */,
 				4F8D467BC4D44ED2A475A26A /* CDVFile.bundle in Resources */,
 				E1620EDE8FA24C419752B7AE /* appbeep.wav in Resources */,
-				02D591F3A6724D15AFD60B73 /* FontAwesome.ttf in Resources */,
-				413F8211A6734582BD56A5AC /* ionicons.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,7 +399,6 @@
 				A158F303D413473CA0A05C37 /* CDVWKWebViewUIDelegate.m in Sources */,
 				2841E3E07A494130B6AE4B7D /* CDVWKProcessPoolFactory.m in Sources */,
 				581FECB2F6524B339B9AF03E /* IONAssetHandler.m in Sources */,
-				E75B191A323249F697A74B7A /* NKSLKTextViewController.m in Sources */,
 				540F5A0C51F640899B018AB5 /* UIImage+CropScaleOrientation.m in Sources */,
 				9A94FB102B5A4BE39895AB71 /* CDVCamera.m in Sources */,
 				7CA7A125FEFB4254A782A576 /* CDVJpegHeaderWriter.m in Sources */,
@@ -454,8 +442,7 @@
 				VALIDATE_WORKSPACE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					
-				);
+									);
 			};
 			name = Debug;
 		};
@@ -483,8 +470,7 @@
 				VALIDATE_WORKSPACE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-				
-				);
+									);
 			};
 			name = Release;
 		};
