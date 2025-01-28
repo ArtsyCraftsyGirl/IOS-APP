@@ -410,7 +410,6 @@
 				A158F303D413473CA0A05C37 /* CDVWKWebViewUIDelegate.m in Sources */,
 				2841E3E07A494130B6AE4B7D /* CDVWKProcessPoolFactory.m in Sources */,
 				581FECB2F6524B339B9AF03E /* IONAssetHandler.m in Sources */,
-				C1277273324D47AE84560458 /* CDVNativeKeyboard.m in Sources */,
 				E75B191A323249F697A74B7A /* NKSLKTextViewController.m in Sources */,
 				540F5A0C51F640899B018AB5 /* UIImage+CropScaleOrientation.m in Sources */,
 				9A94FB102B5A4BE39895AB71 /* CDVCamera.m in Sources */,
