@@ -12,15 +12,18 @@ workflows:
         XCODE_WORKSPACE: "JbPaladinPatriotsClock.xcworkspace"
         XCODE_SCHEME: "JbPaladinPatriotsClock"
     scripts:
-      - name: Install Dependencies
+      - name: Install npm Dependencies
         script: |
-          npm install
-          pod install
+          npm install  
+      - name: Install CocoaPods Dependencies
+        script: |
+          cd platforms/ios  
+          pod install  
       - name: Build IPA for Distribution
         script: |
           xcode-project build-ipa \
             --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
             --scheme "$XCODE_SCHEME"
     artifacts:
-      - build/ios/ipa/*.ipa
-      - /tmp/xcodebuild_logs/*.log
+      - build/ios/ipa/*.ipa  # Path to the generated IPA files
+      - /tmp/xcodebuild_logs/*.log  # Path to Xcode build logs
