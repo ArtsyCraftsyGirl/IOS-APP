@@ -222,7 +222,6 @@
 			isa = PBXGroup;
 			children = (
 				33E3FB8094FC42E7B843D311 /* WebKit.framework */,
-				5BB0551138AA448B95A7276F /* NativeKeyboard.framework */,
 				0DA4818FEEB34355BE902F9A /* ImageIO.framework */,
 				C91D87BF365040E9957D34C8 /* CoreLocation.framework */,
 				5F7DFF2438744C61BC9301A9 /* AVFoundation.framework */,
