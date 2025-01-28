@@ -31,8 +31,7 @@ workflows:
           xcode-project build-ipa \
             --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
             --scheme "$XCODE_SCHEME" \
-            --export-options-plist "$CM_BUILD_DIR/export_options.plist" \
-            --sdk iphoneos  # Ensure it's set for iOS devices
+            --export-options-plist "$CM_BUILD_DIR/export_options.plist"
     artifacts:
       - build/ios/ipa/*.ipa  # Path to the generated IPA files
       - /tmp/xcodebuild_logs/*.log  # Path to Xcode build logs
