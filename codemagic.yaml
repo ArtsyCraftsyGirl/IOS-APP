@@ -19,6 +19,9 @@ workflows:
         script: |
           cd platforms/ios
           pod install  # Install any CocoaPods dependencies
+      - name: Remove Native Keyboard Plugin
+        script: |
+          cordova plugin remove cordova-plugin-native-keyboard  # Remove the native keyboard plugin
       - name: Remove iOS Platform
         script: |
           cordova platform rm ios  # Remove existing iOS platform
