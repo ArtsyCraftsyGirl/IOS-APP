@@ -19,11 +19,17 @@ workflows:
         script: |
           cd platforms/ios  # Change directory to where the Podfile is located
           pod install  # Install CocoaPods dependencies
+      - name: Verify export_options.plist
+        script: |
+          echo "Current Directory: $(pwd)"
+          echo "Contents of current directory:"
+          ls -la
       - name: Build IPA for Distribution
         script: |
           xcode-project build-ipa \
             --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
-            --scheme "$XCODE_SCHEME"
+            --scheme "$XCODE_SCHEME" \
+            --export-options-plist "$CM_BUILD_DIR/export_options.plist"
     artifacts:
       - build/ios/ipa/*.ipa  # Path to the generated IPA files
       - /tmp/xcodebuild_logs/*.log  # Path to Xcode build logs
