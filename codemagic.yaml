@@ -14,23 +14,25 @@ workflows:
     scripts:
       - name: Install npm Dependencies
         script: |
-          npm install
+          npm install  # Install npm dependencies needed for your project
       - name: Install CocoaPods Dependencies
         script: |
           cd platforms/ios
-          pod install
+          pod install  # Install any CocoaPods dependencies
       - name: Remove iOS Platform
         script: |
-          cordova platform rm ios
+          cordova platform rm ios  # Remove existing iOS platform
       - name: Add iOS Platform
         script: |
-          cordova platform add ios
+          cordova platform add ios  # Re-add the iOS platform
       - name: Build IPA for Distribution
         script: |
+          # Building the IPA for distribution
           xcode-project build-ipa \
             --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
             --scheme "$XCODE_SCHEME" \
-            --export-options-plist "$CM_BUILD_DIR/export_options.plist"
+            --export-options-plist "$CM_BUILD_DIR/export_options.plist" \
+            --sdk iphoneos  # Ensure it's set for iOS devices
     artifacts:
       - build/ios/ipa/*.ipa  # Path to the generated IPA files
       - /tmp/xcodebuild_logs/*.log  # Path to Xcode build logs
