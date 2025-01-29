@@ -17,13 +17,17 @@ workflows:
           npm install  # Install npm dependencies needed for your project
       - name: Clean Cordova Project
         script: |
-          cordova clean ios  # Clean any old builds and configurations
+          # Clean the project by removing iOS platform and clearing cache
+          cordova clean
       - name: Remove iOS Platform
         script: |
           cordova platform rm ios  # Remove existing iOS platform
       - name: Add iOS Platform
         script: |
-          cordova platform add ios  # Re-add the iOS platform
+          cordova platform add ios@latest  # Add the latest version of the iOS platform
+      - name: Prepare iOS Platform
+        script: |
+          cordova prepare ios  # Prepare the iOS platform (downloads necessary files)
       - name: Disable Mac Catalyst in Xcode
         script: |
           # Disable Mac Catalyst explicitly in the Xcode project build settings
