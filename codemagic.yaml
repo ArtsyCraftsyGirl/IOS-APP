@@ -15,10 +15,6 @@ workflows:
       - name: Install npm Dependencies
         script: |
           npm install  # Install npm dependencies needed for your project
-      - name: Install CocoaPods Dependencies
-        script: |
-          cd platforms/ios
-          pod install  # Install any CocoaPods dependencies
       - name: Remove iOS Platform
         script: |
           cordova platform rm ios  # Remove existing iOS platform
