@@ -15,12 +15,19 @@ workflows:
       - name: Install npm Dependencies
         script: |
           npm install  # Install npm dependencies needed for your project
+      - name: Clean Cordova Project
+        script: |
+          cordova clean ios  # Clean any old builds and configurations
       - name: Remove iOS Platform
         script: |
           cordova platform rm ios  # Remove existing iOS platform
       - name: Add iOS Platform
         script: |
           cordova platform add ios  # Re-add the iOS platform
+      - name: Disable Mac Catalyst in Xcode
+        script: |
+          # Disable Mac Catalyst explicitly in the Xcode project build settings
+          sed -i '' 's/ENABLE_MACCATALYST = YES/ENABLE_MACCATALYST = NO/' platforms/ios/build.xcconfig
       - name: Build IPA for Distribution
         script: |
           # Building the IPA for distribution
