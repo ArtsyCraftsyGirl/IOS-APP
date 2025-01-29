@@ -78,9 +78,6 @@
 	<array>
 		<string>FontAwesome.ttf</string>
 	</array>
-	<key>NativeKeyboardPluginLicense</key>
-	<string>TRIAL</string>
-	<key>NativeKeyboardPluginLicenseAlt</key>
-	<string>TRIAL</string>
+	
 </dict>
 </plist>
