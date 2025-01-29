@@ -45,10 +45,6 @@
               "count": 1
             },
             {
-              "xml": "<feature name=\"NativeKeyboard\"><param name=\"ios-package\" value=\"CDVNativeKeyboard\" /><param name=\"onload\" value=\"true\" /></feature>",
-              "count": 1
-            },
-            {
               "xml": "<feature name=\"Camera\"><param name=\"ios-package\" value=\"CDVCamera\" /></feature>",
               "count": 1
             },
@@ -64,24 +60,6 @@
           "UIBackgroundModes": [
             {
               "xml": "<array><string>audio</string></array>",
-              "count": 1
-            }
-          ],
-          "UIAppFonts": [
-            {
-              "xml": "<array><string>FontAwesome.ttf</string></array>",
-              "count": 1
-            }
-          ],
-          "NativeKeyboardPluginLicense": [
-            {
-              "xml": "<string>TRIAL</string>",
-              "count": 1
-            }
-          ],
-          "NativeKeyboardPluginLicenseAlt": [
-            {
-              "xml": "<string>TRIAL</string>",
               "count": 1
             }
           ]
@@ -104,11 +82,6 @@
       "PACKAGE_NAME": "com.jbpaladinpatriotsclock.jbpaladinpatriotsclock"
     },
     "cordova-plugin-ionic-webview": {
-      "PACKAGE_NAME": "com.jbpaladinpatriotsclock.jbpaladinpatriotsclock"
-    },
-    "cordova-plugin-native-keyboard": {
-      "LICENSE": "TRIAL",
-      "LIC_IOS": "TRIAL",
       "PACKAGE_NAME": "com.jbpaladinpatriotsclock.jbpaladinpatriotsclock"
     },
     "cordova-plugin-splashscreen": {
@@ -343,14 +316,6 @@
       ]
     },
     {
-      "id": "cordova-plugin-native-keyboard.NativeKeyboard",
-      "file": "plugins/cordova-plugin-native-keyboard/www/NativeKeyboard.js",
-      "pluginId": "cordova-plugin-native-keyboard",
-      "clobbers": [
-        "window.NativeKeyboard"
-      ]
-    },
-    {
       "id": "cordova-plugin-camera.Camera",
       "file": "plugins/cordova-plugin-camera/www/CameraConstants.js",
       "pluginId": "cordova-plugin-camera",
@@ -389,7 +354,6 @@
     "cordova-plugin-background-mode": "0.7.3",
     "cordova-plugin-media": "7.0.0",
     "cordova-plugin-ionic-webview": "5.0.0",
-    "cordova-plugin-native-keyboard": "2.0.6",
     "cordova-plugin-splashscreen": "6.0.1",
     "cordova-plugin-camera": "8.0.0"
   }
