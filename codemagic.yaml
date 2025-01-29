@@ -1,57 +1,37 @@
 workflows:
-  ios-workflow:
-    name: iOS Workflow
+  ios_native_workflow:
+    name: iOS Native Workflow
     max_build_duration: 120
+    instance_type: mac_mini_m2
     environment:
       ios_signing:
         distribution_type: app_store
         bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
+      vars:
+        APP_STORE_APPLE_ID: XAJF22HXCQ
+        XCODE_WORKSPACE: "platforms/ios/JbPaladinPatriotsClock.xcworkspace"
+        XCODE_SCHEME: "JbPaladinPatriotsClock"
     scripts:
-      - name: Install npm dependencies and update Cordova version
-        script: | 
-          npm install
-          npm ci # equivalent of npm install for CI systems.
-          cvm install 9.0.0
-          cvm use 9.0.0
-      - name: Setup Cordova iOS platform
-        script: | 
-          cordova platform remove ios --nosave
-          cordova platform add ios \
-            --confirm \
-            --no-interactive \
-            --noresources \
-            --save
-      - name: Set up code signing settings on Xcode project
-        script: | 
-          xcode-project use-profiles
-      - name: Build ipa for distribution
-        script: | 
-          package_type=$(defaults read ~/export_options.plist method)
-          identity=$(defaults read ~/export_options.plist signingCertificate)
-          team=$(defaults read ~/export_options.plist teamID)
-          profile=$(find '/Users/builder/Library/MobileDevice/Provisioning Profiles' -name "*.mobileprovision")
-          profile_uuid=$(grep UUID -A1 -a "$profile" | grep -io "[-A-F0-9]\{36\}")
-
-          cat <<EOF > build.json
-          {
-            "ios": {
-              "release": {
-                "codeSignIdentity": "$identity",
-                "developmentTeam": "$team",
-                "packageType": "$package_type",
-                "provisioningProfile": "$profile_uuid"
-              }
-            }
-          }EOF
-          cordova build ios --release --device --buildConfig='build.json'
+      - name: Install npm Dependencies
+        script: |
+          npm install  # Install npm dependencies needed for your project
+      - name: Install CocoaPods Dependencies
+        script: |
+          cd platforms/ios
+          pod install  # Install any CocoaPods dependencies
+      - name: Remove iOS Platform
+        script: |
+          cordova platform rm ios  # Remove existing iOS platform
+      - name: Add iOS Platform
+        script: |
+          cordova platform add ios  # Re-add the iOS platform
+      - name: Build IPA for Distribution
+        script: |
+          # Building the IPA for distribution
+          xcode-project build-ipa \
+            --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
+            --scheme "$XCODE_SCHEME" \
+            --export-options-plist "$CM_BUILD_DIR/export_options.plist"
     artifacts:
-      - /Users/builder/clone/platforms/ios/build/device/*.ipa
-      - /tmp/xcodebuild_logs/*.log
-    publishing:
-      email:
-        recipients:
-          - ehllenjoyquezada.creative@gmail.com
-        notify:
-          success: true
-          failure: true
-      
+      - build/ios/ipa/*.ipa  # Path to the generated IPA files
+      - /tmp/xcodebuild_logs/*.log  # Path to Xcode build logs
