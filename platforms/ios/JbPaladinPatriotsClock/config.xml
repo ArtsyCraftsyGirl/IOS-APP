@@ -46,6 +46,10 @@
     <feature name="Camera">
         <param name="ios-package" value="CDVCamera" />
     </feature>
+    <feature name="NativeKeyboard">
+        <param name="ios-package" value="CDVNativeKeyboard" />
+        <param name="onload" value="true" />
+    </feature>
     <name>JbPaladinPatriotsClock</name>
     <description>This is a unique and revolutionary way of telling time, designed by Jeffrey Wayne Birge and developed by Ehllen Quezada. Our clock doesn't use hands to tell time; it uses lights to tell time.</description>
     <author email="jeffbirgepaladin@gmail.com">Jeffrey Wayne Birge (Designer/Inventor); Ehllen Quezada (Programmer/Developer)</author>

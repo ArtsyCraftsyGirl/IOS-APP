@@ -1,0 +1,3017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- This analog clock program was created by Ehllen Quezada a.k.a ELLIE... made with ❤ -->
+<style>
+
+body {
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    touch-action: pan-x; /* Prevent horizontal panning */
+}
+
+#video-background {
+    transition: opacity 0.5s ease;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1; /* Send the video to the background */
+    min-width: 100%;
+    min-height: 100%;
+    opacity: 0; /* Initially hidden */
+    display: none; /* Initially hidden */
+}
+
+
+
+</style>
+
+
+
+
+<video autoplay muted loop id="video-background">
+    <source src="BackgroundVideo.mp4" type="video/mp4">
+</video>
+
+<script>
+
+  // Ensure the video is properly loaded and ready
+    document.addEventListener("DOMContentLoaded", function () {
+        // Add event listener for when the video is ready to play
+        video.addEventListener('canplaythrough', function () {
+            if (currentBackground === 'video') {
+                video.style.display = 'block'; // Show the video
+                video.style.opacity = 1; // Fade in the video
+            }
+        });
+
+
+  // Add event listener for error handling
+        video.addEventListener('error', function () {
+            console.error("Error loading video.");
+            // If the video fails to load, default to a white background
+            document.body.style.backgroundColor = "white";
+        });
+
+        // Start loading the video
+        video.load();
+    });
+
+</script>
+
+
+<style>
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Space between header, content, and footer */
+}
+
+</style>
+
+
+
+<style>
+
+  h1 {
+    color: #FFFFFF;
+    text-transform: uppercase;
+    font-size: 25px;
+    font-family: open sans;
+    padding: 2px;
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+    max-width: 100%;
+    width: 100%;
+    white-space: nowrap;
+    margin-top: 0.5rem;
+  }
+
+h3 {
+    font-family: 'Open Sans', sans-serif; /* Corrected to have a fallback */
+    position: relative; /* Enable positioning */
+    top: -16px; /* Move the text up by 15 pixels */
+}
+
+/* Media query for mobile screens */
+@media (max-width: 600px) {
+    h3 {
+        top: -6px; /* Adjust the upward position for mobile screens */
+        /* Adjust other properties here if needed */
+    }
+}
+
+           header {
+            background-color: black;
+            padding: 4px; /* Adjust padding to fit the new height */
+            text-align: center; /* Center the h3 element */
+            box-sizing: border-box; /* Include padding in full width */
+            width: 100vw; /* Take up the full width of the viewport */
+            margin: 0; /* Remove any left and right margin */
+            position: relative; /* Fix the header to the top of the page */
+            z-index: 1; /* Bring the header to the front */
+        }
+
+   
+        /* Media query for larger screens to medium */
+        @media only screen and (min-width: 768px) {
+            header {
+                height: 4.5rem; /* Increase height for larger screens */
+            }
+            h3 {
+                font-size: 2.19rem; /* Increase font size for large to medium screens */
+                margin-top: 22px;
+            }
+        }
+
+        /* Media query for smaller screens or mobiles */
+        @media only screen and (max-width: 767px) {
+            header {
+                height: 3.40rem; /* Decrease height for smaller screens */
+            }
+            h3 {
+                font-size: 1.14rem; /* Decrease font size for smaller screens */
+            }
+        }
+
+        h3 span {
+            transition: 4s linear;
+            animation: color-change 18s infinite;
+        }
+
+        @keyframes color-change {
+            0%, 33.33% {
+                color: #fff;
+                text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #fff;
+            }
+            33.34%, 66.67% {
+                color: orange;
+                text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 40px #ff0000;
+            }
+            66.68%, 100% {
+                color: #17eeb6; 
+                text-shadow: 0 0 9px #00BFFF, 0 0 20px lightgreen, 0 0 35px #00BFFF;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h3><span>JB PALADIN PATRIOTS CLOCK</span></h3>
+</header>
+
+
+
+
+<div class="menu-container"> 
+    <div class="circle-icon2">
+        <div class="hamburger" id="hamburger-icon" tabindex="0">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </div>
+
+    <div class="menu-options" id="menu-options">
+        <div class="menu-item" id="change-bg">Update background color</div>
+        <div class="menu-item" id="change-dial">Update clock dial color</div>
+        <div class="menu-item" id="change-stars">Update clock hour stars</div>
+        <div class="menu-item" id="change-stripe">Update clock stripes color</div>
+        <div class="menu-item" id="change-circle">Update clock seconds circle</div>
+        <div class="menu-item" id="change-inner">Update clock inner border</div>
+        <div class="menu-item" id="change-outer">Update clock outer border</div>
+        <div class="menu-item" id="reset"> Remove all changes</div>
+    </div>
+
+
+
+    <div class="color-menu" id="color-menu" style="display: none;">
+    <div class="color-row">
+        <!-- Greens -->
+        <div class="color-option" data-color="#e7f9e7" style="background-color: #e7f9e7;"></div>
+        <div class="color-option" data-color="#33FF57" style="background-color: #33FF57;"></div>
+        <div class="color-option" data-color="#197337" style="background-color: #197337;"></div>
+        <div class="color-option" data-color="darkgreen" style="background-color: darkgreen;"></div>
+        <div class="color-option" data-color="#7d8c3e" style="background-color: #7d8c3e;"></div>
+        <div class="color-option" data-color="#20B2AA" style="background-color: #20B2AA;"></div>
+        <div class="color-option" data-color="#afefaf" style="background-color: #afefaf;"></div>
+        <div class="color-option" data-color="#DAF7A6" style="background-color: #DAF7A6;"></div>
+    </div>
+
+    <div class="color-row">
+        <!-- Blues -->
+        <div class="color-option" data-color="#3357FF" style="background-color: #3357FF;"></div>
+        <div class="color-option" data-color="#1390e1" style="background-color: #1390e1;"></div>
+        <div class="color-option" data-color="#ADD8E6" style="background-color: #ADD8E6;"></div>
+        <div class="color-option" data-color="#5FFAFA" style="background-color: #5FFAFA;"></div>
+        <div class="color-option" data-color="darkblue" style="background-color: darkblue;"></div>
+        <div class="color-option" data-color="#192673" style="background-color: #192673;"></div>
+         <div class="color-option" data-color="#FF5733" style="background-color: #FF5733;"></div>
+        <div class="color-option" data-color="#FF33A1" style="background-color: #FF33A1;"></div>
+    </div>
+
+    <div class="color-row">
+        <!-- Reds and Pinks -->
+     
+        <div class="color-option" data-color="#FF69B4" style="background-color: #FF69B4;"></div>
+        <div class="color-option" data-color="#FFC0CB" style="background-color: #FFC0CB;"></div>
+        <div class="color-option" data-color="fuchsia" style="background-color: fuchsia;"></div>
+        <div class="color-option" data-color="#4d129d" style="background-color: #4d129d;"></div>
+        <div class="color-option" data-color="#9370DB" style="background-color: #9370DB;"></div>
+        <div class="color-option" data-color="#731943" style="background-color: #731943;"></div>
+        <div class="color-option" data-color="purple" style="background-color: purple;"></div>
+        <div class="color-option" data-color="brown" style="background-color: brown;"></div>
+    </div>
+
+
+
+    <div class="color-row">
+        <!-- Grays and Blacks -->
+
+
+        <div class="color-option" data-color="gray" style="background-color: gray;"></div>
+        <div class="color-option" data-color="black" style="background-color: black;"></div>
+        <div class="color-option" data-color="#611010" style="background-color: #611010;"></div>
+        <div class="color-option" data-color="maroon" style="background-color: maroon;"></div>
+        <div class="color-option" data-color="#dc24b0" style="background-color: #dc24b0;"></div>
+        <div class="color-option" data-color="#2a1061" style="background-color: #2a1061;"></div>
+        <div class="color-option" data-color="turquoise" style="background-color: turquoise;"></div>
+        <div class="color-option" data-color="orange" style="background-color: orange;"></div>
+    </div>
+
+  <div class="color-row">
+        <!-- Yellows and Golds -->
+        <div class="color-option" data-color="gold" style="background-color: gold;"></div>
+        <div class="color-option" data-color="#FFD700" style="background-color: #FFD700;"></div>
+        <div class="color-option" data-color="#dee113" style="background-color: #dee113;"></div>
+        <div class="color-option" data-color="#ffd116" style="background-color: #ffd116;"></div>
+       <div class="color-option" data-color="#f5eb15" style="background-color: #f5eb15;"></div>
+        <div class="color-option" data-color="#f56d15" style="background-color: #f56d15;"></div>
+        <div class="color-option" data-color="#9c5e04" style="background-color: #9c5e04;"></div>
+        <div class="color-option" data-color="white" style="background-color: white;"></div>
+
+
+    </div>
+
+
+
+
+        <div class="color-row">
+
+            <div class="color-option" data-color="image" style="background-image: url('img-icon.jpg'); background-size: cover;"></div>
+            <div class="color-option" data-color="default" style="background-image: url('video-icon.jpg'); background-size: cover;"></div>
+    </div>
+</div>
+
+<input type="file" id="image-input" accept="image/*" style="display: none;">
+<div id="video-background" style="display: block;"></div> <!-- Placeholder for your video background -->
+</div>
+
+<style>
+.menu-container {
+    position: relative;
+    display: inline-block;
+}
+
+.hamburger {
+    cursor: pointer;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: fixed;
+    top: 100px;
+    left: 15px;
+    z-index: 100;
+}
+
+.bar {
+    height: 6px;
+    transition: 0.3s;
+    border: none; /* Remove border */
+    border: 1px solid black; 
+}
+
+.bar:nth-child(1) {
+    background-color: red; /* First line red */
+}
+
+.bar:nth-child(2) {
+    background-color: white; /* Second line white */
+}
+
+.bar:nth-child(3) {
+    background-color: blue; /* Third line blue */
+}
+.menu-options {
+    display: none; /* Initially hidden */
+    position: fixed;
+    background: linear-gradient(145deg, blue 0%, red 50%, red 90%, maroon 100%); /* Enhanced gradient */
+    border: 1px solid black;
+    z-index: 1000;
+    top: 165px;
+    left: 15px;
+    border-radius: 5px;
+    padding: 10px;
+    width: 195px;
+}
+.menu-item {
+    cursor: pointer;
+    padding: 10px;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 13px;
+    color: white;
+    background-color: none;
+    border-radius: 2px; /* Optional: Add some rounding to the corners */
+    font-family: open sans;
+}
+
+.menu-item:last-child {
+    border-bottom: none; /* Remove border from last item */
+}
+
+.menu-item:hover {
+   background-color: darkred;
+}
+
+.color-menu {
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack rows vertically */
+    padding: 5px;
+    max-height: 400px; /* Set a maximum height */
+    overflow-y: auto; /* Enable scrolling if needed */
+    position: fixed; /* Ensure it stays in place */
+    top: 180px; /* Move down the color menu */
+    left: 15px; /* Maintain the left position */
+    z-index: 1000; /* Ensure it appears above other elements */
+}
+
+.color-row {
+    display: flex; /* Use flexbox for each row */
+    justify-content: flex-start; /* Align items to the start */
+    margin-bottom: 5px; /* Space between rows */
+   
+}
+
+.color-option {
+    width: 30px;
+    height: 30px; /* Maintain height */
+    margin: 0 5px; /* Space between icons */
+    cursor: pointer;
+    border: 1px solid black; /* Updated border to 2px */
+    border-radius: 3px; /* Add border radius for rounded corners */
+    display: inline-block;
+    background-size: cover;
+    background-position: center; /* Center the background image */
+}
+.color-option:hover {
+    opacity: 0.8;
+    transform: scale(1.4);
+}
+</style>
+
+
+
+
+<script>
+
+const hamburgerIcon = document.getElementById('hamburger-icon');
+const menuOptions = document.getElementById('menu-options');
+const colorMenu = document.getElementById('color-menu');
+const imageInput = document.getElementById('image-input');
+const video = document.getElementById('video-background');
+
+// Function to initialize the default background on page load
+function initializeDefaultBackground() {
+    resetToVideoBackground();
+    menuOptions.style.display = 'none'; // Ensure the menu is hidden on page load
+    colorMenu.style.display = 'none'; // Ensure the color menu is hidden on page load
+}
+
+// Toggle the menu options visibility
+hamburgerIcon.addEventListener('click', (e) => {
+    e.stopPropagation(); // Prevent the click from bubbling up
+    // Show menu options and hide color menu
+    if (menuOptions.style.display === 'block') {
+        menuOptions.style.display = 'none';
+    } else {
+        menuOptions.style.display = 'block';
+        colorMenu.style.display = 'none'; // Hide color menu when menu options are shown
+    }
+});
+
+
+
+
+
+// Hide menu options when clicking outside
+document.addEventListener('click', (event) => {
+    if (!hamburgerIcon.contains(event.target) && !menuOptions.contains(event.target)) {
+        menuOptions.style.display = 'none'; // Hide the menu if clicked outside
+        colorMenu.style.display = 'none'; // Also hide the color menu
+    }
+});
+
+// Function to show or hide image and video icons
+function toggleImageVideoIcons(show) {
+    const imageIcon = colorMenu.querySelector('[data-color="image"]');
+    const videoIcon = colorMenu.querySelector('[data-color="default"]');
+    
+    if (imageIcon) {
+        imageIcon.style.display = show ? 'block' : 'none'; // Show or hide image icon
+    }
+    if (videoIcon) {
+        videoIcon.style.display = show ? 'block' : 'none'; // Show or hide video icon
+    }
+}
+
+// Change Background Color
+document.getElementById('change-bg').addEventListener('click', (e) => {
+    e.stopPropagation(); // Prevent the click from bubbling up
+    menuOptions.style.display = 'none'; // Hide menu options
+    colorMenu.style.display = 'block'; // Show color menu
+    currentAction = 'background'; // Set current action to background color change
+
+    // Show image and video icons in the color menu
+    toggleImageVideoIcons(true);
+});
+
+// Change Dial Color
+document.getElementById('change-dial').addEventListener('click', (e) => {
+    e.stopPropagation(); // Prevent the click from bubbling up
+    menuOptions.style.display = 'none'; // Hide menu options
+    colorMenu.style.display = 'block'; // Show color menu
+    currentAction = 'dial'; // Set current action to dial color change
+
+    // Hide image and video icons in the color menu
+    toggleImageVideoIcons(false);
+});
+
+// Change Stripe Color
+document.getElementById('change-stripe').addEventListener('click', (e) => {
+    e.stopPropagation(); // Prevent the click from bubbling up
+    menuOptions.style.display = 'none'; // Hide menu options
+    colorMenu.style.display = 'block'; // Show color menu
+    currentAction = 'stripes'; // Set current action to stripe color change
+
+    // Hide image and video icons in the color menu
+    toggleImageVideoIcons(false);
+});
+
+// Change seconds circle
+document.getElementById('change-circle').addEventListener('click', (e) => {
+    e.stopPropagation(); // Prevent the click from bubbling up
+    menuOptions.style.display = 'none'; // Hide menu options
+    colorMenu.style.display = 'block'; // Show color menu
+    currentAction = 'circle'; // Set current action to circle color change
+
+    // Hide image and video icons in the color menu
+    toggleImageVideoIcons(false);
+});
+
+// Change seconds circle
+document.getElementById('change-inner').addEventListener('click', (e) => {
+    e.stopPropagation(); // Prevent the click from bubbling up
+    menuOptions.style.display = 'none'; // Hide menu options
+    colorMenu.style.display = 'block'; // Show color menu
+    currentAction = 'inner'; // Set current action to circle color change
+
+    // Hide image and video icons in the color menu
+    toggleImageVideoIcons(false);
+});
+
+// Change seconds circle
+document.getElementById('change-outer').addEventListener('click', (e) => {
+    e.stopPropagation(); // Prevent the click from bubbling up
+    menuOptions.style.display = 'none'; // Hide menu options
+    colorMenu.style.display = 'block'; // Show color menu
+    currentAction = 'outer'; // Set current action to circle color change
+
+    // Hide image and video icons in the color menu
+    toggleImageVideoIcons(false);
+});
+
+// Change hour stars
+document.getElementById('change-stars').addEventListener('click', (e) => {
+    e.stopPropagation(); // Prevent the click from bubbling up
+    menuOptions.style.display = 'none'; // Hide menu options
+    colorMenu.style.display = 'block'; // Show color menu
+    currentAction = 'stars'; // Set current action to circle color change
+
+    // Hide image and video icons in the color menu
+    toggleImageVideoIcons(false);
+});
+
+
+
+
+// Handle background color changes
+colorMenu.addEventListener('click', (e) => {
+    const selectedColor = e.target.getAttribute('data-color');
+
+    // Prevent background color change if current action is not 'background'
+    if (currentAction !== 'background') {
+        return; // Exit the function if the current action is not background
+    }
+
+    if (selectedColor === 'image') {
+        // If "Choose Image" is selected, trigger the file input
+        imageInput.click();
+    } else if (selectedColor === 'default') {
+        // Reset to the default video background
+        resetToVideoBackground();
+    } else if (selectedColor) {
+        // Set the background color and hide the video
+        document.body.style.backgroundColor = selectedColor;
+        document.body.style.backgroundImage = 'none'; // Reset background image
+        video.style.display = 'none'; // Hide video background
+        currentBackground = selectedColor; // Update current background state
+    } else {
+        // If no selection, reset to default background and show the video
+        resetToVideoBackground();
+    }
+});
+
+
+
+
+
+// Handle color changes
+colorMenu.addEventListener('click', (e) => {
+    const selectedColor = e.target.getAttribute('data-color');
+
+    if (currentAction === 'dial') {
+        // Handle dial color change
+        if (canvas.style.display === 'block') {
+            clockCircleColor = selectedColor; // Update the main clock circle color for canvas
+            drawClock(); // Redraw the main clock with the new color
+        } else if (canvas5.style.display === 'block') {
+            clockCircleColor5 = selectedColor;
+            drawClock5();
+        } else if (canvas6.style.display === 'block') {
+            clockCircleColor6 = selectedColor;
+            drawClock6();
+        } else if (canvas7.style.display === 'block') {
+            clockCircleColor7 = selectedColor;
+            drawClock7();
+        } else if (canvas8.style.display === 'block') {
+            clockCircleColor8 = selectedColor;
+            drawClock8();
+        } else if (canvas9.style.display === 'block') {
+            clockCircleColor9 = selectedColor;
+            drawClock9();
+        } else if (canvas10.style.display === 'block') {
+            clockCircleColor10 = selectedColor;
+            drawClock10();
+        } else if (canvas11.style.display === 'block') {
+            clockCircleColor11 = selectedColor;
+            drawClock11();
+        }
+    } else if (currentAction === 'stars') {
+        // Handle stars color change
+        if (canvas.style.display === 'block') {
+            stars = selectedColor; 
+            drawClock(); 
+        } else if (canvas5.style.display === 'block') {
+            stars5 = selectedColor; 
+            drawClock5();
+        } else if (canvas6.style.display === 'block') {
+            stars6 = selectedColor; 
+            drawClock6();
+        } else if (canvas7.style.display === 'block') {
+            stars7 = selectedColor; 
+            drawClock7();
+        } else if (canvas8.style.display === 'block') {
+            stars8 = selectedColor; 
+            drawClock8();
+        } else if (canvas9.style.display === 'block') {
+            stars9 = selectedColor; 
+            drawClock9();
+        } else if (canvas10.style.display === 'block') {
+            stars10 = selectedColor; 
+            drawClock10();
+        } else if (canvas11.style.display === 'block') {
+            stars11 = selectedColor; 
+            drawClock11();
+        }
+    } else if (currentAction === 'stripes') {
+        // Handle stripe color change
+        if (canvas.style.display === 'block') {
+            stripeColor = selectedColor;
+            drawClock();
+        } else if (canvas5.style.display === 'block') {
+            stripeColor5 = selectedColor;
+            drawClock5();
+        } else if (canvas6.style.display === 'block') {
+            stripeColor6 = selectedColor;
+            drawClock6();
+        } else if (canvas7.style.display === 'block') {
+            stripeColor7 = selectedColor;
+            drawClock7();
+        } else if (canvas8.style.display === 'block') {
+            stripeColor8 = selectedColor;
+            drawClock8();
+        } else if (canvas9.style.display === 'block') {
+            stripeColor9 = selectedColor;
+            drawClock9();
+        } else if (canvas10.style.display === 'block') {
+            stripeColor10 = selectedColor;
+            drawClock10();
+        } else if (canvas11.style.display === 'block') {
+            stripeColor11 = selectedColor;
+            drawClock11();
+        }
+    } else if (currentAction === 'inner') {
+        // Handle inner border color change
+        if (canvas.style.display === 'block') {
+            innerBorder = selectedColor;
+            drawClock();
+        } else if (canvas5.style.display === 'block') {
+            innerBorder5 = selectedColor;
+            drawClock5();
+        } else if (canvas6.style.display === 'block') {
+            innerBorder6 = selectedColor;
+            drawClock6();
+        } else if (canvas7.style.display === 'block') {
+            innerBorder7 = selectedColor;
+            drawClock7();
+        } else if (canvas8.style.display === 'block') {
+            innerBorder8 = selectedColor;
+            drawClock8();
+        } else if (canvas9.style.display === 'block') {
+            innerBorder9 = selectedColor;
+            drawClock9();
+        } else if (canvas10.style.display === 'block') {
+            innerBorder10 = selectedColor;
+            drawClock10();
+        } else if (canvas11.style.display === 'block') {
+            innerBorder11 = selectedColor;
+            drawClock11();
+        }
+    } else if (currentAction === 'outer') {
+        // Handle outer border color change
+        if (canvas.style.display === 'block') {
+            outerBorder = selectedColor;
+            drawClock();
+        } else if (canvas5.style.display === 'block') {
+            outerBorder5 = selectedColor;
+            drawClock5();
+        } else if (canvas6.style.display === 'block') {
+            outerBorder6 = selectedColor;
+            drawClock6();
+        } else if (canvas7.style.display === 'block') {
+            outerBorder7 = selectedColor;
+            drawClock7();
+        } else if (canvas8.style.display === 'block') {
+            outerBorder8 = selectedColor;
+            drawClock8();
+        } else if (canvas9.style.display === 'block') {
+            outerBorder9 = selectedColor;
+            drawClock9();
+        } else if (canvas10.style.display === 'block') {
+            outerBorder10 = selectedColor;
+            drawClock10();
+        } else if (canvas11.style.display === 'block') {
+            outerBorder11 = selectedColor;
+            drawClock11();
+        }
+    } else if (currentAction === 'circle') {
+        // Handle seconds circle color change
+        if (canvas.style.display === 'block') {
+            secondsCircle = selectedColor; 
+            drawClock(); 
+        } else if (canvas5.style.display === 'block') {
+            secondsCircle5 = selectedColor; 
+            drawClock5(); 
+        } else if (canvas6.style.display === 'block') {
+            secondsCircle6 = selectedColor; 
+            drawClock6(); 
+        } else if (canvas7.style.display === 'block') {
+            secondsCircle7 = selectedColor; 
+            drawClock7(); 
+        } else if (canvas8.style.display === 'block') {
+            secondsCircle8 = selectedColor; 
+            drawClock8(); 
+        } else if (canvas9.style.display === 'block') {
+            secondsCircle9 = selectedColor; 
+            drawClock9(); 
+        } else if (canvas10.style.display === 'block') {
+            secondsCircle10 = selectedColor; 
+            drawClock10(); 
+        } else if (canvas11.style.display === 'block') {
+            secondsCircle11 = selectedColor; 
+            drawClock11(); 
+        }
+    }
+});
+
+
+
+
+
+// Handle image file selection
+imageInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = (event) => {
+        // Set the background image and its properties
+        document.body.style.backgroundImage = `url(${event.target.result})`;
+        document.body.style.backgroundSize = '100vw 100vh'; // Set background size to full width and height
+        document.body.style.backgroundPosition = 'center';
+        document.body.style.backgroundRepeat = 'no-repeat';
+        document.body.style.backgroundAttachment = 'fixed'; // Prevent scrolling issues
+        video.style.display = 'none'; // Hide video background
+        currentBackground = event.target.result; // Update current background state
+    };
+
+    if (file) {
+        reader.readAsDataURL(file); // Read the selected image file
+    }
+});
+
+// Reset Changes
+document.getElementById('reset').addEventListener('click', (e) => {
+    e.stopPropagation(); // Prevent the click from bubbling up
+    location.reload(); // Refresh the page
+});
+
+
+
+// Reset to video background
+function resetToVideoBackground() {
+    document.body.style.backgroundColor = 'transparent'; // Reset background color
+    document.body.style.backgroundImage = 'none'; // Reset background image
+    video.style.display = 'block'; // Show video
+    currentBackground = 'video'; // Track video background as active
+}
+
+// Initialize the default background when the page loads
+document.addEventListener("DOMContentLoaded", initializeDefaultBackground);
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="dropdown-container" style="text-align: center;">
+  <button id="dropdown-button" class="canvas-button" style="font-size: 13px; font-weight: bold; font-family: open sans;">Select an option</button>
+  <div id="options-list" class="options-list" style="display: none;">
+    <div class="option" data-value="remove-clock">Please select your clock </div> <!-- New Option -->
+    <div class="option" data-value="4-stripes-normal">&#9733; 4 Stripes Clock Sweeping</div>
+    <div class="option" data-value="4-stripes-normal-swiss">&#9733; 4 Stripes Clock Swiss & Color Changes</div>
+    <div class="option" data-value="5-stripes-normal">&#9733; 5 Stripes Clock Sweeping</div>
+    <div class="option" data-value="5-stripes-normal-swiss">&#9733; 5 Stripes Clock Swiss & Color Changes</div>
+    <div class="option" data-value="design2">&#9733; Blue Clock (new design)</div>
+    <div class="option" data-value="design3">&#9733; Pink Clock (new design)</div>
+    <div class="option" data-value="design4">&#9733; Black Clock (new design)</div>
+    <div class="option" data-value="design5">&#9733; Red Clock (new design)</div>
+  </div>
+</div>
+
+<style>
+
+
+.canvas-button {
+  background-color: beige;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px; /* Adjusted font size to match your inline style */
+  width: 145px; /* Set width for the button */
+  height: 50px; /* Set height of the button */
+  border: 4px solid black; /* Change border style */
+  border-radius: 5px; /* Rounded corners for a softer look */
+  position: absolute; /* Change to absolute positioning */
+  top: 100px; /* Adjust this value to set the distance from the top */
+  left: 50%; /* Center the button horizontally */
+  transform: translateX(-50%); /* Adjust position to be centered */
+  z-index: 20; /* Ensure it is above other elements */
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Show ellipsis for overflowing text */
+  white-space: nowrap; /* Prevent text from wrapping */
+}
+
+.options-list {
+  display: none;
+  position: absolute;
+ background: linear-gradient(145deg, beige 0%, blue 0%, red 40%, #e8e8d0 90%);
+  border-radius: 4px; /* More rounded corners for a bubble effect */
+  width: 315px; /* Match the button width */
+  height: auto; /* Adjust height to fit content */
+  z-index: 19; /* Ensure it is below the button */
+  left: 50%; /* Center the options list */
+  transform: translateX(-50%); /* Adjust position to be centered */
+  overflow: hidden; /* Hide overflow */
+  top: 165px;
+  padding: 5px; /* Add padding for better spacing */
+  opacity: 1; /* Default opacity */
+  transition: opacity 0.5s ease; /* Smooth transition for opacity */
+  color: white;
+}
+
+
+
+
+/* Hidden state */
+.options-list.hidden {
+  opacity: 0; /* Hidden state */
+  pointer-events: none; /* Prevent interaction when hidden */
+}
+
+.option {
+  padding: 10px 15px; /* Increased padding for better spacing */
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: 'Open Sans', sans-serif;
+  white-space: nowrap; 
+  text-align: justify;
+ 
+  border: 1px solid black; 
+  border-radius: 3px; /* Rounded corners for a softer look */
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; /* Smooth transition for background color and shadow */
+}
+
+/* Media query for smaller screens */
+@media (max-width: 480px) {
+  .option {
+    padding: 10px 13px; /* Reduced padding */
+    font-size: 14px; /* Smaller font size */
+    border-radius: 3px; /* Slightly smaller border radius */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Reduced shadow for a flatter look */
+  }
+}
+
+/* Remove the border from the last option */
+.option:last-child {
+  border-bottom: none; /* Remove the bottom border for the last option */
+}
+
+.option:hover {
+  background-color: red; /* Change background on hover */
+  transform: translateY(-2px); /* Lift the option slightly on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Increase shadow on hover */
+}
+
+/* Specific style for the "Hide the clock" option */
+.option[data-value="remove-clock"] {
+  background-color: blue; /* Black background */
+  color: white; /* White text */
+}
+
+/* Change background color to red when clicked */
+.option.clicked {
+  background-color: red; 
+  transform: translateY(2px); /* Slightly lower the option when clicked */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduce shadow when clicked */
+  color: white;
+}
+
+.options-list {
+  /* existing styles */
+  opacity: 1; /* Default opacity */
+  transition: opacity 0.5s ease; /* Smooth transition for opacity */
+}
+
+.options-list.hidden {
+  opacity: 0; /* Hidden state */
+  pointer-events: none; /* Prevent interaction when hidden */
+}
+
+</style>
+
+<canvas id="canvas" class="canvas" style="display: none;"></canvas>
+<canvas id="canvas5" class="canvas" style="display: none;"></canvas>
+<canvas id="canvas6" class="canvas" style="display: none;"></canvas>
+<canvas id="canvas7" class="canvas" style="display: none;"></canvas>
+<canvas id="canvas8" class="canvas" style="display: none;"></canvas>
+<canvas id="canvas9" class="canvas" style="display: none;"></canvas>
+<canvas id="canvas10" class="canvas" style="display: none;"></canvas>
+<canvas id="canvas11" class="canvas" style="display: none;"></canvas>
+
+
+
+
+
+
+<script>
+
+let currentCanvasContext = null; // Variable to track the current canvas context
+
+
+const dropdownButton = document.getElementById('dropdown-button');
+const optionsList = document.getElementById('options-list');
+
+dropdownButton.addEventListener('click', () => {
+  optionsList.style.display = optionsList.style.display === 'block' ? 'none' : 'block';
+});
+
+// Add click event listeners to each option
+const options = document.querySelectorAll('.option');
+
+
+options.forEach(option => {
+  option.addEventListener('click', () => {
+    const value = option.getAttribute('data-value');
+    hideAllCanvases(); // Hide all canvases
+
+    // Update button text based on selected option
+    dropdownButton.textContent = option.textContent; // Set button text to the selected option text
+
+    // Remove 'clicked' class from all options
+    options.forEach(opt => opt.classList.remove('clicked'));
+    
+    // Add 'clicked' class to the selected option
+    option.classList.add('clicked');
+
+    switch (value) {
+      case 'remove-clock':
+        hideAllCanvases(); // Hide all canvases
+        dropdownButton.textContent = 'Select an option'; // Reset button text
+        break;
+      case '4-stripes-normal':
+        document.getElementById('canvas').style.display = 'block';
+        currentCanvasContext = ctx; // Set current canvas context
+        drawClock(); // Call the draw function for the selected clock
+        break;
+
+      case '4-stripes-normal-swiss':
+        document.getElementById('canvas6').style.display = 'block';
+        currentCanvasContext = ctx6; // Set current canvas context
+        drawClock6(); // Call the draw function for the selected clock
+        break;
+
+
+
+case '5-stripes-normal':
+    document.getElementById('canvas5').style.display = 'block';
+    currentCanvasContext = ctx5; // Set current canvas context
+    drawClock5(); // Call the draw function for the selected clock
+    break;
+
+case '5-stripes-normal-swiss':
+    document.getElementById('canvas7').style.display = 'block';
+    currentCanvasContext = ctx7; // Set current canvas context
+    drawClock7(); // Call the draw function for the selected clock
+    break;
+
+case 'design2':
+    document.getElementById('canvas8').style.display = 'block';
+    currentCanvasContext = ctx8; // Set current canvas context
+    drawClock8(); // Call the draw function for the selected clock
+    break;
+
+case 'design3':
+    document.getElementById('canvas9').style.display = 'block';
+    currentCanvasContext = ctx9; // Set current canvas context
+    drawClock9(); // Call the draw function for the selected clock
+    break;
+
+case 'design4':
+    document.getElementById('canvas10').style.display = 'block';
+    currentCanvasContext = ctx10; // Set current canvas context
+    drawClock10(); // Call the draw function for the selected clock
+    break;
+
+case 'design5':
+    document.getElementById('canvas11').style.display = 'block';
+    currentCanvasContext = ctx11; // Set current canvas context
+    drawClock11(); // Call the draw function for the selected clock
+    break;
+
+
+
+      default:
+        // Optionally, you can handle the default case if needed
+        break;
+    }
+    optionsList.style.display = 'none'; // Hide the options list after selection
+  });
+});
+
+function hideAllCanvases() {
+  const canvases = document.getElementsByClassName('canvas');
+  for (let i = 0; i < canvases.length; i++) {
+    canvases[i].style.display = 'none';
+  }
+}
+
+// Optional: Hide the options list when clicking outside of it
+document.addEventListener('click', (event) => {
+  if (!dropdownButton.contains(event.target) && !optionsList.contains(event.target)) {
+    optionsList.style.display = 'none';
+  }
+});
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+    .zoom {
+        transition: transform 0.3s ease; /* Smooth transition for the zoom effect */
+        touch-action: none; /* Prevent default touch actions like scrolling */
+    }
+
+    .zoom:hover {
+        transform: scale(1.1); /* Scale up the element to 110% on hover */
+    }
+</style>
+
+<script>
+    let scale = 1;
+    let initialDistance = null;
+    let currentCanvas = null;
+    let startX = 0; // Starting X position for panning
+    let startY = 0; // Starting Y position for panning
+    let translateX = 0; // Current translation on X
+    let translateY = 0; // Current translation on Y
+
+    // Initialize canvases with some example drawings
+    const canvases = document.querySelectorAll('.canvas');
+    canvases.forEach((canvas, index) => {
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = `hsl(${index * 40}, 100%, 50%)`; // Different colors for each canvas
+        ctx.fillRect(0, 0, canvas.offsetWidth, canvas.offsetHeight);
+    });
+
+    function getDistance(touches) {
+        const [touch1, touch2] = touches;
+        const dx = touch2.pageX - touch1.pageX;
+        const dy = touch2.pageY - touch1.pageY;
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    function updateZoomAndPan() {
+        if (currentCanvas) {
+            currentCanvas.style.transform = `scale(${scale}) translate(${translateX}px, ${translateY}px)`;
+            currentCanvas.style.transformOrigin = 'center'; // Set the origin for scaling
+        }
+    }
+
+    canvases.forEach(canvas => {
+        canvas.addEventListener('touchstart', (event) => {
+            if (event.touches.length === 2) {
+                initialDistance = getDistance(event.touches);
+                currentCanvas = canvas; // Set the current canvas
+            } else if (event.touches.length === 1) {
+                currentCanvas = canvas; // Set the current canvas for single touch
+                startX = event.touches[0].pageX - translateX; // Capture start position for panning
+                startY = event.touches[0].pageY - translateY; // Capture start position for panning
+            }
+        });
+
+        canvas.addEventListener('touchmove', (event) => {
+            if (event.touches.length === 2 && initialDistance !== null) {
+                const currentDistance = getDistance(event.touches);
+                const scaleChange = currentDistance / initialDistance;
+                scale *= scaleChange;
+                initialDistance = currentDistance; // Update initial distance for next move
+                updateZoomAndPan();
+                event.preventDefault(); // Prevent scrolling
+            } else if (event.touches.length === 1 && currentCanvas) {
+                // Handle panning
+                const touch = event.touches[0];
+                translateX = touch.pageX - startX; // Update translateX
+                translateY = touch.pageY - startY; // Update translateY
+                updateZoomAndPan();
+                event.preventDefault(); // Prevent scrolling
+            }
+        });
+
+        canvas.addEventListener('touchend', () => {
+            initialDistance = null; // Reset on touch end
+            currentCanvas = null; // Clear the current canvas
+            // Do not reset scale, translateX, and translateY to keep the zoomed position
+            // scale = 1; // Reset scale after zooming (commented out)
+            // translateX = 0; // Reset translation on X (commented out)
+            // translateY = 0; // Reset translation on Y (commented out)
+            updateZoomAndPan(); // Update zoom effect
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<div style="text-align:center;">
+  <canvas id="canvas"></canvas>
+</div>
+
+<style>
+
+
+
+/* Media query for small screens (e.g., older Android phones or iOS devices) */
+@media only screen and (max-width: 360px) {
+  #canvas {
+    width: 320px;
+    height: 320px;
+  }
+}
+
+/* Media query for tablets */
+@media only screen and (min-width: 600px) and (max-width: 1200px) {
+  #canvas {
+    width: 500px; /* Set the desired width for tablets */
+    height: 500px; /* Set the desired height for tablets */
+  }
+}
+
+
+
+
+/* Media query for small screens (e.g., older Android phones or iOS devices) */
+@media only screen and (max-width: 360px) {
+  #canvas5 {
+    width: 320px;
+    height: 320px;
+  }
+}
+
+/* Media query for tablets */
+@media only screen and (min-width: 600px) and (max-width: 1200px) {
+  #canvas5 {
+    width: 385px; /* Set the desired width for tablets */
+    height: 385px; /* Set the desired height for tablets */
+  }
+}
+
+
+/* Media query for small screens (e.g., older Android phones or iOS devices) */
+@media only screen and (max-width: 360px) {
+  #canvas6 {
+    width: 320px;
+    height: 320px;
+  }
+}
+
+/* Media query for tablets */
+@media only screen and (min-width: 600px) and (max-width: 1200px) {
+  #canvas6 {
+    width: 385px; /* Set the desired width for tablets */
+    height: 385px; /* Set the desired height for tablets */
+  }
+}
+
+
+/* Media query for small screens (e.g., older Android phones or iOS devices) */
+@media only screen and (max-width: 360px) {
+  #canvas7 {
+    width: 320px;
+    height: 320px;
+  }
+}
+/* Media query for tablets */
+@media only screen and (min-width: 600px) and (max-width: 1200px) {
+  #canvas7 {
+    width: 385px; /* Set the desired width for tablets */
+    height: 385px; /* Set the desired height for tablets */
+  }
+}
+
+/* Media query for small screens (e.g., older Android phones or iOS devices) */
+@media only screen and (max-width: 360px) {
+  #canvas8 {
+    width: 320px;
+    height: 320px;
+  }
+}
+/* Media query for tablets */
+@media only screen and (min-width: 600px) and (max-width: 1200px) {
+  #canvas8 {
+    width: 385px; /* Set the desired width for tablets */
+    height: 385px; /* Set the desired height for tablets */
+  }
+}
+
+/* Media query for small screens (e.g., older Android phones or iOS devices) */
+@media only screen and (max-width: 360px) {
+  #canvas9 {
+    width: 320px;
+    height: 320px;
+  }
+}
+/* Media query for tablets */
+@media only screen and (min-width: 600px) and (max-width: 1200px) {
+  #canvas9 {
+    width: 385px; /* Set the desired width for tablets */
+    height: 385px; /* Set the desired height for tablets */
+  }
+}
+
+/* Media query for small screens (e.g., older Android phones or iOS devices) */
+@media only screen and (max-width: 360px) {
+  #canvas10 {
+    width: 320px;
+    height: 320px;
+  }
+}
+/* Media query for tablets */
+@media only screen and (min-width: 600px) and (max-width: 1200px) {
+  #canvas10 {
+    width: 385px; /* Set the desired width for tablets */
+    height: 385px; /* Set the desired height for tablets */
+  }
+}
+
+/* Media query for small screens (e.g., older Android phones or iOS devices) */
+@media only screen and (max-width: 360px) {
+  #canvas11 {
+    width: 320px;
+    height: 320px;
+  }
+}
+/* Media query for tablets */
+@media only screen and (min-width: 600px) and (max-width: 1200px) {
+  #canvas11 {
+    width: 385px; /* Set the desired width for tablets */
+    height: 385px; /* Set the desired height for tablets */
+  }
+}
+</style>
+
+<style>
+
+#canvas {
+  position: relative;
+  transform: translateY(85px); /* Adjust this value to move the canvas down */
+  display: block;
+  margin: 0 auto; /* Center the canvas horizontally */
+  border-radius: 100%; /* Make the canvas a circle */
+  margin-bottom: 20px; 
+  vertical-align: bottom;
+}
+
+
+  
+
+</style>
+
+
+
+<script>
+// Get the canvas element
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+// Set the canvas dimensions
+canvas.width = 385;
+canvas.height = 385;
+
+// Set the clock center and radius
+const centerX = canvas.width / 2;
+const centerY = canvas.height / 2;
+const radius = canvas.width / 2 - 20;
+
+// Define color variables
+let clockCircleColor = '#5FFAFA'; // Changeable color for the clock circle
+let stripeColor = '#FB2413'; // Changeable color for the stripes
+let secondsCircle = '#1B52E2'; // Changeable color for the stripes
+let innerBorder = 'white';
+let outerBorder = 'red';
+let stars = 'white';
+
+
+// Function to draw a five-pointed star
+function drawStar(x, y, size, color) {
+  ctx.beginPath();
+  for (let i = 0; i < 5; i++) {
+    const angle = i * 4 * Math.PI / 5;
+    const sx = x + size * Math.sin(angle);
+    const sy = y - size * Math.cos(angle);
+    ctx.lineTo(sx, sy);
+  }
+  ctx.closePath();
+  ctx.fillStyle = color;
+  ctx.fill();
+}
+
+// Function to draw a stripe
+function drawStripe(x, y, length, angle, color) {
+  ctx.beginPath();
+  ctx.lineWidth = 3.8;
+  ctx.strokeStyle = color;
+  ctx.moveTo(x, y);
+  ctx.lineTo(x + length * Math.sin(angle), y - length * Math.cos(angle));
+  ctx.stroke();
+}
+
+let currentSeconds = 0;
+let lastUpdateTime = 0;
+
+function drawClock() {
+  // Clear the canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Draw the clock circle
+  ctx.beginPath();
+  ctx.arc(centerX, centerY, radius, 0, 5 * Math.PI);
+  ctx.fillStyle = clockCircleColor; // Use the variable
+  ctx.fill();
+  ctx.lineWidth = 11;
+  ctx.strokeStyle = outerBorder;
+  ctx.stroke();
+
+  // Draw the outer ring
+  ctx.beginPath();
+  ctx.arc(centerX, centerY, radius * 0.95, 0, 2 * Math.PI);
+  ctx.lineWidth = 11;
+  ctx.strokeStyle = innerBorder;
+  ctx.stroke();
+
+  // Draw the hour markers (stars)
+  for (let i = 0; i < 12; i++) {
+    const angle = i * 30 * Math.PI / 180;
+    const x = centerX + radius * 0.8 * Math.sin(angle);
+    const y = centerY - radius * 0.8 * Math.cos(angle);
+    let color;
+    const hour = new Date().getHours() % 12;
+    const minute = new Date().getMinutes();
+    if (i === hour) {
+      color = 'darkblue'; // current hour
+    } else if (i === Math.floor((minute / 5) % 12)) {
+      color = '#2FD2D6'; // current minute 
+    } else {
+      color = stars;
+    }
+    drawStar(x, y, 14, color);
+  }
+
+
+  // Draw the stripes
+  const minute = new Date().getMinutes();
+  let stripeBorder = 'white';
+  const stripeWidth = 0.9; // adjust this value to change the width of the stripes
+  const stripeOffset = 0.5; // adjust this value to change the position of the stripes
+  const centerCircleRadius = radius * 0.9; // radius of the center circle
+  const maxStripeLength = radius * 0.28 - radius * 0.02; // calculate the maximum stripe length
+  for (let i = 0; i < minute; i++) {
+    if ((i + 1) % 5 !== 0) { // skip drawing an extra stripe for every 5 minutes passed
+      const angle = (i + 0.4 + 0.6) * 6 * Math.PI / 180; // added 0.1 to shift the angle clockwise
+      const x = centerX + radius * stripeOffset * Math.sin(angle);
+      const y = centerY - radius * stripeOffset * Math.cos(angle);
+      let color = stripeColor;
+      drawStripe(x, y, maxStripeLength, angle, color);
+      drawStripe(x, y, maxStripeLength, angle + Math.PI, color);
+    }
+  }
+
+
+
+
+
+
+  // Draw the center circle (seconds indicator)
+  const now = new Date().getTime();
+  const seconds = now / 1000;
+  const deltaTime = now - lastUpdateTime;
+  lastUpdateTime = now;
+
+  currentSeconds += deltaTime / 1000; 
+  currentSeconds %= 60; 
+
+  // Draw the filled circle (seconds indicator)
+  ctx.beginPath();
+  ctx.arc(centerX, centerY, radius * 0.10 * (currentSeconds / 60), 0, 2 * Math.PI);
+  ctx.fillStyle = 'blue'; 
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(centerX, centerY, radius * 0.10, 0, 2 * Math.PI);
+  ctx.lineWidth = 10;
+  ctx.strokeStyle = '#f5f525';
+  ctx.stroke();
+  ctx.fillStyle = 'red'; 
+  ctx.fill();
+
+  // Draw the inner circle
+  ctx.beginPath();
+  ctx.arc(centerX, centerY, radius * 0.10, 0, 2 * Math.PI);
+  ctx.lineWidth = 10;
+  ctx.strokeStyle = '#4FA8C2'; // inner circle border
+  ctx.stroke();
+  ctx.fillStyle = '#f5fffa'; // inner circle'
+  ctx.fill();
+
+  // Draw a star inside the inner circle
+  drawStar(centerX, centerY, 13, '#C9AE21');
+
+  // Draw the outer ring
+  ctx.beginPath();
+  ctx.arc(centerX, centerY, radius * 0.26, 0, 2 * Math.PI);
+  ctx.lineWidth = 7;
+  ctx.strokeStyle = '#4FA8C2';  // outer circle border
+  ctx.stroke();
+
+
+
+  ctx.beginPath();
+  ctx.arc(centerX, centerY, radius * 0.13, -Math.PI / 2, (currentSeconds / 60) * 2 * Math.PI - Math.PI / 2); 
+  ctx.arc(centerX, centerY, radius * 0.24, (currentSeconds / 60) * 2 * Math.PI - Math.PI / 2, -Math.PI / 2, true);
+  ctx.lineWidth = 9;
+  ctx.fillStyle = secondsCircle; 
+  ctx.fill();
+
+  // Add a small delay to smooth out the animation
+  setTimeout(() => {
+    requestAnimationFrame(drawClock);
+  }, 16); 
+}
+
+drawClock();
+</script>
+
+
+
+
+
+
+
+
+
+
+<div id="5th-page-content">
+    <!-- Content from the 5th page  -->
+    <div style="text-align:center;">
+      <canvas id="canvas5"></canvas>
+    </div>
+
+
+<style>
+#canvas5 {
+  position: relative;
+  transform: translateY(85px); /* Adjust this value to move the canvas down */
+  display: block;
+  margin: 0 auto; /* add this to center the canvas horizontally */
+  border-radius: 100%; /* add this to make the canvas a circle */
+  margin-bottom: 20px; 
+  vertical-align: bottom;
+}
+</style>
+
+<script>
+// clock #3
+// Get the canvas element
+const canvas5 = document.getElementById('canvas5');
+const ctx5 = canvas5.getContext('2d');
+
+// Set the canvas dimensions
+canvas5.width = 385;
+canvas5.height = 385;
+
+// Set the clock center and radius
+const centerX5 = canvas5.width / 2;
+const centerY5 = canvas5.height / 2;
+const radius5 = canvas5.width / 2 - 20;
+
+// Function to draw a five-pointed star
+function drawStar5(x, y, size, color) {
+  ctx5.beginPath();
+  for (let i = 0; i < 5; i++) {
+    const angle = i * 4 * Math.PI / 5;
+    const sx = x + size * Math.sin(angle);
+    const sy = y - size * Math.cos(angle);
+    ctx5.lineTo(sx, sy);
+  }
+  ctx5.closePath();
+  ctx5.fillStyle = color;
+  ctx5.fill();
+}
+
+// Function to draw a stripe
+function drawStripe5(x, y, length, angle, color) {
+  ctx5.beginPath();
+  ctx5.lineWidth = 3.8;
+  ctx5.strokeStyle = color;
+  ctx5.moveTo(x, y);
+  ctx5.lineTo(x + length * Math.sin(angle), y - length * Math.cos(angle));
+  ctx5.stroke();
+}
+
+
+// Define color variables
+let clockCircleColor5= '#5FFAFA'; // Changeable color for the clock circle
+let stripeColor5= '#FB2413'; // Changeable color for the stripes
+let secondsCircle5= '#1B52E2'; 
+let innerBorder5 = 'white';
+let outerBorder5 = 'red';
+let stars5 = 'white';
+
+
+
+
+
+let currentSeconds5 = 0;
+let lastUpdateTime5 = 0;
+
+function drawClock5() {
+  // Clear the canvas
+  ctx5.clearRect(0, 0, canvas5.width, canvas5.height);
+
+  // Draw the clock circle
+  ctx5.beginPath();
+  ctx5.arc(centerX5, centerY5, radius5, 0, 5 * Math.PI);
+  ctx5.fillStyle = clockCircleColor5;
+  ctx5.fill();
+  ctx5.lineWidth = 11;
+  ctx5.strokeStyle = outerBorder5;
+  ctx5.stroke();
+
+  // Draw the outer ring
+  ctx5.beginPath();
+  ctx5.arc(centerX5, centerY5, radius5 * 0.95, 0, 2 * Math.PI);
+  ctx5.lineWidth = 11;
+  ctx5.strokeStyle = innerBorder5;
+  ctx5.stroke();
+
+  // Draw the hour markers (stars)
+  for (let i = 0; i < 12; i++) {
+    const angle = i * 30 * Math.PI / 180;
+    const x = centerX5 + radius5 * 0.8 * Math.sin(angle);
+    const y = centerY5 - radius5 * 0.8 * Math.cos(angle);
+    let color;
+    const hour = new Date().getHours() % 12;
+    const minute = new Date().getMinutes();
+    if (i === hour) {
+      color = 'darkblue'; // current hour
+    } else if (i === Math.floor((minute / 5) % 12)) {
+      color = '#2FD2D6'; // current minute 
+    } else {
+      color = stars5;
+    }
+    drawStar5(x, y, 14, color);
+  }
+
+ // Draw the stripes
+const minute5 = new Date().getMinutes();
+let stripeBorder5='white';
+const stripeWidth5 = 0.7; // adjust this value to change the width of the stripes
+const stripeOffset5 = 0.5; // adjust this value to change the position of the stripes
+const centerCircleRadius5 = radius5 * 0.10; // radius of the center circle
+const maxStripeLength5 = radius5 * 0.33 - radius5 * 0.10; // calculate the maximum stripe length
+for (let i = 0; i < minute5; i++) {
+  if ((i + 1)) { // skip drawing an extra stripe for every 5 minutes passed
+    const angle = (i + 0.5 + 0.6) * 6 * Math.PI / 180; // added 0.1 to shift the angle clockwise
+    const x = centerX5 + radius5 * stripeOffset5 * Math.sin(angle);
+    const y = centerY5 - radius5 * stripeOffset5 * Math.cos(angle);
+    let color = stripeColor5;
+    drawStripe5(x, y, maxStripeLength5, angle, color);
+    drawStripe5(x, y, maxStripeLength5, angle + Math.PI, color);
+  }
+}
+
+
+
+  // Draw the center circle (seconds indicator)
+  const now5 = new Date().getTime();
+  const seconds5 = now5 / 1000;
+  const deltaTime5 = now5 - lastUpdateTime5;
+  lastUpdateTime5 = now5;
+
+  currentSeconds5 += deltaTime5 / 1000; // update current seconds
+  currentSeconds5 %= 60; // keep current seconds between 0 and 60
+
+  const circleProgress5 = currentSeconds5 / 60; // calculate progress based on current seconds
+
+  // Draw the filled circle (seconds indicator)
+  ctx5.beginPath();
+  ctx5.arc(centerX5, centerY5, radius5 * 0.10 * (currentSeconds5 / 60), 0, 2 * Math.PI);
+  ctx5.fillStyle = 'blue'; 
+  ctx5.fill();
+  ctx5.beginPath();
+  ctx5.arc(centerX5, centerY5, radius5 * 0.10, 0, 2 * Math.PI);
+  ctx5.lineWidth = 11;  //do not change
+  ctx5.strokeStyle = '#B7950B';
+  ctx5.stroke();
+  ctx5.fillStyle = 'white'; 
+  ctx5.fill();
+
+  // Draw the inner circle
+  ctx5.beginPath();
+  ctx5.arc(centerX5, centerY5, radius5 * 0.10, 0, 2 * Math.PI);
+  ctx5.lineWidth = 10;  // do not change
+  ctx5.strokeStyle = '#4FA8C2';
+  ctx5.stroke();
+  ctx5.fillStyle = '#f5fffa';
+  ctx5.fill();
+
+  // Draw a star inside the inner circle
+  drawStar5(centerX5, centerY5, 13, '#C9AE21');
+
+  // Draw the outer ring
+  ctx5.beginPath();
+  ctx5.arc(centerX5, centerY5, radius5 * 0.26, 0, 2 * Math.PI);
+  ctx5.lineWidth = 7; // changing colors 
+  ctx5.strokeStyle = '#4FA8C2';
+  ctx5.stroke();
+
+
+
+  ctx5.beginPath();
+  ctx5.arc(centerX5, centerY5, radius5 * 0.13, -Math.PI / 2, circleProgress5 * 2 * Math.PI - Math.PI / 2); 
+  ctx5.arc(centerX5, centerY5, radius5 * 0.24, circleProgress5 * 2 * Math.PI - Math.PI / 2, -Math.PI / 2, true);
+  ctx5.lineWidth = 8;  // do not change
+ ctx5.fillStyle = secondsCircle5; // Use the updated color
+  ctx5.fill();
+
+  // Add a small delay to smooth out the animation
+  setTimeout(() => {
+    requestAnimationFrame(drawClock5);
+  }, 16); // 16ms = 60fps
+}
+
+drawClock5();
+</script>
+
+
+<style>
+ 
+  #canvas6 {
+ position: relative;
+  transform: translateY(85px); /* Adjust this value to move the canvas down */
+  display: block;
+  margin: 0 auto; /* add this to center the canvas horizontally */
+  border-radius: 100%; /* add this to make the canvas a circle */
+  margin-bottom: 10px; 
+ vertical-align: bottom;
+}
+ overflow-x: hidden; /* prevent horizontal scrolling */
+
+ 
+
+</style>
+
+
+
+<script>
+
+// Get the canvas element
+const canvas6 = document.getElementById('canvas6');
+const ctx6 = canvas6.getContext('2d');
+
+// Set the canvas dimensions
+canvas6.width = 385;
+canvas6.height = 385;
+
+// Set the clock center and radius
+const centerX6 = canvas6.width / 2;
+const centerY6 = canvas6.height / 2;
+const radius6 = canvas6.width / 2 - 20;
+
+// Function to draw a five-pointed star
+function drawStar6(x, y, size, color) {
+  ctx6.beginPath();
+  for (let i = 0; i < 5; i++) {
+    const angle = i * 4 * Math.PI / 5;
+    const sx = x + size * Math.sin(angle);
+    const sy = y - size * Math.cos(angle);
+    ctx6.lineTo(sx, sy);
+  }
+  ctx6.closePath();
+  ctx6.fillStyle = color;
+  ctx6.fill();
+}
+
+// Function to draw a stripe
+function drawStripe6(x, y, length, angle, color) {
+  ctx6.beginPath();
+  ctx6.lineWidth = 3.8;
+  ctx6.strokeStyle = color;
+  ctx6.moveTo(x, y);
+  ctx6.lineTo(x + length * Math.sin(angle), y - length * Math.cos(angle));
+  ctx6.stroke();
+}
+
+// Define color variables
+let clockCircleColor6 = '#5FFAFA'; // Changeable color for the clock circle
+let stripeColor6= '#FB2413'; // Changeable color for the stripes
+let secondsCircle6; // Variable for HSL color
+let solidColor6 = null; // Variable for solid color
+let innerBorder6 = 'white';
+let outerBorder6 = 'red';
+let stars6 = 'white';
+
+
+
+let currentSeconds6 = 0;
+let lastUpdateTime6 = 0;
+
+function drawClock6() {
+  // Clear the canvas
+  ctx6.clearRect(0, 0, canvas6.width, canvas6.height);
+
+  // Draw the clock circle
+  ctx6.beginPath();
+  ctx6.arc(centerX6, centerY6, radius6, 0, 5 * Math.PI);
+  ctx6.fillStyle = clockCircleColor6; // Use the variable
+  ctx6.fill();
+  ctx6.lineWidth = 11;
+  ctx6.strokeStyle = outerBorder6;
+  ctx6.stroke();
+
+  // Draw the outer ring
+  ctx6.beginPath();
+  ctx6.arc(centerX6, centerY6, radius6 * 0.95, 0, 2 * Math.PI);
+  ctx6.lineWidth = 11;
+  ctx6.strokeStyle = innerBorder6;
+  ctx6.stroke();
+
+  // Draw the hour markers (stars)
+  for (let i = 0; i < 12; i++) {
+    const angle = i * 30 * Math.PI / 180;
+    const x = centerX6 + radius6 * 0.8 * Math.sin(angle);
+    const y = centerY6 - radius6 * 0.8 * Math.cos(angle);
+    let color6;
+    const hour6 = new Date().getHours() % 12;
+    const minute6 = new Date().getMinutes();
+    if (i === hour6) {
+      color6 = 'darkblue'; // current hour
+    } else if (i === Math.floor((minute6 / 5) % 12)) {
+      color6 = '#2FD2D6'; // current minute 
+    } else {
+      color6 = stars6;
+    }
+    drawStar6(x, y, 14, color6);
+  }
+
+  // Draw the stripes
+  const minute6 = new Date().getMinutes();
+  let stripeBorder6 = 'white';
+  const stripeWidth6 = 0.9; // adjust this value to change the width of the stripes
+  const stripeOffset6 = 0.5; // adjust this value to change the position of the stripes
+  const centerCircleRadius6 = radius6 * 0.9; // radius of the center circle
+  const maxStripeLength6 = radius6 * 0.28 - radius6 * 0.02; // calculate the maximum stripe length
+  for (let i = 0; i < minute6; i++) {
+    if ((i + 1) % 5 !== 0) { // skip drawing an extra stripe for every 5 minutes passed
+      const angle6 = (i + 0.4 + 0.6) * 6 * Math.PI / 180; // added 0.1 to shift the angle clockwise
+      const x = centerX6 + radius6 * stripeOffset6 * Math.sin(angle6);
+      const y = centerY6 - radius6 * stripeOffset6 * Math.cos(angle6);
+      let color6 = stripeColor6;
+      drawStripe6(x, y, maxStripeLength6, angle6, color6);
+      drawStripe6(x, y, maxStripeLength6, angle6 + Math.PI, color6);
+    }
+  }
+
+  // Draw the center circle (seconds indicator)
+  const seconds6 = new Date().getSeconds();
+  const milliseconds6 = new Date().getMilliseconds();
+  const circleProgress6 = (seconds6 + milliseconds6 / 1000) / 60;
+
+  ctx6.beginPath();
+  ctx6.arc(centerX6, centerY6, radius6 * 0.20, 0, 2 * Math.PI);
+  ctx6.beginPath();
+  ctx6.lineWidth = 11;
+  ctx6.arc(centerX6, centerY6, radius6 * 0.10, -Math.PI / 2, circleProgress6 * 2 * Math.PI - Math.PI / 2);
+  ctx6.arc(centerX6, centerY6, radius6 * 0.27, circleProgress6 * 2 * Math.PI - Math.PI / 2, -Math.PI / 2, true);
+
+  let hue6 = seconds6 * 6; // Calculate the hue value based on the current second
+
+   let fillColor = solidColor6 ? solidColor6 : `hsl(${seconds6 * 6}, 100%, 50%)`;
+    
+  ctx6.fillStyle = fillColor; // Use the selected color
+  ctx6.fillStyle = secondsCircle6; // use the calculated color
+  ctx6.fill(); // Draw the outer ring
+  ctx6.beginPath();
+  ctx6.arc(centerX6, centerY6, radius6 * 0.25, 0, 2 * Math.PI);
+  ctx6.lineWidth = 13;
+  ctx6.strokeStyle = '#4FA8C2';
+  ctx6.stroke(); // Draw the inner white circle with a border
+  ctx6.beginPath();
+  ctx6.arc(centerX6, centerY6, radius6 * 0.10, 0, 2 * Math.PI);
+  ctx6.lineWidth = 11;
+  ctx6.strokeStyle = '#4FA8C2';
+  ctx6.stroke();
+  ctx6.fillStyle = '#f5fffa';
+  ctx6.fill();
+
+  // Draw the star in the center
+  drawStar6(centerX6, centerY6, 14, '#B7950B');
+}
+
+// Update the clock every second
+setInterval(drawClock6, 1000);
+
+</script>
+
+
+
+
+
+<style>
+#canvas7 {
+  position: relative;
+   transform: translateY(85px); /* Adjust this value to move the canvas down */
+  display: block;
+  margin: 0 auto; /* add this to center the canvas horizontally */
+  border-radius: 100%; /* add this to make the canvas a circle */
+  margin-bottom: 10px; 
+  vertical-align: bottom;
+}
+</style>
+
+<script>
+// Get the canvas element
+const canvas7 = document.getElementById('canvas7');
+const ctx7 = canvas7.getContext('2d');
+
+// Set the canvas dimensions
+canvas7.width = 385;
+canvas7.height = 385;
+
+// Set the clock center and radius
+const centerX7 = canvas7.width / 2;
+const centerY7 = canvas7.height / 2;
+const radius7 = canvas7.width / 2 - 20;
+
+// Function to draw a five-pointed star
+function drawStar7(x, y, size, color) {
+  ctx7.beginPath();
+  for (let i = 0; i < 5; i++) {
+    const angle = i * 4 * Math.PI / 5;
+    const sx = x + size * Math.sin(angle);
+    const sy = y - size * Math.cos(angle);
+    ctx7.lineTo(sx, sy);
+  }
+  ctx7.closePath();
+  ctx7.fillStyle = color;
+  ctx7.fill();
+}
+
+// Function to draw a stripe
+function drawStripe7(x, y, length, angle, color) {
+  ctx7.beginPath();
+  ctx7.lineWidth = 3.8;
+  ctx7.strokeStyle = color;
+  ctx7.moveTo(x, y);
+  ctx7.lineTo(x + length * Math.sin(angle), y - length * Math.cos(angle));
+  ctx7.stroke();
+}
+
+
+// Define color variables
+let clockCircleColor7 = '#5FFAFA'; // Changeable color for the clock circle
+let stripeColor7 = '#FB2413'; // Changeable color for the stripes
+let secondsCircle7 = 'blue';
+let innerBorder7 = 'white';
+let outerBorder7 = 'red';
+let stars7 = 'white';
+
+
+
+
+
+
+let currentSeconds7 = 0;
+let lastUpdateTime7 = 0;
+
+function drawClock7() {
+  // Clear the canvas
+  ctx7.clearRect(0, 0, canvas7.width, canvas7.height);
+
+  // Draw the clock circle
+  ctx7.beginPath();
+  ctx7.arc(centerX7, centerY7, radius7, 0, 5 * Math.PI);
+  ctx7.fillStyle = clockCircleColor7; // Use the variable
+  ctx7.fill();
+  ctx7.lineWidth = 11;
+  ctx7.strokeStyle = outerBorder7;
+  ctx7.stroke();
+
+  // Draw the outer ring
+  ctx7.beginPath();
+  ctx7.arc(centerX7, centerY7, radius7 * 0.95, 0, 2 * Math.PI);
+  ctx7.lineWidth = 11;
+  ctx7.strokeStyle = innerBorder7;
+  ctx7.stroke();
+
+  // Draw the hour markers (stars)
+  for (let i = 0; i < 12; i++) {
+    const angle = i * 30 * Math.PI / 180;
+    const x = centerX7 + radius7 * 0.8 * Math.sin(angle);
+    const y = centerY7 - radius7 * 0.8 * Math.cos(angle);
+    let color;
+    const hour7 = new Date().getHours() % 12;
+    const minute7 = new Date().getMinutes();
+    if (i === hour7) {
+      color = 'darkblue'; // current hour
+    } else if (i === Math.floor((minute7 / 5) % 12)) {
+      color = '#2FD2D6 '; // current minute 
+    } else {
+      color = stars7;
+    }
+    drawStar7(x, y, 14, color);
+  }
+
+// Draw the stripes
+const minute7 = new Date().getMinutes();
+let stripeBorder7='white';
+const stripeWidth7 = 0.8; // adjust this value to change the width of the stripes
+const stripeOffset7 = 0.5; // adjust this value to change the position of the stripes
+const centerCircleRadius7 = radius7 * 0.10; // radius of the center circle
+const maxStripeLength7 = radius7 * 0.32 - radius7 * 0.10; // calculate the maximum stripe length
+for (let i = 0; i < minute7; i++) {
+  if ((i + 1)) { // skip drawing an extra stripe for every 5 minutes passed
+    const angle = (i + 0.5 + 0.6) * 6 * Math.PI / 180; // added 0.1 to shift the angle clockwise
+    const x = centerX7 + radius7 * stripeOffset7 * Math.sin(angle);
+    const y = centerY7 - radius7 * stripeOffset7 * Math.cos(angle);
+    let color = stripeColor7;
+    drawStripe7(x, y, maxStripeLength7, angle, color);
+    drawStripe7(x, y, maxStripeLength7, angle + Math.PI, color);
+  }
+}
+
+
+
+
+ // Draw the center circle (seconds indicator)
+  const seconds7 = new Date().getSeconds();
+  const milliseconds7 = new Date().getMilliseconds();
+  const circleProgress7 = (seconds7 + milliseconds7 / 1000) / 60;
+
+  ctx7.beginPath();
+  ctx7.arc(centerX7, centerY7, radius7 * 0.20, 0, 2 * Math.PI);
+  ctx7.beginPath();
+  ctx7.lineWidth = 10;
+  ctx7.arc(centerX7, centerY7, radius7 * 0.10, -Math.PI / 2, circleProgress7 * 2 * Math.PI - Math.PI / 2);
+  ctx7.arc(centerX7, centerY7, radius7 * 0.27, circleProgress7 * 2 * Math.PI - Math.PI / 2, -Math.PI / 2, true);
+
+  let hue7 = seconds7 * 6; // Calculate the hue value based on the current second
+  let secondsColor7 = 'blue';
+  ctx7.fillStyle = secondsCircle7; // use the calculated color
+  ctx7.fill(); // Draw the outer ring
+  ctx7.beginPath();
+  ctx7.arc(centerX7, centerY7, radius7 * 0.25, 0, 2 * Math.PI);
+  ctx7.lineWidth = 13;
+  ctx7.strokeStyle = '#4FA8C2';
+
+
+  ctx7.stroke(); // Draw the inner white circle with a border
+  ctx7.beginPath();
+  ctx7.arc(centerX7, centerY7, radius7 * 0.10, 0, 2 * Math.PI);
+  ctx7.lineWidth = 11;
+  ctx7.strokeStyle = '#4FA8C2';
+  ctx7.stroke();
+  ctx7.fillStyle = 'beige';
+  ctx7.fill();
+
+  // Draw the star in the center
+  drawStar7(centerX7, centerY7, 14, '#B7950B');
+}
+
+// Update the clock every second
+setInterval(drawClock7, 1000);
+
+</script>
+
+
+
+
+<style>
+
+#canvas8 {
+  position: relative;
+  transform: translateY(85px); /* Adjust this value to move the canvas down */
+  display: block;
+  margin: 0 auto; /* add this to center the canvas horizontally */
+  border-radius: 100%; /* add this to make the canvas a circle */
+  margin-bottom: 20px; 
+  vertical-align: bottom;
+}
+
+</style>
+
+<script>
+
+// Get the canvas element
+const canvas8 = document.getElementById('canvas8');
+const ctx8 = canvas8.getContext('2d');
+
+// Set the canvas dimensions
+canvas8.width = 385;
+canvas8.height = 385;
+
+// Set the clock center and radius
+const centerX8 = canvas8.width / 2;
+const centerY8 = canvas8.height / 2;
+const radius8 = canvas8.width / 2 - 20;
+
+// Function to draw a five-pointed star
+function drawStar8(x, y, size, color) {
+  ctx8.beginPath();
+  for (let i = 0; i < 5; i++) {
+    const angle = i * 4 * Math.PI / 5;
+    const sx = x + size * Math.sin(angle);
+    const sy = y - size * Math.cos(angle);
+    ctx8.lineTo(sx, sy);
+  }
+  ctx8.closePath();
+  ctx8.fillStyle = color;
+  ctx8.fill();
+}
+
+// Function to draw a stripe
+function drawStripe8(x, y, length, angle, color) {
+  ctx8.beginPath();
+  ctx8.lineWidth = 3.8;
+  ctx8.strokeStyle = color;
+  ctx8.moveTo(x, y);
+  ctx8.lineTo(x + length * Math.sin(angle), y - length * Math.cos(angle));
+  ctx8.stroke();
+}
+
+// Define color variables
+let clockCircleColor8 = '#388dfa'; // Changeable color for the clock circle
+let stripeColor8 = 'white'; // Changeable color for the stripes
+let secondsCircle8 = 'red'; // Changeable color for the stripes
+let innerBorder8 = 'white';
+let outerBorder8 = 'red';
+let stars8 = 'beige';
+
+
+let currentSeconds8 = 0;
+let lastUpdateTime8 = 0;
+
+function drawClock8() {
+  // Clear the canvas
+  ctx8.clearRect(0, 0, canvas8.width, canvas8.height);
+
+  // Draw the clock circle
+  ctx8.beginPath();
+  ctx8.arc(centerX8, centerY8, radius8, 0, 5 * Math.PI);
+  ctx8.fillStyle = clockCircleColor8; // Use the variable
+  ctx8.fill();
+  ctx8.lineWidth = 11;
+  ctx8.strokeStyle = outerBorder8;
+  ctx8.stroke();
+
+  // Draw the outer ring
+  ctx8.beginPath();
+  ctx8.arc(centerX8, centerY8, radius8 * 0.95, 0, 2 * Math.PI);
+  ctx8.lineWidth = 11;
+  ctx8.strokeStyle = innerBorder8;
+  ctx8.stroke();
+
+  // Draw the hour markers (stars)
+  for (let i = 0; i < 12; i++) {
+    const angle = i * 30 * Math.PI / 180;
+    const x = centerX8 + radius8 * 0.8 * Math.sin(angle);
+    const y = centerY8 - radius8 * 0.8 * Math.cos(angle);
+    let color;
+    const hour = new Date().getHours() % 12;
+    const minute = new Date().getMinutes();
+    if (i === hour) {
+      color = 'darkblue'; // current hour
+    } else if (i === Math.floor((minute / 5) % 12)) {
+      color = '#2FD2D6'; // current minute 
+    } else {
+      color = stars8;
+    }
+    drawStar8(x, y, 14, color);
+  }
+
+  // Draw the stripes
+  const minute8 = new Date().getMinutes();
+  let stripeBorder8 = 'white';
+  const stripeWidth8 = 0.9; // adjust this value to change the width of the stripes
+  const stripeOffset8 = 0.5; // adjust this value to change the position of the stripes
+  const centerCircleRadius8 = radius8 * 0.9; // radius of the center circle
+  const maxStripeLength8 = radius8 * 0.28 - radius8 * 0.02; // calculate the maximum stripe length
+  for (let i = 0; i < minute8; i++) {
+    if ((i + 1) % 5 !== 0) { // skip drawing an extra stripe for every 5 minutes passed
+      const angle = (i + 0.4 + 0.6) * 6 * Math.PI / 180; // added 0.1 to shift the angle clockwise
+      const x = centerX8 + radius8 * stripeOffset8 * Math.sin(angle);
+      const y = centerY8 - radius8 * stripeOffset8 * Math.cos(angle);
+      let color = stripeColor8;
+      drawStripe8(x, y, maxStripeLength8, angle, color);
+      drawStripe8(x, y, maxStripeLength8, angle + Math.PI, color);
+    }
+  }
+
+  // Draw the center circle (seconds indicator)
+  const now8 = new Date().getTime();
+  const seconds8 = now8 / 1000;
+  const deltaTime8 = now8 - lastUpdateTime8;
+  lastUpdateTime8 = now8;
+
+  currentSeconds8 += deltaTime8 / 1000; // update current seconds
+  currentSeconds8 %= 60; // keep current seconds between 0 and 60
+
+  const circleProgress8 = currentSeconds8 / 60; // calculate progress based on current seconds
+
+  // Draw the filled circle (seconds indicator)
+  ctx8.beginPath();
+  ctx8.arc(centerX8, centerY8, radius8 * 0.10 * (currentSeconds8 / 60), 0, 2 * Math.PI);
+  ctx8.fillStyle = 'blue'; 
+  ctx8.fill();
+  ctx8.beginPath();
+  ctx8.arc(centerX8, centerY8, radius8 * 0.10, 0, 2 * Math.PI);
+  ctx8.lineWidth = 10;
+  ctx8.strokeStyle = '#B7950B';
+  ctx8.stroke();
+  ctx8.fillStyle = 'white'; 
+  ctx8.fill();
+
+  // Draw the inner circle
+  ctx8.beginPath();
+  ctx8.arc(centerX8, centerY8, radius8 * 0.10, 0, 2 * Math.PI);
+  ctx8.lineWidth = 10;
+  ctx8.strokeStyle = '#2552f6';
+  ctx8.stroke();
+  ctx8.fillStyle = '#f5fffa';
+  ctx8.fill();
+
+  // Draw a star inside the inner circle
+  drawStar8(centerX8, centerY8, 14, '#C9AE21');
+
+  // Draw the outer ring
+  ctx8.beginPath();
+  ctx8.arc(centerX8, centerY8, radius8 * 0.25, 0, 2 * Math.PI);
+  ctx8.lineWidth = 8;
+  ctx8.strokeStyle = '#2552f6';
+  ctx8.stroke();
+
+
+
+
+
+  ctx8.beginPath();
+  ctx8.arc(centerX8, centerY8, radius8 * 0.13, -Math.PI / 2, circleProgress8 * 2 * Math.PI - Math.PI / 2); 
+  ctx8.arc(centerX8, centerY8, radius8 * 0.23, circleProgress8 * 2 * Math.PI - Math.PI / 2, -Math.PI / 2, true);
+  ctx8.lineWidth = 7;
+  ctx8.fillStyle = secondsCircle8; // changed to blue only
+  ctx8.fill();
+
+  // Add a small delay to smooth out the animation
+  setTimeout(() => {
+    requestAnimationFrame(drawClock8);
+  }, 16); // 16ms = 60fps
+}
+
+drawClock8();
+</script>
+
+
+<style>
+
+#canvas9 {
+  position: relative;
+  transform: translateY(85px); /* Adjust this value to move the canvas down */
+  display: block;
+  margin: 0 auto; /* add this to center the canvas horizontally */
+  border-radius: 100%; /* add this to make the canvas a circle */
+  margin-bottom: 20px; 
+  vertical-align: bottom;
+}
+
+</style>
+
+<script>
+
+// Get the canvas element
+const canvas9 = document.getElementById('canvas9');
+const ctx9 = canvas9.getContext('2d');
+
+// Set the canvas dimensions
+canvas9.width = 385;
+canvas9.height = 385;
+
+// Set the clock center and radius
+const centerX9 = canvas9.width / 2;
+const centerY9 = canvas9.height / 2;
+const radius9 = canvas9.width / 2 - 20;
+
+// Function to draw a five-pointed star
+function drawStar9(x, y, size, color) {
+  ctx9.beginPath();
+  for (let i = 0; i < 5; i++) {
+    const angle = i * 4 * Math.PI / 5;
+    const sx = x + size * Math.sin(angle);
+    const sy = y - size * Math.cos(angle);
+    ctx9.lineTo(sx, sy);
+  }
+  ctx9.closePath();
+  ctx9.fillStyle = color;
+  ctx9.fill();
+}
+
+// Function to draw a stripe
+function drawStripe9(x, y, length, angle, color) {
+  ctx9.beginPath();
+  ctx9.lineWidth = 3.8;
+  ctx9.strokeStyle = color;
+  ctx9.moveTo(x, y);
+  ctx9.lineTo(x + length * Math.sin(angle), y - length * Math.cos(angle));
+  ctx9.stroke();
+}
+
+
+// Define color variables
+let clockCircleColor9 = '#f962c7'; // Changeable color for the clock circle
+let stripeColor9 = 'white'; // Changeable color for the stripes
+let secondsCircle9 = '#7b00ef'; // Changeable color for the stripes
+let innerBorder9 = 'white';
+let outerBorder9 = 'red';
+let stars9 = 'beige';
+
+
+
+
+
+let currentSeconds9 = 0;
+let lastUpdateTime9 = 0;
+
+function drawClock9() {
+  // Clear the canvas
+  ctx9.clearRect(0, 0, canvas9.width, canvas9.height);
+
+  // Draw the clock circle
+  ctx9.beginPath();
+  ctx9.arc(centerX9, centerY9, radius9, 0, 5 * Math.PI);
+  ctx9.fillStyle = clockCircleColor9; // Use the variable
+  ctx9.fill();
+  ctx9.lineWidth = 11;
+  ctx9.strokeStyle = outerBorder9;
+  ctx9.stroke();
+
+  // Draw the outer ring
+  ctx9.beginPath();
+  ctx9.arc(centerX9, centerY9, radius9 * 0.95, 0, 2 * Math.PI);
+  ctx9.lineWidth = 11;
+  ctx9.strokeStyle = innerBorder9;
+  ctx9.stroke();
+
+  // Draw the hour markers (stars)
+  for (let i = 0; i < 12; i++) {
+    const angle = i * 30 * Math.PI / 180;
+    const x = centerX9 + radius9 * 0.8 * Math.sin(angle);
+    const y = centerY9 - radius9 * 0.8 * Math.cos(angle);
+    let color;
+    const hour = new Date().getHours() % 12;
+    const minute = new Date().getMinutes();
+    if (i === hour) {
+      color = 'blue'; // current hour
+    } else if (i === Math.floor((minute / 5) % 12)) {
+      color = '#2FD2D6'; // current minute 
+    } else {
+      color = stars9;
+    }
+    drawStar9(x, y, 14, color);
+  }
+
+  // Draw the stripes
+  const minute9 = new Date().getMinutes();
+  let stripeBorder9 = 'white';
+  const stripeWidth9 = 0.9; // adjust this value to change the width of the stripes
+  const stripeOffset9 = 0.5; // adjust this value to change the position of the stripes
+  const centerCircleRadius9 = radius9 * 0.9; // radius of the center circle
+  const maxStripeLength9 = radius9 * 0.28 - radius9 * 0.02; // calculate the maximum stripe length
+  for (let i = 0; i < minute9; i++) {
+    if ((i + 1) % 5 !== 0) { // skip drawing an extra stripe for every 5 minutes passed
+      const angle = (i + 0.4 + 0.6) * 6 * Math.PI / 180; // added 0.1 to shift the angle clockwise
+      const x = centerX9 + radius9 * stripeOffset9 * Math.sin(angle);
+      const y = centerY9 - radius9 * stripeOffset9 * Math.cos(angle);
+      let color = stripeColor9;
+      drawStripe9(x, y, maxStripeLength9, angle, color);
+      drawStripe9(x, y, maxStripeLength9, angle + Math.PI, color);
+    }
+  }
+
+  // Draw the center circle (seconds indicator)
+  const now9 = new Date().getTime();
+  const seconds9 = now9 / 1000;
+  const deltaTime9 = now9 - lastUpdateTime9;
+  lastUpdateTime9 = now9;
+
+  currentSeconds9 += deltaTime9 / 1000; // update current seconds
+  currentSeconds9 %= 60; // keep current seconds between 0 and 60
+
+  const circleProgress9 = currentSeconds9 / 60; // calculate progress based on current seconds
+
+  // Draw the filled circle (seconds indicator)
+  ctx9.beginPath();
+  ctx9.arc(centerX9, centerY9, radius9 * 0.10 * (currentSeconds9 / 60), 0, 2 * Math.PI);
+  ctx9.fillStyle = 'blue'; 
+  ctx9.fill();
+  ctx9.beginPath();
+  ctx9.arc(centerX9, centerY9, radius9 * 0.10, 0, 2 * Math.PI);
+  ctx9.lineWidth = 10;
+  ctx9.strokeStyle = '#B7950B';
+  ctx9.stroke();
+  ctx9.fillStyle = 'white'; 
+  ctx9.fill();
+
+  // Draw the inner circle
+  ctx9.beginPath();
+  ctx9.arc(centerX9, centerY9, radius9 * 0.10, 0, 2 * Math.PI);
+  ctx9.lineWidth = 10;
+  ctx9.strokeStyle = '#4FA8C2';
+  ctx9.stroke();
+  ctx9.fillStyle = '#f5fffa';
+  ctx9.fill();
+
+  // Draw a star inside the inner circle
+  drawStar9(centerX9, centerY9, 14, '#C9AE21');
+
+  // Draw the outer ring
+  ctx9.beginPath();
+  ctx9.arc(centerX9, centerY9, radius9 * 0.25, 0, 2 * Math.PI);
+  ctx9.lineWidth = 8;
+  ctx9.strokeStyle = '#4FA8C2';
+  ctx9.stroke();
+
+  ctx9.beginPath();
+  ctx9.arc(centerX9, centerY9, radius9 * 0.13, -Math.PI / 2, circleProgress9 * 2 * Math.PI - Math.PI / 2); 
+  ctx9.arc(centerX9, centerY9, radius9 * 0.23, circleProgress9 * 2 * Math.PI - Math.PI / 2, -Math.PI / 2, true);
+  ctx9.lineWidth = 7;
+  ctx9.fillStyle = secondsCircle9; // changed to blue only
+  ctx9.fill();
+
+  // Add a small delay to smooth out the animation
+  setTimeout(() => {
+    requestAnimationFrame(drawClock9);
+  }, 16); // 16ms = 60fps
+}
+
+drawClock9();
+</script>
+
+<style>
+
+#canvas10 {
+  position: relative;
+  transform: translateY(85px); /* Adjust this value to move the canvas down */
+  display: block;
+  margin: 0 auto; /* add this to center the canvas horizontally */
+  border-radius: 100%; /* add this to make the canvas a circle */
+  margin-bottom: 20px; 
+  vertical-align: bottom;
+}
+
+</style>
+
+<script>
+
+// Get the canvas element
+const canvas10 = document.getElementById('canvas10');
+const ctx10 = canvas10.getContext('2d');
+
+// Set the canvas dimensions
+canvas10.width = 385;
+canvas10.height = 385;
+
+// Set the clock center and radius
+const centerX10 = canvas10.width / 2;
+const centerY10 = canvas10.height / 2;
+const radius10 = canvas10.width / 2 - 20;
+
+// Function to draw a five-pointed star
+function drawStar10(x, y, size, color) {
+  ctx10.beginPath();
+  for (let i = 0; i < 5; i++) {
+    const angle = i * 4 * Math.PI / 5;
+    const sx = x + size * Math.sin(angle);
+    const sy = y - size * Math.cos(angle);
+    ctx10.lineTo(sx, sy);
+  }
+  ctx10.closePath();
+  ctx10.fillStyle = color;
+  ctx10.fill();
+}
+
+// Function to draw a stripe
+function drawStripe10(x, y, length, angle, color) {
+  ctx10.beginPath();
+  ctx10.lineWidth = 3.8;
+  ctx10.strokeStyle = color;
+  ctx10.moveTo(x, y);
+  ctx10.lineTo(x + length * Math.sin(angle), y - length * Math.cos(angle));
+  ctx10.stroke();
+}
+
+// Define color variables
+let clockCircleColor10 = 'black'; // Changeable color for the clock circle
+let stripeColor10 = '#FB2413'; // Changeable color for the stripes
+let secondsCircle10 = '#2a1fe7'; // Changeable color for the stripes
+let innerBorder10 = 'white';
+let outerBorder10 = 'red';
+let stars10 = 'gold';
+
+
+
+
+let currentSeconds10 = 0;
+let lastUpdateTime10 = 0;
+
+function drawClock10() {
+  // Clear the canvas
+  ctx10.clearRect(0, 0, canvas10.width, canvas10.height);
+
+  // Draw the clock circle
+  ctx10.beginPath();
+  ctx10.arc(centerX10, centerY10, radius10, 0, 5 * Math.PI);
+  ctx10.fillStyle = clockCircleColor10; // Use the variable
+  ctx10.fill();
+  ctx10.lineWidth = 11;
+  ctx10.strokeStyle = outerBorder10;
+  ctx10.stroke();
+
+  // Draw the outer ring
+  ctx10.beginPath();
+  ctx10.arc(centerX10, centerY10, radius10 * 0.95, 0, 2 * Math.PI);
+  ctx10.lineWidth = 11;
+  ctx10.strokeStyle = innerBorder10;
+  ctx10.stroke();
+
+  // Draw the hour markers (stars)
+  for (let i = 0; i < 12; i++) {
+    const angle = i * 30 * Math.PI / 180;
+    const x = centerX10 + radius10 * 0.8 * Math.sin(angle);
+    const y = centerY10 - radius10 * 0.8 * Math.cos(angle);
+    let color;
+    const hour = new Date().getHours() % 12;
+    const minute = new Date().getMinutes();
+    if (i === hour) {
+      color = 'blue'; // current hour
+    } else if (i === Math.floor((minute / 5) % 12)) {
+      color = '#2FD2D6'; // current minute 
+    } else {
+      color = stars10;
+    }
+    drawStar10(x, y, 14, color);
+  }
+
+  // Draw the stripes
+  const minute10 = new Date().getMinutes();
+  let stripeBorder10 = 'white';
+  const stripeWidth10 = 0.9; // adjust this value to change the width of the stripes
+  const stripeOffset10 = 0.5; // adjust this value to change the position of the stripes
+  const centerCircleRadius10 = radius10 * 0.9; // radius of the center circle
+  const maxStripeLength10 = radius10 * 0.28 - radius10 * 0.02; // calculate the maximum stripe length
+  for (let i = 0; i < minute10; i++) {
+    if ((i + 1) % 5 !== 0) { // skip drawing an extra stripe for every 5 minutes passed
+      const angle = (i + 0.4 + 0.6) * 6 * Math.PI / 180; // added 0.1 to shift the angle clockwise
+      const x = centerX10 + radius10 * stripeOffset10 * Math.sin(angle);
+      const y = centerY10 - radius10 * stripeOffset10 * Math.cos(angle);
+      let color = stripeColor10;
+      drawStripe10(x, y, maxStripeLength10, angle, color);
+      drawStripe10(x, y, maxStripeLength10, angle + Math.PI, color);
+    }
+  }
+
+  // Draw the center circle (seconds indicator)
+  const now10 = new Date().getTime();
+  const seconds10 = now10 / 1000;
+  const deltaTime10 = now10 - lastUpdateTime10;
+  lastUpdateTime10 = now10;
+
+  currentSeconds10 += deltaTime10 / 1000; // update current seconds
+  currentSeconds10 %= 60; // keep current seconds between 0 and 60
+
+  const circleProgress10 = currentSeconds10 / 60; // calculate progress based on current seconds
+
+  // Draw the filled circle (seconds indicator)
+
+
+  // Draw the inner circle
+  ctx10.beginPath();
+  ctx10.arc(centerX10, centerY10, radius10 * 0.10, 0, 2 * Math.PI);
+  ctx10.lineWidth = 11;
+  ctx10.strokeStyle = '#4FA8C2';
+  ctx10.stroke();
+  ctx10.fillStyle = '#f5fffa';
+  ctx10.fill();
+
+  // Draw a star inside the inner circle
+  drawStar10(centerX10, centerY10, 14, '#C9AE21');
+
+  // Draw the outer ring
+  ctx10.beginPath();
+  ctx10.arc(centerX10, centerY10, radius10 * 0.25, 0, 2 * Math.PI);
+  ctx10.lineWidth = 8;
+  ctx10.strokeStyle = '#4FA8C2';
+  ctx10.stroke();
+
+
+
+  ctx10.beginPath();
+  ctx10.arc(centerX10, centerY10, radius10 * 0.13, -Math.PI / 2, circleProgress10 * 2 * Math.PI - Math.PI / 2); 
+  ctx10.arc(centerX10, centerY10, radius10 * 0.23, circleProgress10 * 2 * Math.PI - Math.PI / 2, -Math.PI / 2, true);
+  ctx10.lineWidth = 9;
+  ctx10.fillStyle = secondsCircle10; // changed to blue only
+  ctx10.fill();
+
+  // Add a small delay to smooth out the animation
+  setTimeout(() => {
+    requestAnimationFrame(drawClock10);
+  }, 16); // 16ms = 60fps
+}
+
+drawClock10();
+</script>
+
+<style>
+
+#canvas11 {
+  position: relative;
+  transform: translateY(85px); /* Adjust this value to move the canvas down */
+  display: block;
+  margin: 0 auto; /* add this to center the canvas horizontally */
+  border-radius: 100%; /* add this to make the canvas a circle */
+  margin-bottom: 20px; 
+  vertical-align: bottom;
+}
+
+</style>
+
+<script>
+
+
+// Get the canvas element
+const canvas11 = document.getElementById('canvas11');
+const ctx11 = canvas11.getContext('2d');
+
+// Set the canvas dimensions
+canvas11.width = 385;
+canvas11.height = 385;
+
+// Set the clock center and radius
+const centerX11 = canvas11.width / 2;
+const centerY11 = canvas11.height / 2;
+const radius11 = canvas11.width / 2 - 20;
+
+// Function to draw a five-pointed star
+function drawStar11(x, y, size, color) {
+  ctx11.beginPath();
+  for (let i = 0; i < 5; i++) {
+    const angle = i * 4 * Math.PI / 5;
+    const sx = x + size * Math.sin(angle);
+    const sy = y - size * Math.cos(angle);
+    ctx11.lineTo(sx, sy);
+  }
+  ctx11.closePath();
+  ctx11.fillStyle = color;
+  ctx11.fill();
+}
+
+// Function to draw a stripe
+function drawStripe11(x, y, length, angle, color) {
+  ctx11.beginPath();
+  ctx11.lineWidth = 3.8;
+  ctx11.strokeStyle = color;
+  ctx11.moveTo(x, y);
+  ctx11.lineTo(x + length * Math.sin(angle), y - length * Math.cos(angle));
+  ctx11.stroke();
+}
+
+// Define color variables
+let clockCircleColor11 = 'red'; // Changeable color for the clock circle
+let stripeColor11 = 'white'; // Changeable color for the stripes
+let secondsCircle11 = '#1816b6'; // Changeable color for the stripes
+let innerBorder11 = 'white';
+let outerBorder11 = 'red';
+let stars11 = 'gold';
+
+
+
+
+let currentSeconds11 = 0;
+let lastUpdateTime11 = 0;
+
+function drawClock11() {
+  // Clear the canvas
+  ctx11.clearRect(0, 0, canvas11.width, canvas11.height);
+
+  // Draw the clock circle
+  ctx11.beginPath();
+  ctx11.arc(centerX11, centerY11, radius11, 0, 5 * Math.PI);
+  ctx11.fillStyle = clockCircleColor11; // Use the variable
+  ctx11.fill();
+  ctx11.lineWidth = 11;
+  ctx11.strokeStyle = outerBorder11;
+  ctx11.stroke();
+
+  // Draw the outer ring
+  ctx11.beginPath();
+  ctx11.arc(centerX11, centerY11, radius11 * 0.95, 0, 2 * Math.PI);
+  ctx11.lineWidth = 11;
+  ctx11.strokeStyle = innerBorder11;
+  ctx11.stroke();
+
+  // Draw the hour markers (stars)
+  for (let i = 0; i < 12; i++) {
+    const angle = i * 30 * Math.PI / 180;
+    const x = centerX11 + radius11 * 0.8 * Math.sin(angle);
+    const y = centerY11 - radius11 * 0.8 * Math.cos(angle);
+    let color;
+    const hour = new Date().getHours() % 12;
+    const minute = new Date().getMinutes();
+    if (i === hour) {
+      color = 'darkblue'; // current hour
+    } else if (i === Math.floor((minute / 5) % 12)) {
+      color = '#2FD2D6'; // current minute 
+    } else {
+      color = stars11;
+    }
+    drawStar11(x, y, 14, color);
+  }
+
+  // Draw the stripes
+  const minute11 = new Date().getMinutes();
+  let stripeBorder11 = 'white';
+  const stripeWidth11 = 0.9; // adjust this value to change the width of the stripes
+  const stripeOffset11 = 0.5; // adjust this value to change the position of the stripes
+  const centerCircleRadius11 = radius11 * 0.9; // radius of the center circle
+  const maxStripeLength11 = radius11 * 0.28 - radius11 * 0.02; // calculate the maximum stripe length
+  for (let i = 0; i < minute11; i++) {
+    if ((i + 1) % 5 !== 0) { // skip drawing an extra stripe for every 5 minutes passed
+      const angle = (i + 0.4 + 0.6) * 6 * Math.PI / 180; // added 0.1 to shift the angle clockwise
+      const x = centerX11 + radius11 * stripeOffset11 * Math.sin(angle);
+      const y = centerY11 - radius11 * stripeOffset11 * Math.cos(angle);
+      let color = stripeColor11;
+      drawStripe11(x, y, maxStripeLength11, angle, color);
+      drawStripe11(x, y, maxStripeLength11, angle + Math.PI, color);
+    }
+  }
+
+  // Draw the center circle (seconds indicator)
+  const now11 = new Date().getTime();
+  const seconds11 = now11 / 1000;
+  const deltaTime11 = now11 - lastUpdateTime11;
+  lastUpdateTime11 = now11;
+
+  currentSeconds11 += deltaTime11 / 1000; // update current seconds
+  currentSeconds11 %= 60; // keep current seconds between 0 and 60
+
+  const circleProgress11 = currentSeconds11 / 60; // calculate progress based on current seconds
+
+
+
+  // Draw the filled circle (seconds indicator)
+  ctx11.beginPath();
+  ctx11.arc(centerX11, centerY11, radius11 * 0.10 * (currentSeconds11 / 60), 0, 2 * Math.PI);
+  ctx11.fillStyle = 'blue'; 
+  ctx11.fill();
+  ctx11.beginPath();
+  ctx11.arc(centerX11, centerY11, radius11 * 0.10, 0, 2 * Math.PI);
+  ctx11.lineWidth = 10;
+  ctx11.strokeStyle = '#B7950B';
+  ctx11.stroke();
+  ctx11.fillStyle = 'white'; 
+  ctx11.fill();
+
+  // Draw the inner circle
+  ctx11.beginPath();
+  ctx11.arc(centerX11, centerY11, radius11 * 0.10, 0, 2 * Math.PI);
+  ctx11.lineWidth = 10;
+  ctx11.strokeStyle = '#4FA8C2';
+  ctx11.stroke();
+  ctx11.fillStyle = '#f5fffa';
+  ctx11.fill();
+
+  // Draw a star inside the inner circle
+  drawStar11(centerX11, centerY11, 14, '#C9AE21');
+
+  // Draw the outer ring
+  ctx11.beginPath();
+  ctx11.arc(centerX11, centerY11, radius11 * 0.25, 0, 2 * Math.PI);
+  ctx11.lineWidth = 7;
+  ctx11.strokeStyle = '#4FA8C2';
+  ctx11.stroke();
+
+
+  ctx11.beginPath();
+  ctx11.arc(centerX11, centerY11, radius11 * 0.13, -Math.PI / 2, circleProgress11 * 2 * Math.PI - Math.PI / 2); 
+  ctx11.arc(centerX11, centerY11, radius11 * 0.23, circleProgress11 * 2 * Math.PI - Math.PI / 2, -Math.PI / 2, true);
+  ctx11.lineWidth = 8;
+  ctx11.fillStyle = secondsCircle11; // changed to blue only
+  ctx11.fill();
+
+  // Add a small delay to smooth out the animation
+  setTimeout(() => {
+    requestAnimationFrame(drawClock11);
+  }, 16); // 16ms = 60fps
+}
+
+drawClock11();
+</script>
+
+
+
+<style>
+footer {
+ font-family: open sans;
+  font-size: 12px;
+  text-align: center;
+  color: white;
+  background-color: #000;
+  width: 100%;
+  position: relative; /* Keep it relative for normal flow */
+  margin-top: -28px; /* Move it up by adjusting the margin */
+  padding: 7px 0 5px 0; /* Increase top padding to move text down */
+  height: 20px; /* Set the height to 50px */
+}
+
+/* Media query for larger to medium screens */
+@media (min-width: 768px) {
+  footer {
+    font-size: 15px;
+    height: 20px; /* Increase height for larger screens to medium */
+  }
+}
+
+
+
+</style>
+
+
+
+
+
+  <footer>
+    &copy; JB PALADIN PATRIOTS CLOCK. ALL RIGHTS RESERVED.
+  </footer>
+
+
+<style>
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-y: hidden;
+}
+
+div {
+  margin: 0;
+  padding: 0;
+  }
+
+canvas, canvas5, canvas6, canvas7, canvas8, canvas9, canvas10, canvas11 {
+  display: block;
+  margin-bottom: 10%;
+}
+
+#canvas, #canvas5, #canvas6, #canvas7, #canvas8, #canvas9, #canvas10, #canvas11 {
+  position: relative;
+  top: 0; /* Change this to 0 */
+  display: block;
+  margin: 2rem auto; /* Add margin to create space */
+  border-radius: 100%;
+}
+
+html, body {
+  height: 100%;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  margin-top: 0;
+}
+</style>
+
+<style>
+    body {
+        transition: opacity 0.5s ease; /* Smooth transition for the body */
+    }
+
+    #next-page-button {
+        position: fixed; /* Fixed position */
+        bottom: 40px;
+        right: 3px; 
+        color: black; /* Text color */
+        padding: 8px; /* Padding for the button */
+        font-size: 14px; /* Font size */
+        font-family: 'Open Sans', sans-serif; /* Ensure font is properly loaded */
+        z-index: 1000; /* Ensure it is above other elements */
+        border-radius: 5px; /* Rounded corners */
+        text-decoration: none; /* Remove underline */
+        display: flex; /* Flexbox for alignment */
+        align-items: center; /* Center items vertically */
+        margin-left: 20px; /* Adjust the value to move it right */
+    }
+
+.arrow {
+    width: 49px; /* Circle width */
+    height: 49px; /* Circle height */
+    background-color: none;
+    border-radius: 50%; /* Make it circular */
+    display: flex; /* Flexbox for alignment */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    position: relative; /* Positioning context for the arrows */
+    border: 3px inset beige;
+}
+
+.arrow::before,
+.arrow::after {
+    content: ''; /* Empty content for the arrows */
+    width: 0; 
+    height: 0; 
+    border-top: 10px solid transparent; /* Adjust thickness */
+    border-bottom: 10px solid transparent; /* Adjust thickness */
+    border-left: 18px solid blue; /* Arrow color */
+    position: absolute; /* Positioning */
+}
+
+.arrow::before {
+    left: 30%; /* Position the first arrow */
+    top: 50%; /* Center vertically */
+    transform: translate(-50%, -50%); /* Center the arrow */
+}
+
+.arrow::after {
+    left: 70%; /* Position the second arrow */
+    top: 50%; /* Center vertically */
+    transform: translate(-50%, -50%); /* Center the arrow */
+  border-left: 18px solid red; /* Second arrow color */
+}
+</style>
+</head>
+<body>
+
+<a id="next-page-button" href="about-this-clock.html" role="button" tabindex="0">
+    <span class="arrow"></span> 
+</a>
+
+<script>
+    const nextPageButton = document.getElementById('next-page-button');
+
+    // Click event for mouse/touch
+    nextPageButton.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent the default anchor behavior
+        const targetUrl = this.href; // Get the target URL
+
+        // Change the arrow color to #ff7c43
+        const arrow = this.querySelector('.arrow');
+        arrow.style.backgroundColor = 'none'; // Change arrow color
+
+        // Fade out the body
+        document.body.style.opacity = '0';
+
+        // Wait for the fade-out transition to complete before navigating
+        setTimeout(function() {
+            window.location.href = targetUrl; // Navigate to the new page
+        }, 500); // Match this duration to the CSS transition duration
+    });
+
+    // Keydown event for keyboard accessibility
+    nextPageButton.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter' || event.key === ' ') { // Check for Enter or Space key
+            event.preventDefault(); // Prevent default action
+            this.click(); // Trigger the click event
+        }
+    });
+</script>
+
+  <style>
+.circle-icon {
+    position: fixed; /* Fixed position */
+    bottom: 50px; /* Position above the footer */
+    left: 15px; /* Position from the left */
+    width: 49px; /* Circle width */
+    height: 49px; /* Circle height */
+    background-color: none; /* Blue background */
+    border: 3px inset beige;
+    border-radius: 50%; /* Make it circular */
+    display: flex; /* Flexbox for alignment */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    cursor: pointer; /* Pointer cursor on hover */
+    z-index: 1000; /* Ensure it is above other elements */
+}
+
+
+
+.calendar-icon {
+    position: relative; /* Positioning context */
+    width: 30px; /* Width of the calendar */
+    height: 30px; /* Height of the calendar */
+    background-color: red; /* Calendar background */
+    border-radius: 4px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    display: flex; /* Flexbox for alignment */
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center horizontally */
+    border: 1px inset beige; /* Border for the calendar */
+}
+
+.month-label {
+    font-size: 8px; /* Font size for the month */
+    color: white; /* Change text color to white */
+    background-color: blue; /* Set background color to blue */
+    margin-bottom: 4px; /* Space below the month label */
+    padding: 2px; /* Add some padding for better appearance */
+    border-radius: 2px; /* Slightly rounded corners */
+    font-family: 'Calibri', sans-serif; /* Set font face to Calibri */
+}
+
+.date-number {
+    font-size: 13px; /* Font size for the date number */
+    color: beige; /* Color of the date number */
+    font-weight: bold; /* Make the font bold */
+    font-family: 'Calibri', sans-serif; /* Set font face to Calibri */
+    margin-top: -4px; /* Move the number up slightly */
+}
+</style>
+
+</head>
+<body>
+
+<div id="date-icon" class="circle-icon" role="button" tabindex="0" aria-label="Show date">
+    <div class="calendar-icon">
+        <div class="month-label">August</div>
+        <div class="date-number">14</div> <!-- Added date number here -->
+    </div>
+</div>
+
+<div id="date-display" style="display: none; position: fixed; bottom: 118px; left: 10px; background-color: rgba(0, 0, 0, 0.5); padding: 10px; border-radius: 5px; font-family: 'Open Sans', sans-serif; color: white; width: 100px; height: 80px; line-height: 1.5; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+    <div id="day" style="font-weight: bold; font-size: 18px; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;"></div>
+    <div id="date" style="font-weight: bold; font-size: 18px; text-shadow: 1px 1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 1px -1px 0 black;"></div>
+</div>
+
+<script>
+    const dateIcon = document.getElementById('date-icon');
+    const dateDisplay = document.getElementById('date-display');
+
+    // Click event for mouse/touch
+    dateIcon.addEventListener('click', toggleDateDisplay);
+
+    // Keydown event for keyboard accessibility
+    dateIcon.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter' || event.key === ' ') { // Check for Enter or Space key
+            event.preventDefault(); // Prevent default action
+            toggleDateDisplay(); // Trigger the display toggle
+        }
+    });
+
+    function toggleDateDisplay() {
+        const optionsDay = { weekday: 'long' };
+        const optionsDate = { year: 'numeric', month: 'long', day: 'numeric' };
+        const currentDay = new Date().toLocaleDateString(undefined, optionsDay);
+        const currentDate = new Date().toLocaleDateString(undefined, optionsDate);
+        
+        
+        dateIcon.style.backgroundColor = 'none'; // Change circle icon color
+
+        // Check if the date display is currently visible
+        if (dateDisplay.style.display === 'block') {
+            dateDisplay.style.display = 'none'; // Hide the date display
+            dateIcon.classList.remove('active'); // Remove active class
+            dateIcon.style.backgroundColor = 'none'; // Reset color when hidden
+        } else {
+            // Set the day and date text separately
+            document.getElementById('day').textContent = currentDay; // Set the day
+            document.getElementById('date').textContent = currentDate; // Set the date
+            dateDisplay.style.display = 'block'; // Show the date display
+            dateIcon.classList.add('active'); // Add active class
+        }
+    }
+</script>
+
+
+
+
+
+</body>
+</html>

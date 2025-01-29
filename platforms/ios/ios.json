@@ -51,6 +51,10 @@
             {
               "xml": "<preference name=\"CameraUsesGeolocation\" value=\"false\" />",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"NativeKeyboard\"><param name=\"ios-package\" value=\"CDVNativeKeyboard\" /><param name=\"onload\" value=\"true\" /></feature>",
+              "count": 1
             }
           ]
         }
@@ -60,6 +64,24 @@
           "UIBackgroundModes": [
             {
               "xml": "<array><string>audio</string></array>",
+              "count": 1
+            }
+          ],
+          "UIAppFonts": [
+            {
+              "xml": "<array><string>FontAwesome.ttf</string></array>",
+              "count": 1
+            }
+          ],
+          "NativeKeyboardPluginLicense": [
+            {
+              "xml": "<string>TRIAL</string>",
+              "count": 1
+            }
+          ],
+          "NativeKeyboardPluginLicenseAlt": [
+            {
+              "xml": "<string>TRIAL</string>",
               "count": 1
             }
           ]
@@ -88,6 +110,11 @@
       "PACKAGE_NAME": "com.jbpaladinpatriotsclock.jbpaladinpatriotsclock"
     },
     "cordova-plugin-camera": {
+      "PACKAGE_NAME": "com.jbpaladinpatriotsclock.jbpaladinpatriotsclock"
+    },
+    "cordova-plugin-native-keyboard": {
+      "LICENSE": "TRIAL",
+      "LIC_IOS": "TRIAL",
       "PACKAGE_NAME": "com.jbpaladinpatriotsclock.jbpaladinpatriotsclock"
     }
   },
@@ -346,6 +373,14 @@
       "clobbers": [
         "CameraPopoverHandle"
       ]
+    },
+    {
+      "id": "cordova-plugin-native-keyboard.NativeKeyboard",
+      "file": "plugins/cordova-plugin-native-keyboard/www/NativeKeyboard.js",
+      "pluginId": "cordova-plugin-native-keyboard",
+      "clobbers": [
+        "window.NativeKeyboard"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -355,6 +390,7 @@
     "cordova-plugin-media": "7.0.0",
     "cordova-plugin-ionic-webview": "5.0.0",
     "cordova-plugin-splashscreen": "6.0.1",
-    "cordova-plugin-camera": "8.0.0"
+    "cordova-plugin-camera": "8.0.0",
+    "cordova-plugin-native-keyboard": "2.0.6"
   }
 }
