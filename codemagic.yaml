@@ -15,9 +15,6 @@ workflows:
       - name: Install npm Dependencies
         script: |
           npm install  # Install npm dependencies needed for your project
-      - name: Clean Cordova Project
-        script: |
-          cordova clean
       - name: Remove iOS Platform
         script: |
           cordova platform rm ios
