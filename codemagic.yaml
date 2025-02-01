@@ -11,35 +11,35 @@ workflows:
         APP_STORE_APPLE_ID: XAJF22HXCQ
         XCODE_WORKSPACE: "platforms/ios/JbPaladinPatriotsClock.xcworkspace"
         XCODE_SCHEME: "JbPaladinPatriotsClock"
-      node_version: "14"  # Specify the Node.js version here
     scripts:
+      - name: Set Node.js Version
+        script: |
+          nvm install 14  # Install Node.js version 14
+          nvm use 14      # Use Node.js version 14
       - name: Install npm Dependencies
         script: |
           npm install  # Install npm dependencies needed for your project
       - name: Clean Cordova Project
         script: |
-          # Clean the project by removing iOS platform and clearing cache
           cordova clean
       - name: Remove iOS Platform
         script: |
-          cordova platform rm ios  # Remove existing iOS platform
+          cordova platform rm ios
       - name: Add iOS Platform
         script: |
-          cordova platform add ios@latest  # Add the latest version of the iOS platform
+          cordova platform add ios@latest
       - name: Prepare iOS Platform
         script: |
-          cordova prepare ios  # Prepare the iOS platform (downloads necessary files)
+          cordova prepare ios
       - name: Disable Mac Catalyst in Xcode
         script: |
-          # Disable Mac Catalyst explicitly in the Xcode project build settings
           sed -i '' 's/ENABLE_MACCATALYST = YES/ENABLE_MACCATALYST = NO/' platforms/ios/build.xcconfig
       - name: Build IPA for Distribution
         script: |
-          # Building the IPA for distribution
           xcode-project build-ipa \
             --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
             --scheme "$XCODE_SCHEME" \
             --export-options-plist "$CM_BUILD_DIR/export_options.plist"
     artifacts:
-      - build/ios/ipa/*.ipa  # Path to the generated IPA files
-      - /tmp/xcodebuild_logs/*.log  # Path to Xcode build logs
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
