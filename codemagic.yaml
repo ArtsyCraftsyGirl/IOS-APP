@@ -12,6 +12,7 @@ workflows:
         XCODE_WORKSPACE: "platforms/ios/JbPaladinPatriotsClock.xcworkspace"
         XCODE_SCHEME: "JbPaladinPatriotsClock"
         SUPPORTS_MACCATALYST: "NO"  # Disable Mac Catalyst
+        CODE_SIGN_STYLE: "Automatic"  # Ensure automatic code signing
     scripts:
       - name: Install npm Dependencies
         script: |
@@ -25,6 +26,9 @@ workflows:
       - name: Prepare iOS Platform
         script: |
           cordova prepare ios
+      - name: Clean Build
+        script: |
+          xcodebuild clean -workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" -scheme "$XCODE_SCHEME"  # Clean previous builds
       - name: Build IPA for Distribution
         script: |
           xcode-project build-ipa \
