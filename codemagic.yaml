@@ -11,6 +11,7 @@ workflows:
         APP_STORE_APPLE_ID: XAJF22HXCQ
         XCODE_WORKSPACE: "platforms/ios/JbPaladinPatriotsClock.xcworkspace"
         XCODE_SCHEME: "JbPaladinPatriotsClock"
+        SUPPORTS_MACCATALYST: "NO"  # Disable Mac Catalyst
     scripts:
       - name: Install npm Dependencies
         script: |
