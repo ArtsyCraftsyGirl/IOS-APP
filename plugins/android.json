@@ -8,34 +8,29 @@
   },
   "installed_plugins": {
     "cordova-plugin-background-mode": {
-      "PACKAGE_NAME": "com.jbpaladinpatriotsclock"
+      "PACKAGE_NAME": "com.jbpaladinpatriotsclock.jbpaladinpatriotsclock"
     },
     "cordova-plugin-media": {
-      "PACKAGE_NAME": "com.jbpaladinpatriotsclock"
+      "PACKAGE_NAME": "com.jbpaladinpatriotsclock.jbpaladinpatriotsclock"
     },
     "cordova-plugin-ionic-webview": {
-      "PACKAGE_NAME": "com.jbpaladinpatriotsclock"
-    },
-    "cordova-plugin-native-keyboard": {
-      "LICENSE": "TRIAL",
-      "LIC_ANDROID": "TRIAL",
-      "PACKAGE_NAME": "com.jbpaladinpatriotsclock"
+      "PACKAGE_NAME": "com.jbpaladinpatriotsclock.jbpaladinpatriotsclock"
     },
     "cordova-plugin-splashscreen": {
-      "PACKAGE_NAME": "com.jbpaladinpatriotsclock"
+      "PACKAGE_NAME": "com.jbpaladinpatriotsclock.jbpaladinpatriotsclock"
     },
     "cordova-plugin-camera": {
       "ANDROIDX_CORE_VERSION": "1.6.+",
-      "PACKAGE_NAME": "com.jbpaladinpatriotsclock"
+      "PACKAGE_NAME": "com.jbpaladinpatriotsclock.jbpaladinpatriotsclock"
     }
   },
   "dependent_plugins": {
     "cordova-plugin-device": {
-      "PACKAGE_NAME": "com.jbpaladinpatriotsclock"
+      "PACKAGE_NAME": "com.jbpaladinpatriotsclock.jbpaladinpatriotsclock"
     },
     "cordova-plugin-file": {
       "ANDROIDX_WEBKIT_VERSION": "1.4.0",
-      "PACKAGE_NAME": "com.jbpaladinpatriotsclock"
+      "PACKAGE_NAME": "com.jbpaladinpatriotsclock.jbpaladinpatriotsclock"
     }
   }
 }

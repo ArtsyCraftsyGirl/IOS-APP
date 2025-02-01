@@ -21,7 +21,9 @@
       "id": "cordova-plugin-media@7.0.0"
     },
     "is_top_level": true,
-    "variables": {}
+    "variables": {
+      "KEEP_AVAUDIOSESSION_ALWAYS_ACTIVE": "NO"
+    }
   },
   "cordova-plugin-file": {
     "source": {
@@ -29,20 +31,14 @@
       "id": "cordova-plugin-file@^8.0.0"
     },
     "is_top_level": false,
-    "variables": {}
+    "variables": {
+      "ANDROIDX_WEBKIT_VERSION": "1.4.0"
+    }
   },
   "cordova-plugin-ionic-webview": {
     "source": {
       "type": "registry",
       "id": "cordova-plugin-ionic-webview@5.0.1"
-    },
-    "is_top_level": true,
-    "variables": {}
-  },
-  "cordova-plugin-native-keyboard": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-native-keyboard"
     },
     "is_top_level": true,
     "variables": {}
@@ -61,6 +57,8 @@
       "id": "cordova-plugin-camera@^8.0.0"
     },
     "is_top_level": true,
-    "variables": {}
+    "variables": {
+      "ANDROIDX_CORE_VERSION": "1.6.+"
+    }
   }
 }

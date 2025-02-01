@@ -8,33 +8,28 @@
   },
   "installed_plugins": {
     "cordova-plugin-background-mode": {
-      "PACKAGE_NAME": "com.jbpaladinpatriotsclock"
+      "PACKAGE_NAME": "com.jbpaladinpatriotsclock.jbpaladinpatriotsclock"
     },
     "cordova-plugin-media": {
       "KEEP_AVAUDIOSESSION_ALWAYS_ACTIVE": "NO",
-      "PACKAGE_NAME": "com.jbpaladinpatriotsclock"
+      "PACKAGE_NAME": "com.jbpaladinpatriotsclock.jbpaladinpatriotsclock"
     },
     "cordova-plugin-ionic-webview": {
-      "PACKAGE_NAME": "com.jbpaladinpatriotsclock"
-    },
-    "cordova-plugin-native-keyboard": {
-      "LICENSE": "TRIAL",
-      "LIC_IOS": "TRIAL",
-      "PACKAGE_NAME": "com.jbpaladinpatriotsclock"
+      "PACKAGE_NAME": "com.jbpaladinpatriotsclock.jbpaladinpatriotsclock"
     },
     "cordova-plugin-splashscreen": {
-      "PACKAGE_NAME": "com.jbpaladinpatriotsclock"
+      "PACKAGE_NAME": "com.jbpaladinpatriotsclock.jbpaladinpatriotsclock"
     },
     "cordova-plugin-camera": {
-      "PACKAGE_NAME": "com.jbpaladinpatriotsclock"
+      "PACKAGE_NAME": "com.jbpaladinpatriotsclock.jbpaladinpatriotsclock"
     }
   },
   "dependent_plugins": {
     "cordova-plugin-device": {
-      "PACKAGE_NAME": "com.jbpaladinpatriotsclock"
+      "PACKAGE_NAME": "com.jbpaladinpatriotsclock.jbpaladinpatriotsclock"
     },
     "cordova-plugin-file": {
-      "PACKAGE_NAME": "com.jbpaladinpatriotsclock"
+      "PACKAGE_NAME": "com.jbpaladinpatriotsclock.jbpaladinpatriotsclock"
     }
   }
 }
