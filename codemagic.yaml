@@ -12,7 +12,7 @@ workflows:
         XCODE_WORKSPACE: "platforms/ios/JbPaladinPatriotsClock.xcworkspace"
         XCODE_SCHEME: "JbPaladinPatriotsClock"
         SUPPORTS_MACCATALYST: "NO"  # Disable Mac Catalyst
-        CODE_SIGN_STYLE: "Manual"  # Ensure automatic code signing
+        CODE_SIGN_STYLE: "Manual"  # Set to Manual code signing
     scripts:
       - name: Install npm Dependencies
         script: |
