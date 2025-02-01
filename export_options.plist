@@ -9,9 +9,5 @@
         <key>com.jbpaladinpatriotsclock.jbpaladinpatriotsclock</key>
         <string>JbPaladinPatriotsClock Distribution Profile</string>
     </dict>
-    <key>signingStyle</key>
-    <string>manual</string>
-    <key>teamID</key>
-    <string>XAJF22HXCQ</string>
 </dict>
 </plist>
