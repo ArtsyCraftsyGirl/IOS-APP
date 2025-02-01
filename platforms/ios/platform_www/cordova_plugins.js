@@ -253,14 +253,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "clobbers": [
         "CameraPopoverHandle"
       ]
-    },
-    {
-      "id": "cordova-plugin-native-keyboard.NativeKeyboard",
-      "file": "plugins/cordova-plugin-native-keyboard/www/NativeKeyboard.js",
-      "pluginId": "cordova-plugin-native-keyboard",
-      "clobbers": [
-        "window.NativeKeyboard"
-      ]
     }
   ];
   module.exports.metadata = {
@@ -270,7 +262,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-media": "7.0.0",
     "cordova-plugin-ionic-webview": "5.0.0",
     "cordova-plugin-splashscreen": "6.0.1",
-    "cordova-plugin-camera": "8.0.0",
-    "cordova-plugin-native-keyboard": "2.0.6"
+    "cordova-plugin-camera": "8.0.0"
   };
 });
