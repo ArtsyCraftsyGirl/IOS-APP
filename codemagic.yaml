@@ -19,7 +19,7 @@ workflows:
           npm install  # Install npm dependencies needed for your project
       - name: Remove iOS Platform
         script: |
-          cordova platform rm ios
+          cordova platform rm ios || true  # Ignore errors if the platform is not present
       - name: Add iOS Platform
         script: |
           cordova platform add ios@latest
@@ -31,10 +31,16 @@ workflows:
           xcodebuild clean -workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" -scheme "$XCODE_SCHEME"  # Clean previous builds
       - name: Build IPA for Distribution
         script: |
-          xcode-project build-ipa \
-            --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
-            --scheme "$XCODE_SCHEME" \
-            --export-options-plist "$CM_BUILD_DIR/export_options.plist"
+          xcodebuild -workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
+            -scheme "$XCODE_SCHEME" \
+            -archivePath "$CM_BUILD_DIR/build/JbPaladinPatriotsClock.xcarchive" \
+            archive
+      - name: Export IPA
+        script: |
+          xcodebuild -exportArchive \
+            -archivePath "$CM_BUILD_DIR/build/JbPaladinPatriotsClock.xcarchive" \
+            -exportOptionsPlist "$CM_BUILD_DIR/export_options.plist" \
+            -exportPath "$CM_BUILD_DIR/build/ios/ipa"
     artifacts:
       - build/ios/ipa/*.ipa  # Path to the generated IPA files
       - /tmp/xcodebuild_logs/*.log  # Path to Xcode build logs
