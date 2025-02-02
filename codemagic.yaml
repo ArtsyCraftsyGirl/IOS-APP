@@ -10,7 +10,7 @@ workflows:
       vars:
         APP_STORE_APPLE_ID: XAJF22HXCQ
         XCODE_PROJECT: "platforms/ios/JbPaladinPatriotsClock.xcodeproj"
-        scripts:
+        script: |
       - name: Install npm dependencies
         script: |
           npm install
