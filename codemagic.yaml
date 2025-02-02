@@ -1,15 +1,13 @@
 workflows:
-  ios_native_workflow:
-    name: iOS Native Workflow
+  ios-workflow:
+    name: iOS Workflow
     max_build_duration: 120
-    instance_type: mac_mini_m2
     environment:
       ios_signing:
         distribution_type: app_store
         bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
-      vars:
-        APP_STORE_APPLE_ID: XAJF22HXCQ
-        XCODE_PROJECT: "platforms/ios/JbPaladinPatriotsClock.xcodeproj"  # Reference to your .xcodeproj
+      APP_STORE_APPLE_ID: XAJF22HXCQ
+      XCODE_PROJECT: "platforms/ios/JbPaladinPatriotsClock.xcodeproj"  # Reference to your .xcodeproj
     scripts:
       - name: Install npm dependencies
         script: |
@@ -21,7 +19,7 @@ workflows:
           xcodebuild -exportArchive \
             -archivePath platforms/ios/build/device/JbPaladinPatriotsClock.xcarchive \
             -exportPath /Users/builder/clone/platforms/ios/build/device \
-            -exportOptionsPlist ~/export_options.plist
+            -exportOptionsPlist ./export_options.plist  # Updated path
     artifacts:
       - /Users/builder/clone/platforms/ios/build/device/*.ipa
       - /tmp/xcodebuild_logs/*.log
