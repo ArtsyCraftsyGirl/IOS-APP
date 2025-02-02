@@ -8,8 +8,8 @@ workflows:
         distribution_type: app_store
         bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
       vars:
-      APP_STORE_APPLE_ID: XAJF22HXCQ
-      XCODE_PROJECT: "platforms/ios/JbPaladinPatriotsClock.xcodeproj"  # Reference to your .xcodeproj
+        APP_STORE_APPLE_ID: XAJF22HXCQ
+        XCODE_PROJECT: "platforms/ios/JbPaladinPatriotsClock.xcodeproj"
     scripts:
       - name: Install npm dependencies
         script: |
