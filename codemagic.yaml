@@ -8,16 +8,11 @@ workflows:
         script: |
           brew install node
           npm install -g cordova
-      - name: Check Current Directory
-        script: |
-          pwd  # Print the current working directory
       - name: Install Cordova iOS platform
         script: |
-          cd IOS-APP || exit 1  # Exit if the directory doesn't exist
           cordova platform add ios
       - name: Build iOS
         script: |
-          cd IOS-APP || exit 1  # Exit if the directory doesn't exist
           cordova build ios --release --device
     artifacts:
-      - IOS-APP/platforms/ios/build/device/*.ipa
+      - platforms/ios/build/device/*.ipa
