@@ -16,6 +16,16 @@ workflows:
         script: |
           brew install node
           npm install -g cordova
+      - name: Clean Cordova Build
+        script: |
+          cordova clean
+      - name: Add Cordova iOS Platform
+        script: |
+          cordova platform remove ios || true  # Remove if exists
+          cordova platform add ios
+      - name: Install Node Modules
+        script: |
+          npm install
       - name: Build iOS
         script: |
           cordova build ios --release --device
