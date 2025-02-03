@@ -1,46 +1,47 @@
 workflows:
-  ios_native_workflow:
-    name: iOS Native Workflow
+  ios-workflow:
+    name: iOS Workflow
     max_build_duration: 120
-    instance_type: mac_mini_m2
+    integrations:
+      app_store_connect: codemagic
     environment:
       ios_signing:
         distribution_type: app_store
         bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
-      vars:
-        APP_STORE_APPLE_ID: XAJF22HXCQ
-        XCODE_WORKSPACE: "platforms/ios/JbPaladinPatriotsClock.xcworkspace"
-        XCODE_SCHEME: "JbPaladinPatriotsClock"
-        SUPPORTS_MACCATALYST: "NO"  # Disable Mac Catalyst
-        CODE_SIGN_STYLE: "Manual"  # Set to Manual code signing
     scripts:
-      - name: Install npm Dependencies
-        script: |
-          npm install  # Install npm dependencies needed for your project
-      - name: Remove iOS Platform
-        script: |
-          cordova platform rm ios || true  # Ignore errors if the platform is not present
-      - name: Add iOS Platform
-        script: |
-          cordova platform add ios@latest
-      - name: Prepare iOS Platform
-        script: |
-          cordova prepare ios
-      - name: Clean Build
-        script: |
-          xcodebuild clean -workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" -scheme "$XCODE_SCHEME"  # Clean previous builds
-      - name: Build IPA for Distribution
-        script: |
-          xcodebuild -workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
-            -scheme "$XCODE_SCHEME" \
-            -archivePath "$CM_BUILD_DIR/build/JbPaladinPatriotsClock.xcarchive" \
-            archive
-      - name: Export IPA
-        script: |
-          xcodebuild -exportArchive \
-            -archivePath "$CM_BUILD_DIR/build/JbPaladinPatriotsClock.xcarchive" \
-            -exportOptionsPlist "$CM_BUILD_DIR/export_options.plist" \
-            -exportPath "$CM_BUILD_DIR/build/ios/ipa"
+      - name: Install npm dependencies and update Cordova version
+        script: | 
+          npm install
+          npm ci # equivalent of npm install for CI systems.
+            # Requires package-lock.json or npm-shrinkwrap.json to be present
+          npm install -g cordova@latest # Install the latest version of Cordova
+      - name: Setup Cordova iOS platform
+        script: | 
+          cordova platform remove ios --nosave
+          cordova platform add ios --save
+      - name: Set up code signing settings on Xcode project
+        script: | 
+          xcode-project use-profiles
+      - name: Build ipa for distribution
+        script: | 
+          package_type=$(defaults read ~/export_options.plist method)
+          identity=$(defaults read ~/export_options.plist signingCertificate)
+          team=$(defaults read ~/export_options.plist teamID)
+          profile=$(find '/Users/builder/Library/MobileDevice/Provisioning Profiles' -name "*.mobileprovision")
+          profile_uuid=$(grep UUID -A1 -a "$profile" | grep -io "[-A-F0-9]\{36\}")
+
+          cat <<EOF > build.json
+          {
+            "ios": {
+              "release": {
+                "codeSignIdentity": "$identity",
+                "developmentTeam": "$team",
+                "packageType": "$package_type",
+                "provisioningProfile": "$profile_uuid"
+              }
+            }
+          }EOF
+          cordova build ios --release --device --buildConfig='build.json'
     artifacts:
-      - build/ios/ipa/*.ipa  # Path to the generated IPA files
-      - /tmp/xcodebuild_logs/*.log  # Path to Xcode build logs
+      - /Users/builder/clone/platforms/ios/build/device/*.ipa
+      - /tmp/xcodebuild_logs/*.log
