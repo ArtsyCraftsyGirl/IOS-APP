@@ -7,46 +7,20 @@ workflows:
         distribution_type: app_store
         bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
     scripts:
-      - name: Install npm dependencies and update Cordova version
+      - name: Install npm dependencies
         script: | 
           npm install
           npm ci
           npm install -g cordova@latest
-      - name: Setup Cordova iOS platform
-        script: | 
-          cordova platform remove ios --nosave
-          cordova platform add ios --save
-      - name: List files before build
-        script: |
-          echo "Listing files in the directory:"
-          ls -la platforms/ios/build/device
-      - name: Set up code signing settings on Xcode project
-        script: | 
-          xcode-project use-profiles
-      - name: Build ipa for distribution
-        script: |
-          package_type=$(defaults read ~/export_options.plist method)
-          identity=$(defaults read ~/export_options.plist signingCertificate)
-          team=$(defaults read ~/export_options.plist teamID)
-          profile=$(find '/Users/builder/Library/MobileDevice/Provisioning Profiles' -name "*.mobileprovision")
-          profile_uuid=$(grep UUID -A1 -a "$profile" | grep -io "[-A-F0-9]\{36\}")
 
-          cat <<EOF > build.json
-          {
-            "ios": {
-              "release": {
-                "codeSignIdentity": "$identity",
-                "developmentTeam": "$team",
-                "packageType": "$package_type",
-                "provisioningProfile": "$profile_uuid"
-              }
-            }
-          }EOF
-          cordova build ios --release --device --buildConfig='build.json'
-      - name: List files after build
+      - name: Add iOS platform
+        script: | 
+          cordova platform add ios --save
+      
+      - name: Build iOS app
         script: |
-          echo "Listing files in the directory after build:"
-          ls -la platforms/ios/build/device
+          cordova build ios --release --device --buildConfig='build.json'
+
     artifacts:
       - platforms/ios/build/device/*.ipa
       - /tmp/xcodebuild_logs/*.log
