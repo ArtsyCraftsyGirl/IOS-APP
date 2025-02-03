@@ -12,13 +12,6 @@ workflows:
         XCODE_WORKSPACE: "platforms/ios/JbPaladinPatriotsClock.xcworkspace"
         XCODE_SCHEME: "JbPaladinPatriotsClock"
     scripts:
-      - name: Install Node.js and Cordova
-        script: |
-          brew install node
-          npm install -g cordova
-      - name: Clean Cordova Build
-        script: |
-          cordova clean
       - name: Remove Cordova iOS Platform
         script: |
           cordova platform remove ios || true  # Remove if exists
