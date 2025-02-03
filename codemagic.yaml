@@ -10,18 +10,21 @@ workflows:
       - name: Install npm dependencies and update Cordova version
         script: | 
           npm install
-          npm ci # equivalent of npm install for CI systems.
-            # Requires package-lock.json or npm-shrinkwrap.json to be present
-          npm install -g cordova@latest # Install the latest version of Cordova
+          npm ci
+          npm install -g cordova@latest
       - name: Setup Cordova iOS platform
         script: | 
           cordova platform remove ios --nosave
           cordova platform add ios --save
+      - name: List files before build
+        script: |
+          echo "Listing files in the directory:"
+          ls -la platforms/ios/build/device
       - name: Set up code signing settings on Xcode project
         script: | 
           xcode-project use-profiles
       - name: Build ipa for distribution
-        script: | 
+        script: |
           package_type=$(defaults read ~/export_options.plist method)
           identity=$(defaults read ~/export_options.plist signingCertificate)
           team=$(defaults read ~/export_options.plist teamID)
@@ -40,6 +43,10 @@ workflows:
             }
           }EOF
           cordova build ios --release --device --buildConfig='build.json'
+      - name: List files after build
+        script: |
+          echo "Listing files in the directory after build:"
+          ls -la platforms/ios/build/device
     artifacts:
-      - build/ios/ipa/*.ipa  # Path to the generated IPA files
-      - /tmp/xcodebuild_logs/*.log  # Path to Xcode build logs
+      - platforms/ios/build/device/*.ipa
+      - /tmp/xcodebuild_logs/*.log
