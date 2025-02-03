@@ -7,20 +7,34 @@ workflows:
         distribution_type: app_store
         bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
     scripts:
-      - name: Install npm dependencies
+      - name: Install npm dependencies and update Cordova version
         script: | 
           npm install
           npm ci
           npm install -g cordova@latest
-
-      - name: Add iOS platform
+      - name: Set up code signing settings on Xcode project
         script: | 
-          cordova platform add ios --save
-      
-      - name: Build iOS app
+          xcode-project use-profiles
+      - name: Build ipa for distribution
         script: |
-          cordova build ios --release --device --buildConfig='build.json'
+          package_type=$(defaults read ~/export_options.plist method)
+          identity=$(defaults read ~/export_options.plist signingCertificate)
+          team=$(defaults read ~/export_options.plist teamID)
+          profile=$(find '/Users/builder/Library/MobileDevice/Provisioning Profiles' -name "*.mobileprovision")
+          profile_uuid=$(grep UUID -A1 -a "$profile" | grep -io "[-A-F0-9]\{36\}")
 
+          cat <<EOF > build.json
+          {
+            "ios": {
+              "release": {
+                "codeSignIdentity": "$identity",
+                "developmentTeam": "$team",
+                "packageType": "$package_type",
+                "provisioningProfile": "$profile_uuid"
+              }
+            }
+          }EOF
+          cordova build ios --release --device --buildConfig='build.json'
     artifacts:
       - platforms/ios/build/device/*.ipa
       - /tmp/xcodebuild_logs/*.log
