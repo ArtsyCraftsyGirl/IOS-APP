@@ -1,40 +1,20 @@
 workflows:
-  ios-workflow:
-    name: iOS Workflow
-    max_build_duration: 120
+  ios-build:
+    name: iOS Build
     environment:
-      ios_signing:
-        distribution_type: app_store
-        bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
+      xcode: latest
     scripts:
-      - name: Install npm dependencies and update Cordova version
-        script: | 
-          npm install
-          npm ci
-          npm install -g cordova@latest
-      - name: Set up code signing settings on Xcode project
-        script: | 
-          xcode-project use-profiles
-      - name: Build ipa for distribution
+      - name: Install Node.js and Cordova
         script: |
-          package_type=$(defaults read ~/export_options.plist method)
-          identity=$(defaults read ~/export_options.plist signingCertificate)
-          team=$(defaults read ~/export_options.plist teamID)
-          profile=$(find '/Users/builder/Library/MobileDevice/Provisioning Profiles' -name "*.mobileprovision")
-          profile_uuid=$(grep UUID -A1 -a "$profile" | grep -io "[-A-F0-9]\{36\}")
-
-          cat <<EOF > build.json
-          {
-            "ios": {
-              "release": {
-                "codeSignIdentity": "$identity",
-                "developmentTeam": "$team",
-                "packageType": "$package_type",
-                "provisioningProfile": "$profile_uuid"
-              }
-            }
-          }EOF
-          cordova build ios --release --device --buildConfig='build.json'
+          brew install node
+          npm install -g cordova
+      - name: Install Cordova iOS platform
+        script: |
+          cd IOS-APP
+          cordova platform add ios
+      - name: Build iOS
+        script: |
+          cd IOS-APP
+          cordova build ios --release --device
     artifacts:
-      - platforms/ios/build/device/*.ipa
-      - /tmp/xcodebuild_logs/*.log
+      - IOS-APP/platforms/ios/build/device/*.ipa
