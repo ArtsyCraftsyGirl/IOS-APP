@@ -30,11 +30,22 @@ workflows:
       - name: Build ipa for distribution
         script: | 
           package_type=$(defaults read ~/export_options.plist method)
-          identity=$(defaults read ~/export_options.plist signingCertificate)
-          team=$(defaults read ~/export_options.plist teamID)
-          profile=$(find '/Users/builder/Library/MobileDevice/Provisioning Profiles' -name "*.mobileprovision")
+          identity="iPhone Distribution: Your Certificate Name" # Replace with your actual certificate name
+          team="YourTeamID" # Replace with your actual team ID
+          
+          # Get the provisioning profile name from the plist
+          profile_name=$(defaults read ~/export_options.plist provisioningProfiles | grep -A1 "com.jbpaladinpatriotsclock.jbpaladinpatriotsclock" | tail -n1 | xargs)
+          profile=$(find '/Users/builder/Library/MobileDevice/Provisioning Profiles' -name "*.mobileprovision" | grep "$profile_name")
           profile_uuid=$(grep UUID -A1 -a "$profile" | grep -io "[-A-F0-9]\{36\}")
 
+          # Debug output
+          echo "Package Type: $package_type"
+          echo "Identity: $identity"
+          echo "Team: $team"
+          echo "Profile Name: $profile_name"
+          echo "Profile UUID: $profile_uuid"
+
+          # Create build.json
           cat <<EOF > build.json
           {
             "ios": {
@@ -46,6 +57,8 @@ workflows:
               }
             }
           }EOF
+
+          # Build the iOS app
           cordova build ios --release --device --buildConfig='build.json'
     artifacts:
       - /Users/builder/clone/platforms/ios/build/device/*.ipa
