@@ -26,6 +26,9 @@ workflows:
       - name: Prepare iOS Platform
         script: |
           cordova prepare ios
+      - name: Set up code signing settings on Xcode project
+        script: | 
+        xcode-project use-profiles
       - name: Clean Build
         script: |
           xcodebuild clean -workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" -scheme "$XCODE_SCHEME"  # Clean previous builds
