@@ -13,7 +13,6 @@ workflows:
         script: | 
           npm install
           npm ci # equivalent of npm install for CI systems.
-            # Requires package-lock.json or npm-shrinkwrap.json to be present
           npm install -g cordova@12.0.0 # Install Cordova version 12
           cordova -v # Check Cordova version
       - name: Setup Cordova iOS platform
@@ -60,6 +59,9 @@ workflows:
 
           # Build the iOS app
           cordova build ios --release --device --buildConfig='build.json'
+
+          # List the output directory to check for IPA
+          ls platforms/ios/build/device/
     artifacts:
       - platforms/ios/build/device/*.ipa
       - /tmp/xcodebuild_logs/*.log
