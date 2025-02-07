@@ -34,7 +34,7 @@ workflows:
         script: |
           cd platforms/ios  # Navigate to platforms/ios
           xcodebuild -workspace JbPaladinPatriotsClock.xcworkspace -scheme JbPaladinPatriotsClock -archivePath JbPaladinPatriotsClock.xcarchive archive
-          xcodebuild -exportArchive -archivePath JbPaladinPatriotsClock.xcarchive -exportPath JbPaladinPatriotsClock.ipa -exportOptionsPlist ExportOptions.plist
+          xcodebuild -exportArchive -archivePath JbPaladinPatriotsClock.xcarchive -exportPath JbPaladinPatriotsClock.ipa -exportoptionsPlist exportoptions.plist
     artifacts:
       - platforms/ios/*.ipa  # Path to the generated IPA file
       - /tmp/xcodebuild_logs/*.log  # Optional: Path to logs for debugging
