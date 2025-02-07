@@ -18,7 +18,7 @@ workflows:
           npm install
       - name: Install CocoaPods
         script: | 
-          sudo gem install cocoapods -v 1.10.1  # Install a specific version of CocoaPods
+          sudo gem install cocoapods -v 1.9.3  # Install an older version of CocoaPods
       - name: CocoaPods installation
         script: | 
           cd platforms/ios && pod install
