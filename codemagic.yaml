@@ -10,15 +10,18 @@ workflows:
         bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
       vars:
         APP_STORE_APPLE_ID: XAJF22HXCQ
-        XCODE_PROJECT: "platforms/ios/JbPaladinPatriotsClock.xcodeproj"
+        XCODE_WORKSPACE: "platforms/ios/JbPaladinPatriotsClock.xcworkspace"  # Use the workspace file
         XCODE_SCHEME: "JbPaladinPatriotsClock"
     scripts:
       - name: Install npm dependencies for cordova
         script: | 
           npm install
-      - name: Cocoapods installation
+      - name: Install CocoaPods
         script: | 
-          cd platforms/ios && pod install
+          sudo gem install cocoapods  # Ensure CocoaPods is installed
+      - name: CocoaPods installation
+        script: | 
+          cd platforms/ios && pod install  # Install pods
       - name: Set up code signing settings on Xcode project
         script: | 
           xcode-project use-profiles
@@ -31,10 +34,10 @@ workflows:
         script: | 
           cd $CM_BUILD_DIR/platforms/ios
           xcode-project build-ipa \
-            --workspace "$XCODE_PROJECT" \
+            --workspace "$XCODE_WORKSPACE" \  # Use the workspace variable
             --scheme "$XCODE_SCHEME"
     artifacts:
-      - build/ios/ipa/*.ipa
+      - platforms/ios/build/device/*.ipa  # Correct path for the generated IPA
       - /tmp/xcodebuild_logs/*.log
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
