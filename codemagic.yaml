@@ -10,7 +10,7 @@ workflows:
         bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
       vars:
         APP_STORE_APPLE_ID: XAJF22HXCQ
-        XCODE_WORKSPACE: "platforms/ios/JbPaladinPatriotsClock.xcworkspace"
+        XCODE_PROJECT: "platforms/ios/JbPaladinPatriotsClock.xcodeproj"
         XCODE_SCHEME: "JbPaladinPatriotsClock"
     scripts:
       - name: Install npm dependencies for cordova
