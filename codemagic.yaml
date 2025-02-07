@@ -31,7 +31,7 @@ workflows:
         script: | 
           cd $CM_BUILD_DIR/platforms/ios
           xcode-project build-ipa \
-            --workspace "$XCODE_WORKSPACE" \
+            --workspace "$XCODE_PROJECT" \
             --scheme "$XCODE_SCHEME"
     artifacts:
       - build/ios/ipa/*.ipa
