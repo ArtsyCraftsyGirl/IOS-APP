@@ -29,6 +29,5 @@ workflows:
         script: | 
           cordova build ios --release --device
     artifacts:
-      - platforms/ios/build/device/*.ipa  # Adjusted path to match the expected output
-      - /tmp/xcodebuild_logs/*.log
-      
+      - platforms/ios/build/device/*.ipa  # Path to the generated IPA file
+      - /tmp/xcodebuild_logs/*.log         # Path to the build logs
