@@ -4,9 +4,7 @@ workflows:
     environment:
       ios_signing:
         distribution_type: app_store
-        bundle_identifier: com.example.cordovaapp  # Replace with your actual bundle identifier
-    vars:
-        development_team: XAJF22HXCQ  # Your Team ID
+        bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
     scripts:
       - name: Install dependencies
         script: |
