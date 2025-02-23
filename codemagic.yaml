@@ -1,33 +1,13 @@
 workflows:
   ios-workflow:
-    name: iOS Workflow
-    max_build_duration: 120
-    integrations:
-      app_store_connect: Codemagic
-    environment:
-      ios_signing:
-        distribution_type: app_store
-        bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
+    name: iOS Build Workflow
+    instance_type: mac_mini_m2
     scripts:
-      - name: Install npm dependencies
-        script: | 
+      - name: Install dependencies
+        script: |
           npm install
-          npm ci # equivalent of npm install for CI systems.
-            # Requires package-lock.json or npm-shrinkwrap.json to be present
-      - name: Setup Cordova iOS platform
-        script: | 
-          cordova platform remove ios --nosave
-          cordova platform add ios \
-            --confirm \
-            --no-interactive \
-            --noresources \
-            --save
-      - name: Set up code signing settings on Xcode project
-        script: | 
-          xcode-project use-profiles
-      - name: Build IPA for distribution
-        script: | 
-          cordova build ios --release --device
+      - name: Build iOS
+        script: |
+          cordova build ios --release
     artifacts:
-      - platforms/ios/build/device/*.ipa  # Path to the generated IPA file
-      - /tmp/xcodebuild_logs/*.log         # Path to the build logs
+      - platforms/ios/build/device/*.ipa
