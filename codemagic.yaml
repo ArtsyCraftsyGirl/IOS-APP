@@ -14,6 +14,9 @@ workflows:
         script: | 
           npm install
           npm ci  # Install dependencies for CI systems
+      - name: Update Cordova Plugins
+        script: | 
+          cordova plugin update  # Update all Cordova plugins
       - name: Setup Cordova iOS platform
         script: | 
           cordova platform remove ios --nosave  # Remove existing iOS platform if any
