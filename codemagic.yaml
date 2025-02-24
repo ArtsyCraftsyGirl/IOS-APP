@@ -16,7 +16,7 @@ workflows:
           npm ci  # Install dependencies for CI systems
       - name: Install CocoaPods
         script: | 
-          sudo gem install cocoapods  # Install CocoaPods
+          sudo gem install cocoapods -v '1.10.1'  # Install a specific version of CocoaPods
       - name: Update Cordova Plugins
         script: | 
           cordova plugin update  # Update all Cordova plugins
