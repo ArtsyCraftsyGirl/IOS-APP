@@ -14,6 +14,9 @@ workflows:
         script: | 
           npm install
           npm ci  # Install dependencies for CI systems
+      - name: Install CocoaPods
+        script: | 
+          sudo gem install cocoapods  # Install CocoaPods
       - name: Update Cordova Plugins
         script: | 
           cordova plugin update  # Update all Cordova plugins
@@ -21,6 +24,10 @@ workflows:
         script: | 
           cordova platform remove ios --nosave  # Remove existing iOS platform if any
           cordova platform add ios --confirm --no-interactive --noresources --save  # Add iOS platform
+      - name: Set Deployment Target for Xcode 11 Compatibility
+        script: |
+          # Ensure the deployment target is set to at least 11.0 for Xcode 11 compatibility
+          sed -i '' 's/<preference name="deployment-target" value=".*" \/>/<preference name="deployment-target" value="11.0" \/>/' config.xml
       - name: Set up code signing settings on Xcode project
         script: | 
           xcode-project use-profiles  # Set up code signing profiles
