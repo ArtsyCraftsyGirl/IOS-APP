@@ -17,16 +17,17 @@ workflows:
       - name: Install CocoaPods
         script: | 
           sudo gem install cocoapods -v '1.9.3'  # Install an older version of CocoaPods
+      - name: Add iOS Platform
+        script: | 
+          cordova platform add ios --confirm --no-interactive --noresources --save  # Add iOS platform
       - name: Update Cordova Plugins
         script: | 
           cordova plugin update  # Update all Cordova plugins
-      - name: Setup Cordova iOS platform
-        script: | 
-          cordova platform remove ios --nosave  # Remove existing iOS platform if any
-          cordova platform add ios --confirm --no-interactive --noresources --save  # Add iOS platform
-      - name: Set Deployment Target for Xcode 11 Compatibility
+      - name: Set Deployment Target for CordovaLib
         script: |
-          # Ensure the deployment target is set to at least 11.0 for Xcode 11 compatibility
+          sed -i '' 's/IPHONEOS_DEPLOYMENT_TARGET = .*/IPHONEOS_DEPLOYMENT_TARGET = 12.0;/' platforms/ios/CordovaLib/CordovaLib.xcodeproj/project.pbxproj
+      - name: Set Deployment Target for Xcode Compatibility
+        script: |
           sed -i '' 's/<preference name="deployment-target" value=".*" \/>/<preference name="deployment-target" value="12.0" \/>/' config.xml
       - name: Set up code signing settings on Xcode project
         script: | 
