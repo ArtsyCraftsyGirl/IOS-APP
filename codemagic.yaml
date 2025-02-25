@@ -16,10 +16,12 @@ workflows:
           npm ci
       - name: Install CocoaPods
         script: | 
-          sudo gem install cocoapods -v '1.9.3'
+          sudo gem install cocoapods  # use the latest version available
       - name: Clean iOS Platform
         script: |
-          cordova platform remove ios || true  # Remove existing iOS platform if any
+          if [ -d "platforms/ios" ]; then
+              cordova platform remove ios || true
+          fi
       - name: Add iOS Platform
         script: | 
           cordova platform add ios --confirm --no-interactive --noresources --save
@@ -37,6 +39,11 @@ workflows:
       - name: Set Deployment Target for Xcode Compatibility
         script: |
           sed -i '' 's/<preference name="deployment-target" value=".*" \/>/<preference name="deployment-target" value="12.0" \/>/' config.xml
+          # Optional: Verify if the target was set correctly
+          grep "<preference name=\"deployment-target\"" config.xml
+      - name: Clean Xcode Derived Data
+        script: |
+          rm -rf ~/Library/Developer/Xcode/DerivedData
       - name: Set up code signing settings on Xcode project
         script: | 
           xcode-project use-profiles  # Set up code signing profiles
