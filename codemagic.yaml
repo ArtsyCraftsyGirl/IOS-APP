@@ -23,6 +23,14 @@ workflows:
       - name: Add iOS Platform
         script: | 
           cordova platform add ios --confirm --no-interactive --noresources --save
+      - name: Check for Assets.xcassets
+        script: |
+          if [ -d "platforms/ios/JbPaladinPatriotsClock/Assets.xcassets" ]; then
+            echo "Assets.xcassets folder exists."
+          else
+            echo "Assets.xcassets folder does not exist. Please check the platform setup."
+            exit 1  # Exit with an error code to fail the build
+          fi
       - name: Update Cordova Plugins
         script: | 
           cordova plugin update
