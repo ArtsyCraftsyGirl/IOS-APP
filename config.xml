@@ -33,7 +33,7 @@
 
     <!-- iOS Configuration -->
     <platform name="ios">
-        <preference name="deployment-target" value="11.0" />
+        <preference name="deployment-target" value="12.0" />
         <icon src="res/icon/ios/icon.png" />
         <splash src="res/screen/ios/splash.png" />
         <preference name="SplashScreen" value="screen" />
