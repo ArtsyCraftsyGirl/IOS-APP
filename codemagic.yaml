@@ -16,16 +16,18 @@ workflows:
         script: |
           npm install -g cordova
           npm install
-      - name: Set up code signing settings on Xcode project
-        script: | 
-          xcode-project use-profiles  # Set up code signing profiles
+      - name: Build iOS
+        script: |
+          cordova platform add ios
       - name: Update CordovaLib Deployment Target
         script: |
           # Update the deployment target for CordovaLib
           sed -i '' 's/11.0/12.0/g' platforms/ios/CordovaLib/CordovaLib.xcodeproj/project.pbxproj
+      - name: Set up code signing settings on Xcode project
+        script: | 
+          xcode-project use-profiles  # Set up code signing profiles
       - name: Build iOS
         script: |
-          cordova platform add ios
           cordova build ios --release --device
     artifacts:
       - build/ios/*.ipa
