@@ -19,10 +19,14 @@ workflows:
       - name: Build iOS
         script: |
           cordova platform add ios
-      - name: Update CordovaLib Deployment Target
+      - name: Update Deployment Targets
         script: |
           # Update the deployment target for CordovaLib
-          sed -i '' 's/11.0/12.0/g' platforms/ios/CordovaLib/CordovaLib.xcodeproj/project.pbxproj
+          sed -i '' 's/IPHONEOS_DEPLOYMENT_TARGET = 11.0;/IPHONEOS_DEPLOYMENT_TARGET = 12.0;/g' platforms/ios/CordovaLib/CordovaLib.xcodeproj/project.pbxproj
+          # Update the deployment target for the main project
+          sed -i '' 's/IPHONEOS_DEPLOYMENT_TARGET = 11.0;/IPHONEOS_DEPLOYMENT_TARGET = 12.0;/g' platforms/ios/JbPaladinPatriotsClock.xcodeproj/project.pbxproj
+          # Update the deployment target for Pods
+          sed -i '' 's/IPHONEOS_DEPLOYMENT_TARGET = 11.0;/IPHONEOS_DEPLOYMENT_TARGET = 12.0;/g' platforms/ios/Pods/Pods.xcodeproj/project.pbxproj
       - name: Set up code signing settings on Xcode project
         script: | 
           xcode-project use-profiles  # Set up code signing profiles
