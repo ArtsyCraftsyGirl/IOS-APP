@@ -9,6 +9,7 @@ workflows:
       ios_signing:
         distribution_type: app_store
         bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
+        development_team: XAJF22HXCQ
       xcode: latest
       node: latest
     scripts:
