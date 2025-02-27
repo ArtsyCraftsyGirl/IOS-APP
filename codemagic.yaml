@@ -16,15 +16,12 @@ workflows:
         script: |
           npm install -g cordova
           npm install
-      - name: Update Deployment Targets
+      - name: Verify Deployment Targets
         script: |
-          # Update the deployment target for CordovaLib
-          sed -i '' 's/IPHONEOS_DEPLOYMENT_TARGET = 11.0;/IPHONEOS_DEPLOYMENT_TARGET = 12.0;/g' platforms/ios/CordovaLib/CordovaLib.xcodeproj/project.pbxproj
-          # Update the deployment target for the main project
-          sed -i '' 's/IPHONEOS_DEPLOYMENT_TARGET = 11.0;/IPHONEOS_DEPLOYMENT_TARGET = 12.0;/g' platforms/ios/JbPaladinPatriotsClock.xcodeproj/project.pbxproj
-          # Update the deployment target for Pods (if applicable)
-          if [ -f platforms/ios/Pods/Pods.xcodeproj/project.pbxproj ]; then
-            sed -i '' 's/IPHONEOS_DEPLOYMENT_TARGET = 11.0;/IPHONEOS_DEPLOYMENT_TARGET = 12.0;/g' platforms/ios/Pods/Pods.xcodeproj/project.pbxproj
+          # Check if the deployment target is set to 12.0
+          if grep -q "IPHONEOS_DEPLOYMENT_TARGET = 11.0;" platforms/ios/JbPaladinPatriotsClock.xcodeproj/project.pbxproj; then
+            echo "Deployment target is still set to 11.0. Please update it to 12.0 in your repository."
+            exit 1
           fi
       - name: Set up code signing settings on Xcode project
         script: | 
