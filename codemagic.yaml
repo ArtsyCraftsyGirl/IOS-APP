@@ -18,7 +18,6 @@ workflows:
           npm install
       - name: Build iOS
         script: |
-          cordova platform add ios
       - name: Update Deployment Targets
         script: |
           # Update the deployment target for CordovaLib
