@@ -1,13 +1,13 @@
 workflows:
   cordova_ios_build:
     name: Cordova iOS Build
-    instance_type: mac_mini_m2  # Use Mac Mini M2 for better performance
+    instance_type: mac_mini_m2
     environment:
       vars:
         XCODE_WORKSPACE: "platforms/ios/JbPaladinPatriotsClock.xcworkspace"
         XCODE_SCHEME: "JbPaladinPatriotsClock"
         BUNDLE_ID: "com.jbpaladinpatriotsclock.jbpaladinpatriotsclock"
-        DEVELOPMENT_TEAM: "XAJF22HXCQ"  # Your Apple Developer Team ID
+        DEVELOPMENT_TEAM: "XAJF22HXCQ"
       node: latest
       xcode: latest
       cocoapods: default
@@ -17,17 +17,21 @@ workflows:
           npm install -g cordova
           npm install
 
-      - name: Add iOS Platform
+      - name: **Ensure iOS Platform is Added**
         script: |
+          cordova platform rm ios || true   # Remove iOS platform if it exists
           cordova platform add ios
 
-      - name: Set iOS Deployment Target
+      - name: Check if iOS workspace exists
         script: |
-          find platforms/ios -name project.pbxproj -print0 | xargs -0 sed -i '' 's/IPHONEOS_DEPLOYMENT_TARGET = 11.0;/IPHONEOS_DEPLOYMENT_TARGET = 12.0;/g'
+          if [ ! -f "$XCODE_WORKSPACE" ]; then
+            echo "ERROR: iOS workspace does not exist!"
+            exit 1
+          fi
 
       - name: Set up code signing settings on Xcode project
         script: | 
-          xcode-project use-profiles  # Automatically set up code signing
+          xcode-project use-profiles  
 
       - name: Configure Xcode project with Development Team
         script: |
