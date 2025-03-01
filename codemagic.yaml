@@ -8,7 +8,8 @@ workflows:
         XCODE_SCHEME: "JbPaladinPatriotsClock" # Replace with your app's scheme name
         BUNDLE_ID: "com.jbpaladinpatriotsclock.jbpaladinpatriotsclock" # Update with your Bundle ID
         APP_STORE_TEAM_ID: "XAJF22HXCQ" # Your Apple Developer Team ID
-        PROVISIONING_PROFILE_SPECIFIER: "JbPaladinPatriotsClock Distribution Profile" # Corrected profile name
+        PROVISIONING_PROFILE: "YOUR_PROFILE_UUID_HERE" # UUID of your profile
+        PROVISIONING_PROFILE_SPECIFIER: "JbPaladinPatriotsClock Distribution Profile"
       node: latest
       xcode: latest
       cocoapods: default
@@ -28,12 +29,7 @@ workflows:
 
       - name: Set up code signing settings on Xcode project
         script: | 
-          xcode-project use-profiles  # Set up code signing profiles
-          xcode-project set-target-signing \
-            --target "JbPaladinPatriotsClock" \
-            --development-team "$APP_STORE_TEAM_ID" \
-            --code-signing-identity "Apple Distribution" \
-            --provisioning-profile "$PROVISIONING_PROFILE_SPECIFIER"
+          xcode-project use-profiles
 
       - name: Build iOS App
         script: |
