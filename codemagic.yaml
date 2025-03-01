@@ -17,7 +17,7 @@ workflows:
           npm install -g cordova
           npm install
 
-      - name: **Ensure iOS Platform is Added**
+      - name: Ensure iOS Platform is Added
         script: |
           cordova platform rm ios || true   # Remove iOS platform if it exists
           cordova platform add ios
