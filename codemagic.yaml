@@ -1,12 +1,12 @@
 workflows:
   cordova_ios_build:
     name: Cordova iOS Build
-    instance_type: mac_mini_m1  # Use macOS for iOS builds
+    instance_type: mac_mini_m2  # Use Mac Mini M2 for better performance
     environment:
       vars:
-        XCODE_WORKSPACE: "platforms/ios/YourApp.xcworkspace"
-        XCODE_SCHEME: "YourApp" # Replace with your app's scheme name
-        BUNDLE_ID: "com.yourcompany.yourapp" # Update with your Bundle ID
+        XCODE_WORKSPACE: "platforms/ios/JbPaladinPatriotsClock.xcworkspace"
+        XCODE_SCHEME: "JbPaladinPatriotsClock" # Replace with your app's scheme name
+        BUNDLE_ID: "com.jbpaladinpatriotsclock.jbpaladinpatriotsclock" # Update with your Bundle ID
       flutter: none  # Since this is not a Flutter app
       node: latest
       xcode: latest
@@ -32,6 +32,10 @@ workflows:
           # Ensure correct provisioning profile is used
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PROVISIONING_PROFILE ~/Library/MobileDevice/Provisioning\ Profiles/
+
+      - name: Set up code signing settings on Xcode project
+        script: | 
+          xcode-project use-profiles  # Set up code signing profiles
 
       - name: Export Signed IPA
         script: |
