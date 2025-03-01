@@ -7,6 +7,8 @@ workflows:
         XCODE_WORKSPACE: "platforms/ios/JbPaladinPatriotsClock.xcworkspace"
         XCODE_SCHEME: "JbPaladinPatriotsClock" # Replace with your app's scheme name
         BUNDLE_ID: "com.jbpaladinpatriotsclock.jbpaladinpatriotsclock" # Update with your Bundle ID
+        APP_STORE_TEAM_ID: "XAJF22HXCQ" # Your Apple Developer Team ID
+        PROVISIONING_PROFILE_SPECIFIER: "JbPaladinPatriotsClock Distribution Profile" # Corrected profile name
       node: latest
       xcode: latest
       cocoapods: default
@@ -20,19 +22,22 @@ workflows:
         script: |
           cordova platform add ios
 
-      - name: Build iOS App
+      - name: Set iOS Deployment Target to 12.0
         script: |
-          cordova build ios --release --device
-
-      - name: Prepare for Code Signing
-        script: |
-          # Ensure correct provisioning profile is used
-          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          cp $PROVISIONING_PROFILE ~/Library/MobileDevice/Provisioning\ Profiles/
+          find platforms/ios -name "project.pbxproj" -print0 | xargs -0 sed -i '' 's/IPHONEOS_DEPLOYMENT_TARGET = 11.0;/IPHONEOS_DEPLOYMENT_TARGET = 12.0;/g'
 
       - name: Set up code signing settings on Xcode project
         script: | 
           xcode-project use-profiles  # Set up code signing profiles
+          xcode-project set-target-signing \
+            --target "JbPaladinPatriotsClock" \
+            --development-team "$APP_STORE_TEAM_ID" \
+            --code-signing-identity "Apple Distribution" \
+            --provisioning-profile "$PROVISIONING_PROFILE_SPECIFIER"
+
+      - name: Build iOS App
+        script: |
+          cordova build ios --release --device
 
       - name: Export Signed IPA
         script: |
