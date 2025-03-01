@@ -7,7 +7,6 @@ workflows:
         XCODE_WORKSPACE: "platforms/ios/JbPaladinPatriotsClock.xcworkspace"
         XCODE_SCHEME: "JbPaladinPatriotsClock" # Replace with your app's scheme name
         BUNDLE_ID: "com.jbpaladinpatriotsclock.jbpaladinpatriotsclock" # Update with your Bundle ID
-      flutter: none  # Since this is not a Flutter app
       node: latest
       xcode: latest
       cocoapods: default
