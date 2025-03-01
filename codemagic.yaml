@@ -1,33 +1,55 @@
 workflows:
-  ios-workflow:
-    name: iOS Workflow
-    max_build_duration: 120
-    instance_type: mac_mini_m2
-    integrations:
-      app_store_connect: Codemagic
+  cordova_ios_build:
+    name: Cordova iOS Build
+    instance_type: mac_mini_m1  # Use macOS for iOS builds
     environment:
-      ios_signing:
-        distribution_type: app_store
-        bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
-      xcode: latest
+      vars:
+        XCODE_WORKSPACE: "platforms/ios/YourApp.xcworkspace"
+        XCODE_SCHEME: "YourApp" # Replace with your app's scheme name
+        BUNDLE_ID: "com.yourcompany.yourapp" # Update with your Bundle ID
+      flutter: none  # Since this is not a Flutter app
       node: latest
+      xcode: latest
+      cocoapods: default
+      groups:
+        - app_store_credentials  # Add your signing credentials in Codemagic
     scripts:
-      - name: Install dependencies
+      - name: Install Cordova
         script: |
           npm install -g cordova
           npm install
-      - name: Verify Deployment Targets
+
+      - name: Add iOS Platform
         script: |
-          # Check if the deployment target is set to 12.0
-          if grep -q "IPHONEOS_DEPLOYMENT_TARGET = 11.0;" platforms/ios/JbPaladinPatriotsClock.xcodeproj/project.pbxproj; then
-            echo "Deployment target is still set to 11.0. Please update it to 12.0 in your repository."
-            exit 1
-          fi
-      - name: Set up code signing settings on Xcode project
-        script: | 
-          xcode-project use-profiles  # Set up code signing profiles
-      - name: Build iOS
+          cordova platform add ios
+
+      - name: Build iOS App
         script: |
           cordova build ios --release --device
-    artifacts:
-      - build/ios/*.ipa
+
+      - name: Prepare for Code Signing
+        script: |
+          # Ensure correct provisioning profile is used
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp $PROVISIONING_PROFILE ~/Library/MobileDevice/Provisioning\ Profiles/
+
+      - name: Export Signed IPA
+        script: |
+          cd platforms/ios
+          xcodebuild -workspace "$XCODE_WORKSPACE" \
+                     -scheme "$XCODE_SCHEME" \
+                     -sdk iphoneos \
+                     -configuration Release \
+                     archive -archivePath $CM_BUILD_DIR/build/App.xcarchive
+
+          xcodebuild -exportArchive \
+                     -archivePath $CM_BUILD_DIR/build/App.xcarchive \
+                     -exportOptionsPlist exportOptions.plist \
+                     -exportPath $CM_BUILD_DIR/build
+
+      - name: Save Artifacts
+        script: |
+          mv $CM_BUILD_DIR/build/*.ipa $CM_ARTIFACTS_DIR/
+
+artifacts:
+  - build/*.ipa
