@@ -11,8 +11,6 @@ workflows:
       node: latest
       xcode: latest
       cocoapods: default
-      groups:
-        - app_store_credentials  # Add your signing credentials in Codemagic
     scripts:
       - name: Install Cordova
         script: |
