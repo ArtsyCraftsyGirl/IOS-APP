@@ -1,51 +1,53 @@
 workflows:
-  cordova_ios_build:
-    name: Cordova iOS Build
-    instance_type: mac_mini_m2
+  ios-workflow:
+    name: iOS Workflow
+    max_build_duration: 120
+    integrations:
+      app_store_connect: Codemagic
     environment:
-      node: latest
       xcode: latest
-      cocoapods: default
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
+      vars:
+        APP_STORE_APPLE_ID: "XAJF22HXCQ"
+        XCODE_WORKSPACE: "JbPaladinPatriotsClock.xcworkspace" # Update with correct workspace name
+        XCODE_SCHEME: "JbPaladinPatriotsClock" # Update with the correct scheme name
     scripts:
-      - name: Install Cordova and dependencies
-        script: |
-          npm install -g cordova
+      - name: Install npm dependencies for Cordova
+        script: | 
           npm install
 
-      - name: Ensure iOS Platform is Added
-        script: |
-          cordova platform rm ios || true   # Remove iOS platform if it exists
-          cordova platform add ios
-          cordova prepare ios               # Ensure dependencies are installed
+      - name: Install CocoaPods (Updated)
+        script: | 
+          sudo gem install cocoapods -v 1.12.0  # Use a more recent version
 
-      - name: Install CocoaPods Dependencies
-        script: |
-          cd platforms/ios
-          pod install --verbose
+      - name: CocoaPods installation
+        script: | 
+          cd platforms/ios && pod install || pod install --repo-update
 
       - name: Set up code signing settings on Xcode project
         script: | 
-          xcode-project use-profiles  
+          xcode-project use-profiles
 
-      - name: Build and Archive iOS App
-        script: |
+      - name: Build ipa for distribution
+        script: | 
           cd platforms/ios
-          xcodebuild -workspace *.xcworkspace \
-                     -scheme "$(ls *.xcodeproj | cut -d. -f1)" \
+          xcodebuild -workspace "$XCODE_WORKSPACE" \
+                     -scheme "$XCODE_SCHEME" \
                      -configuration Release \
-                     archive -archivePath $CM_BUILD_DIR/build/App.xcarchive
+                     archive -archivePath build/App.xcarchive
 
-      - name: Export Signed IPA
-        script: |
-          cd platforms/ios
+      - name: Export .ipa file
+        script: | 
           xcodebuild -exportArchive \
-                     -archivePath $CM_BUILD_DIR/build/App.xcarchive \
+                     -archivePath build/App.xcarchive \
                      -exportOptionsPlist exportOptions.plist \
-                     -exportPath $CM_BUILD_DIR/build
+                     -exportPath build/ \
+                     -allowProvisioningUpdates
 
-      - name: Save Artifacts
-        script: |
-          mv $CM_BUILD_DIR/build/*.ipa $CM_ARTIFACTS_DIR/
-
-artifacts:
-  - build/*.ipa
+    artifacts:
+      - platforms/ios/build/device/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
