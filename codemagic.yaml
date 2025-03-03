@@ -23,13 +23,6 @@ workflows:
           cd platforms/ios
           pod install --verbose
 
-      - name: Check if iOS workspace exists
-        script: |
-          if [ ! -d "platforms/ios" ] || [ ! -f "platforms/ios/*.xcworkspace" ]; then
-            echo "ERROR: iOS workspace does not exist!"
-            exit 1
-          fi
-
       - name: Set up code signing settings on Xcode project
         script: | 
           xcode-project use-profiles  
