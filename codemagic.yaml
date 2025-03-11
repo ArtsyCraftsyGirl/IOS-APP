@@ -27,6 +27,10 @@ workflows:
         script: | 
           npm install
 
+      - name: Add iOS platform
+        script: |
+          cordova platform add ios
+
       - name: Install CocoaPods
         script: | 
           gem install securerandom -v 0.3.2  # Ensure compatible version
