@@ -31,6 +31,10 @@ workflows:
         script: |
           cordova platform add ios
 
+      - name: Update Podfile to set iOS deployment target to 12.0
+        script: |
+          sed -i '' 's/platform :ios, .*$/platform :ios, \'12.0\'/' platforms/ios/Podfile
+
       - name: Install CocoaPods
         script: | 
           gem install securerandom -v 0.3.2  # Ensure compatible version
