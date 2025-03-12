@@ -11,8 +11,8 @@ workflows:
         bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
       vars:
         APP_STORE_APPLE_ID: "XAJF22HXCQ"
-        XCODE_WORKSPACE: "JbPaladinPatriotsClock.xcworkspace" # Update this with the correct workspace name
-        XCODE_SCHEME: "JbPaladinPatriotsClock" # Update this with the correct scheme name
+        XCODE_WORKSPACE: "JbPaladinPatriotsClock.xcworkspace"
+        XCODE_SCHEME: "JbPaladinPatriotsClock"
     scripts:
       - name: Force Update Ruby Version
         script: |
@@ -35,28 +35,13 @@ workflows:
         script: |
           sed -i '' "s/platform :ios, .*$/platform :ios, '12.0'/" platforms/ios/Podfile
 
-      - name: Update Xcode project to set iOS deployment target to 12.0
-        script: |
-          sed -i '' "s/IPHONEOS_DEPLOYMENT_TARGET = 11.0/IPHONEOS_DEPLOYMENT_TARGET = 12.0/g" platforms/ios/JbPaladinPatriotsClock.xcodeproj/project.pbxproj
-          sed -i '' "s/IPHONEOS_DEPLOYMENT_TARGET = 11.0/IPHONEOS_DEPLOYMENT_TARGET = 12.0/g" platforms/ios/CordovaLib/CordovaLib.xcodeproj/project.pbxproj
-
-      - name: Clean Derived Data
-        script: |
-          rm -rf ~/Library/Developer/Xcode/DerivedData/*
-
       - name: Install CocoaPods
         script: | 
-          gem install securerandom -v 0.3.2  # Ensure compatible version
-          gem install cocoapods -v 1.12.0  # Install latest compatible CocoaPods
+          gem install cocoapods -v 1.12.0
 
       - name: CocoaPods installation
         script: | 
           cd platforms/ios && pod install || pod install --repo-update
-
-      - name: Clean Build Folder
-        script: |
-          cd platforms/ios
-          xcodebuild clean -workspace "$XCODE_WORKSPACE" -scheme "$XCODE_SCHEME"
 
       - name: Verify Signing Identities
         script: |
