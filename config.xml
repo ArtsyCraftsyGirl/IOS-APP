@@ -33,7 +33,7 @@
 
     <!-- iOS Configuration -->
     <platform name="ios">
-        
+        <preference name="ios-team-id" value="XAJF22HXCQ" />
         <icon src="res/icon/ios/icon.png" />
         <splash src="res/screen/ios/splash.png" />
         <preference name="SplashScreen" value="screen" />
