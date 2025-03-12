@@ -48,8 +48,8 @@ workflows:
           security find-identity -p codesigning -v
 
       - name: Build ipa for distribution using build.json
-          script: | 
-            cordova build ios --device --release --buildConfig=../../build.json
+        script: |  # <-- Fix indentation here
+          cordova build ios --device --release --buildConfig=../../build.json
 
       - name: Export .ipa file
         script: | 
