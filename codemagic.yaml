@@ -58,21 +58,21 @@ workflows:
           cd platforms/ios
           xcodebuild clean -workspace "$XCODE_WORKSPACE" -scheme "$XCODE_SCHEME"
 
-      - name: Build ipa for distribution
+      - name: Verify Signing Identities
+        script: |
+          security find-identity -p codesigning -v
+
+      - name: Build ipa for distribution using build.json
         script: | 
           cd platforms/ios
-          xcodebuild -workspace "$XCODE_WORKSPACE" \
-                     -scheme "$XCODE_SCHEME" \
-                     -configuration Release \
-                     -sdk iphoneos \
-                     archive -archivePath build/App.xcarchive -verbose
+          cordova build ios --device --release --buildConfig=../../build.json
 
       - name: Export .ipa file
         script: | 
           xcodebuild -exportArchive \
-                     -archivePath build/App.xcarchive \
+                     -archivePath platforms/ios/build/device/JbPaladinPatriotsClock.xcarchive \
                      -exportOptionsPlist exportOptions.plist \
-                     -exportPath build/ \
+                     -exportPath platforms/ios/build/device/ \
                      -allowProvisioningUpdates
 
     artifacts:
