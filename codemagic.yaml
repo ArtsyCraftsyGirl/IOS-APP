@@ -9,7 +9,6 @@ workflows:
       ios_signing:
         distribution_type: app_store
         bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
-        development_team: "XAJF22HXCQ"  
       vars:
         APP_STORE_APPLE_ID: "XAJF22HXCQ"
         XCODE_WORKSPACE: "JbPaladinPatriotsClock.xcworkspace"
@@ -43,6 +42,17 @@ workflows:
       - name: CocoaPods installation
         script: | 
           cd platforms/ios && pod install || pod install --repo-update
+
+      - name: Create build.json
+        script: |
+          echo '{
+            "ios": {
+              "developmentTeam": "XAJF22HXCQ",
+              "codeSignIdentity": "iPhone Distribution",
+              "provisioningProfile": "JbPaladinPatriotsClock Distribution Profile",
+              "packageType": "app-store"
+            }
+          }' > build.json
 
       - name: Verify Signing Identities
         script: |
