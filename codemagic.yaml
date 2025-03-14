@@ -22,11 +22,24 @@ workflows:
         script: |
           cordova platform add ios@latest
 
+      - name: Debug iOS Platform Files
+        script: |
+          echo "Checking the contents of the platforms/ios directory:"
+          ls platforms/ios
+
       - name: Ensure iOS Deployment Target is 12.0
         script: |
+          # Check if the Podfile exists and update the deployment target if it does
+          if [ -f platforms/ios/Podfile ]; then
+            echo "Found Podfile, updating iOS deployment target..."
+            sed -i '' "s/platform :ios, '11.0'/platform :ios, '12.0'/" platforms/ios/Podfile
+          else
+            echo "Podfile not found. Skipping Podfile update."
+          fi
+          
+          # Update the project files
           sed -i '' "s/IPHONEOS_DEPLOYMENT_TARGET = 11.0;/IPHONEOS_DEPLOYMENT_TARGET = 12.0;/" platforms/ios/JbPaladinPatriotsClock.xcodeproj/project.pbxproj
           sed -i '' "s/IPHONEOS_DEPLOYMENT_TARGET = 11.0;/IPHONEOS_DEPLOYMENT_TARGET = 12.0;/" platforms/ios/CordovaLib/CordovaLib.xcodeproj/project.pbxproj
-          sed -i '' "s/platform :ios, '11.0'/platform :ios, '12.0'/" platforms/ios/Podfile
 
       - name: Install CocoaPods
         script: | 
