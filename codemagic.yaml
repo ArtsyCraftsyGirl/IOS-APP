@@ -3,8 +3,6 @@ workflows:
     name: iOS Release Build
     instance_type: mac_mini_m1
     environment:
-      groups:
-        - apple_credentials  # Make sure you set this up in Codemagic
       xcode: latest
       cocoapods: default
     scripts:
