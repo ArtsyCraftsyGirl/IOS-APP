@@ -22,7 +22,14 @@ workflows:
 
       - name: Set iOS Deployment Target to 12.0
         script: |
-          /usr/libexec/PlistBuddy -c "Set :MinimumOSVersion 12.0" platforms/ios/*/Info.plist
+          PLIST_PATH="platforms/ios/*/Info.plist"
+          
+          # Check if MinimumOSVersion exists, then modify or add it
+          if /usr/libexec/PlistBuddy -c "Print :MinimumOSVersion" $PLIST_PATH; then
+            /usr/libexec/PlistBuddy -c "Set :MinimumOSVersion 12.0" $PLIST_PATH
+          else
+            /usr/libexec/PlistBuddy -c "Add :MinimumOSVersion string 12.0" $PLIST_PATH
+          fi
 
       - name: Install CocoaPods and Dependencies
         script: |
