@@ -18,10 +18,14 @@ workflows:
         script: |
           npm install
           npm install -g cordova
+          cordova platform rm ios
           cordova platform add ios --no-interactive
 
       - name: Set iOS Deployment Target to 12.0
         script: |
+          # Ensure correct deployment target for all relevant files
+          find platforms/ios -name "project.pbxproj" -exec sed -i '' "s/IPHONEOS_DEPLOYMENT_TARGET = 11.0;/IPHONEOS_DEPLOYMENT_TARGET = 12.0;/g" {} +
+          
           PLIST_PATH="platforms/ios/*/Info.plist"
           
           # Check if MinimumOSVersion exists, then modify or add it
@@ -34,6 +38,11 @@ workflows:
       - name: Install CocoaPods and Dependencies
         script: |
           cd platforms/ios && pod install --repo-update
+
+      - name: Configure iOS Signing Manually
+        script: |
+          sed -i '' "s/DevelopmentTeam = \"\";/DevelopmentTeam = \"XAJF22HXCQ\";/g" platforms/ios/JbPaladinPatriotsClock.xcodeproj/project.pbxproj
+          sed -i '' "s/\"ProvisioningStyle\" = \"Automatic\";/\"ProvisioningStyle\" = \"Manual\";/g" platforms/ios/JbPaladinPatriotsClock.xcodeproj/project.pbxproj
 
       - name: Create build.json for Code Signing
         script: |
