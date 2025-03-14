@@ -52,6 +52,14 @@ workflows:
             echo "No Podfile found, skipping pod install."
           fi
 
+      - name: Set up code signing settings on Xcode project
+        script: |
+          xcode-project use-profiles
+
+      - name: Verify Signing Identities
+        script: |
+          security find-identity -p codesigning -v
+
       - name: Create build.json
         script: |
           echo '{
@@ -62,10 +70,6 @@ workflows:
               "packageType": "app-store"
             }
           }' > build.json
-
-      - name: Verify Signing Identities
-        script: |
-          security find-identity -p codesigning -v
 
       - name: Print Working Directory
         script: |
