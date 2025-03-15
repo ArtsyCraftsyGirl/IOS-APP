@@ -13,5 +13,11 @@
     <string>manual</string>
     <key>teamID</key>
     <string>XAJF22HXCQ</string>
+    <key>uploadBitcode</key>
+    <true/>
+    <key>compileBitcode</key>
+    <true/>
+    <key>uploadSymbols</key>
+    <true/>
 </dict>
 </plist>
