@@ -19,5 +19,7 @@
     <true/>
     <key>uploadSymbols</key>
     <true/>
+    <key>codeSignIdentity</key> <!-- Add this line -->
+    <string>Apple Distribution: Jeffrey Wayne Birge (XAJF22HXCQ)</string> <!-- Update this line -->
 </dict>
 </plist>
