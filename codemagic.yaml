@@ -60,6 +60,11 @@ workflows:
             echo "No Podfile found, skipping pod install."
           fi
 
+      - name: Clean Build
+        script: |
+          echo "Cleaning previous build artifacts..."
+          cordova clean ios
+
       - name: Set up code signing settings on Xcode project
         script: |
           xcode-project use-profiles
@@ -97,7 +102,7 @@ workflows:
           echo '    <key>teamID</key>' >> exportOptions.plist
           echo '    <string>XAJF22HXCQ</string>' >> exportOptions.plist
           echo '    <key>uploadBitcode</key>' >> exportOptions.plist
-                  echo '    <true/>' >> exportOptions.plist
+          echo '    <true/>' >> exportOptions.plist
           echo '    <key>compileBitcode</key>' >> exportOptions.plist
           echo '    <true/>' >> exportOptions.plist
           echo '    <key>uploadSymbols</key>' >> exportOptions.plist
