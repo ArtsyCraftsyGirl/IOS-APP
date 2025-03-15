@@ -115,10 +115,9 @@ workflows:
           pwd
           ls -la
 
-     - name: Build iOS App
+      - name: Build iOS App
         script: |
-    cordova build ios --device --release --buildConfig=./build.json --exportOptionsPlist=./exportOptions.plist
-
+          cordova build ios --device --release --buildConfig=./build.json --exportOptionsPlist=./exportOptions.plist
 
     artifacts:
       - platforms/ios/build/device/*.ipa
