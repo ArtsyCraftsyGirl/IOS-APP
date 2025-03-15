@@ -23,7 +23,7 @@ workflows:
           fi
 
       - name: Install npm dependencies
-        script: | 
+        script: |
           npm install
 
       - name: Add iOS platform
