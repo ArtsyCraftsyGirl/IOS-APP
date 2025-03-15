@@ -85,7 +85,7 @@ workflows:
           echo '{
             "ios": {
               "developmentTeam": "XAJF22HXCQ",
-              "codeSignIdentity": "Apple Distribution",  # Updated signing identity
+              "codeSignIdentity": "Apple Distribution",  
               "provisioningProfile": "JbPaladinPatriotsClock Distribution Profile",
               "packageType": "app-store"
             }
