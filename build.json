@@ -1,7 +1,7 @@
 {
   "ios": {
     "developmentTeam": "XAJF22HXCQ",
-    "codeSignIdentity": "iPhone Distribution",
+    "codeSignIdentity": "Apple Distribution: Jeffrey Wayne Birge (XAJF22HXCQ)",
     "provisioningProfile": "JbPaladinPatriotsClock Distribution Profile",
     "packageType": "app-store"
   }
