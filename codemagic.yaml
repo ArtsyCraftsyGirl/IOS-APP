@@ -14,6 +14,14 @@ workflows:
         XCODE_WORKSPACE: "JbPaladinPatriotsClock.xcworkspace"
         XCODE_SCHEME: "JbPaladinPatriotsClock"
     scripts:
+      - name: Switch to System Ruby
+        script: |
+          if command -v rvm > /dev/null; then
+            rvm use system
+          elif command -v chruby > /dev/null; then
+            chruby system
+          fi
+
       - name: Install npm dependencies
         script: | 
           npm install
