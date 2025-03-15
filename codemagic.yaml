@@ -16,6 +16,7 @@ workflows:
     scripts:
       - name: Switch to System Ruby
         script: |
+          set -e
           if command -v rvm > /dev/null; then
             rvm use system
           elif command -v chruby > /dev/null; then
@@ -24,19 +25,23 @@ workflows:
 
       - name: Install npm dependencies
         script: |
+          set -e
           npm install
 
       - name: Add iOS platform
         script: |
+          set -e
           cordova platform add ios@latest
 
       - name: Debug iOS Platform Files
         script: |
+          set -e
           echo "Checking the contents of the platforms/ios directory:"
           ls -la platforms/ios
 
       - name: Ensure iOS Deployment Target is 12.0
         script: |
+          set -e
           if [ -f platforms/ios/Podfile ]; then
             echo "Found Podfile, updating iOS deployment target..."
             sed -i '' "s/platform :ios, '11.0'/platform :ios, '12.0'/" platforms/ios/Podfile
@@ -49,6 +54,7 @@ workflows:
 
       - name: Install CocoaPods
         script: |
+          set -e
           gem install cocoapods -v 1.12.0
           if [ -f platforms/ios/Podfile ]; then
             cd platforms/ios
@@ -59,19 +65,23 @@ workflows:
 
       - name: Clean Build
         script: |
+          set -e
           echo "Cleaning previous build artifacts..."
           cordova clean ios
 
       - name: Set up code signing settings on Xcode project
         script: |
+          set -e
           xcode-project use-profiles
 
       - name: Verify Signing Identities
         script: |
+          set -e
           security find-identity -p codesigning -v
 
       - name: Create build.json
         script: |
+          set -e
           echo '{
             "ios": {
               "developmentTeam": "XAJF22HXCQ",
@@ -83,6 +93,7 @@ workflows:
 
       - name: Create exportOptions.plist
         script: |
+          set -e
           echo '<?xml version="1.0" encoding="UTF-8"?>' > exportOptions.plist
           echo '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">' >> exportOptions.plist
           echo '<plist version="1.0">' >> exportOptions.plist
@@ -109,11 +120,13 @@ workflows:
 
       - name: Print Working Directory
         script: |
+          set -e
           pwd
           ls -la
 
       - name: Build iOS App
         script: |
+          set -e
           cordova build ios --device --release --buildConfig=./build.json --exportOptionsPlist=./exportOptions.plist
 
     artifacts:
