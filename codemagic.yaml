@@ -115,8 +115,6 @@ workflows:
           echo '    <true/>' >> exportOptions.plist
           echo '    <key>uploadSymbols</key>' >> exportOptions.plist
           echo '    <true/>' >> exportOptions.plist
-          echo '    <key>codeSignIdentity</key>' >> exportOptions.plist
-          echo '    <string>Apple Distribution: Jeffrey Wayne Birge (XAJF22HXCQ)</string>' >> exportOptions.plist
           echo '</dict>' >> exportOptions.plist
           echo '</plist>' >> exportOptions.plist
 
