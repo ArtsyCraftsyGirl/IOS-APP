@@ -7,7 +7,7 @@
     <key>provisioningProfiles</key>
     <dict>
         <key>com.jbpaladinpatriotsclock.jbpaladinpatriotsclock</key>
-        <string>JbPaladinClock</string>
+        <string>JbPaladinPatriotsClock Distribution Profile</string>
     </dict>
     <key>signingStyle</key>
     <string>manual</string>
