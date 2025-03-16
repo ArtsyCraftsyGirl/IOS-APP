@@ -86,7 +86,7 @@ workflows:
             "ios": {
               "developmentTeam": "XAJF22HXCQ",
               "codeSignIdentity": "Apple Distribution",  
-              "provisioningProfile": "my_app_provisioning_2025",  
+              "provisioningProfile": "JbPaladinClock",  
               "packageType": "app-store"
             }
           }' > build.json
@@ -103,7 +103,7 @@ workflows:
           echo '    <key>provisioningProfiles</key>' >> exportOptions.plist
           echo '    <dict>' >> exportOptions.plist
           echo '        <key>com.jbpaladinpatriotsclock.jbpaladinpatriotsclock</key>' >> exportOptions.plist
-          echo '        <string>my_app_provisioning_2025</string>' >> exportOptions.plist  # Updated reference name
+          echo '        <string>JbPaladinClock</string>' >> exportOptions.plist  
           echo '    </dict>' >> exportOptions.plist
           echo '    <key>signingStyle</key>' >> exportOptions.plist
           echo '    <string>manual</string>' >> exportOptions.plist
