@@ -2,7 +2,7 @@
   "ios": {
     "developmentTeam": "XAJF22HXCQ",
     "codeSignIdentity": "Apple Distribution",
-    "provisioningProfile": "JbPaladinClock",
+    "provisioningProfile": "JbPaladinPatriotsClock Distribution Profile",
     "packageType": "app-store"
   }
 }
