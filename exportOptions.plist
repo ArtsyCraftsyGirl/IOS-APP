@@ -7,7 +7,7 @@
     <key>provisioningProfiles</key>
     <dict>
         <key>com.jbpaladinpatriotsclock.jbpaladinpatriotsclock</key>
-        <string>JbPaladinPatriotsClock Distribution Profile</string>
+        <string>my_app_provisioning_2025</string>
     </dict>
     <key>signingStyle</key>
     <string>manual</string>
