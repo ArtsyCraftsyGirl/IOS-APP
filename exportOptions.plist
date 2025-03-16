@@ -19,7 +19,5 @@
     <true/>
     <key>uploadSymbols</key>
     <true/>
-    <key>codeSignIdentity</key> 
-    <string>Apple Distribution</string>
 </dict>
 </plist>
