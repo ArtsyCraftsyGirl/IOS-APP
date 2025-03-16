@@ -10,7 +10,7 @@ workflows:
         distribution_type: app_store
         bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
       vars:
-        APP_STORE_APPLE_ID: "XAJF22HXCQ" # Ensure this is the correct App Store ID
+        APP_STORE_APPLE_ID: "XAJF22HXCQ" 
         XCODE_WORKSPACE: "JbPaladinPatriotsClock.xcworkspace"
         XCODE_SCHEME: "JbPaladinPatriotsClock"
     scripts:
@@ -86,7 +86,7 @@ workflows:
             "ios": {
               "developmentTeam": "XAJF22HXCQ",
               "codeSignIdentity": "Apple Distribution",  
-              "provisioningProfile": "JbPaladinClock",  
+              "provisioningProfile": "JbPaladinPatriotsClock Distribution Profile",  
               "packageType": "app-store"
             }
           }' > build.json
@@ -103,7 +103,7 @@ workflows:
           echo '    <key>provisioningProfiles</key>' >> exportOptions.plist
           echo '    <dict>' >> exportOptions.plist
           echo '        <key>com.jbpaladinpatriotsclock.jbpaladinpatriotsclock</key>' >> exportOptions.plist
-          echo '        <string>JbPaladinClock</string>' >> exportOptions.plist  
+          echo '        <string>JbPaladinPatriotsClock Distribution Profile</string>' >> exportOptions.plist  
           echo '    </dict>' >> exportOptions.plist
           echo '    <key>signingStyle</key>' >> exportOptions.plist
           echo '    <string>manual</string>' >> exportOptions.plist
