@@ -86,7 +86,7 @@ workflows:
             "ios": {
               "developmentTeam": "XAJF22HXCQ",
               "codeSignIdentity": "Apple Distribution",  
-              "provisioningProfile": "JbPaladinPatriotsClock Distribution Profile",
+              "provisioningProfile": "my_app_provisioning_2025",  
               "packageType": "app-store"
             }
           }' > build.json
@@ -98,12 +98,12 @@ workflows:
           echo '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">' >> exportOptions.plist
           echo '<plist version="1.0">' >> exportOptions.plist
           echo '<dict>' >> exportOptions.plist
-          echo '    <key>method</key>' >> exportOptions.plist
+                  echo '    <key>method</key>' >> exportOptions.plist
           echo '    <string>app-store</string>' >> exportOptions.plist
           echo '    <key>provisioningProfiles</key>' >> exportOptions.plist
           echo '    <dict>' >> exportOptions.plist
           echo '        <key>com.jbpaladinpatriotsclock.jbpaladinpatriotsclock</key>' >> exportOptions.plist
-          echo '        <string>JbPaladinPatriotsClock Distribution Profile</string>' >> exportOptions.plist
+          echo '        <string>my_app_provisioning_2025</string>' >> exportOptions.plist  # Updated reference name
           echo '    </dict>' >> exportOptions.plist
           echo '    <key>signingStyle</key>' >> exportOptions.plist
           echo '    <string>manual</string>' >> exportOptions.plist
