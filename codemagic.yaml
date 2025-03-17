@@ -83,13 +83,13 @@ workflows:
         script: |
           set -e
           echo '{
-            "ios": {
-              "developmentTeam": "XAJF22HXCQ",
-              "codeSignIdentity": "Apple Distribution",  
-              "provisioningProfile": "JbPaladinPatriotsClock Distribution Profile",  
-              "packageType": "app-store"
-            }
-          }' > build.json
+        "ios": {
+          "developmentTeam": "XAJF22HXCQ",
+          "codeSignIdentity": "Apple Distribution",
+          "signingStyle": "automatic",
+          "packageType": "app-store"
+        }
+        }' > build.json
 
 
       - name: Print Working Directory
