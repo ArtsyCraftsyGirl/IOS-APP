@@ -73,11 +73,14 @@ workflows:
           echo "Cleaning previous build artifacts..."
           cordova clean ios
 
-    - name: Set up code signing settings on Xcode project
+      - name: Set up code signing settings on Xcode project
         script: |
+          set -e
           xcode-project use-profiles
+
       - name: Build iOS
         script: |
+          set -e
           package_type=$(defaults read ~/export_options.plist method)
           identity=$(defaults read ~/export_options.plist signingCertificate)
           team=$(defaults read ~/export_options.plist teamID)
@@ -85,18 +88,19 @@ workflows:
           profile_uuid=$(grep UUID -A1 -a "$profile" | grep -io "[-A-F0-9]\{36\}")
         
           cat <<EOF > build.json
-              {
-                "ios": {
-                  "release": {
-                    "codeSignIdentity": "$identity",
-                    "developmentTeam": "$team",
-                    "packageType": "$package_type",
-                    "provisioningProfile": "$profile_uuid"
-                  }
-                }
+          {
+            "ios": {
+              "release": {
+                "codeSignIdentity": "$identity",
+                "developmentTeam": "$team",
+                "packageType": "$package_type",
+                "provisioningProfile": "$profile_uuid"
               }
+            }
+          }
           EOF
           ionic cordova build ios --release --device --buildConfig='build.json' 
+
     artifacts:
       - /Users/builder/clone/platforms/ios/build/device/*.ipa
-      - /tmp/xcodebuild_logs/*.log           
+      - /tmp/xcodebuild_logs/*.log
