@@ -17,11 +17,15 @@ workflows:
       - name: Switch to System Ruby
         script: |
           set -e
+          # Switch to system Ruby if using RVM or chruby
           if command -v rvm > /dev/null; then
             rvm use system
           elif command -v chruby > /dev/null; then
             chruby system
           fi
+          # Verify that we are using the system Ruby
+          echo "Using Ruby version:"
+          ruby -v
 
       - name: Install npm dependencies
         script: |
@@ -90,7 +94,6 @@ workflows:
               "packageType": "app-store"
             }
           }' > build.json
-
 
       - name: Print Working Directory
         script: |
