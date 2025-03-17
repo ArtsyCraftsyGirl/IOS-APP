@@ -101,7 +101,7 @@ workflows:
       - name: Build iOS App
         script: |
           set -e
-          cordova build ios --device --release --buildConfig=./build.json --export-options-plist=/Users/builder/export_options.plist
+          cordova build ios --device --release --buildConfig=./build.json --export-options-plist=/Users/builder/exportOptions.plist
 
     artifacts:
       - platforms/ios/build/device/*.ipa
