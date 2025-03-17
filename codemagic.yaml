@@ -10,20 +10,18 @@ workflows:
         distribution_type: app_store
         bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
       vars:
-        APP_STORE_APPLE_ID: "XAJF22HXCQ" 
+        APP_STORE_APPLE_ID: "XAJF22HXCQ"
         XCODE_WORKSPACE: "JbPaladinPatriotsClock.xcworkspace"
         XCODE_SCHEME: "JbPaladinPatriotsClock"
     scripts:
       - name: Switch to System Ruby
         script: |
           set -e
-          # Switch to system Ruby if using RVM or chruby
           if command -v rvm > /dev/null; then
             rvm use system
           elif command -v chruby > /dev/null; then
             chruby system
           fi
-          # Verify that we are using the system Ruby
           echo "Using Ruby version:"
           ruby -v
 
@@ -37,25 +35,6 @@ workflows:
           set -e
           cordova platform add ios@latest
 
-      - name: Debug iOS Platform Files
-        script: |
-          set -e
-          echo "Checking the contents of the platforms/ios directory:"
-          ls -la platforms/ios
-
-      - name: Ensure iOS Deployment Target is 12.0
-        script: |
-          set -e
-          if [ -f platforms/ios/Podfile ]; then
-            echo "Found Podfile, updating iOS deployment target..."
-            sed -i '' "s/platform :ios, '11.0'/platform :ios, '12.0'/" platforms/ios/Podfile
-          else
-            echo "Podfile not found. Skipping Podfile update."
-          fi
-          
-          sed -i '' "s/IPHONEOS_DEPLOYMENT_TARGET = 11.0;/IPHONEOS_DEPLOYMENT_TARGET = 12.0;/" platforms/ios/JbPaladinPatriotsClock.xcodeproj/project.pbxproj
-          sed -i '' "s/IPHONEOS_DEPLOYMENT_TARGET = 11.0;/IPHONEOS_DEPLOYMENT_TARGET = 12.0;/" platforms/ios/CordovaLib/CordovaLib.xcodeproj/project.pbxproj
-
       - name: Install CocoaPods
         script: |
           set -e
@@ -63,8 +42,6 @@ workflows:
           if [ -f platforms/ios/Podfile ]; then
             cd platforms/ios
             pod install || pod install --repo-update
-          else
-            echo "No Podfile found, skipping pod install."
           fi
 
       - name: Clean Build
@@ -78,31 +55,35 @@ workflows:
           set -e
           xcode-project use-profiles
 
-      - name: Build iOS
+      - name: Build iOS App
         script: |
           set -e
-          package_type=$(defaults read ~/export_options.plist method)
-          identity=$(defaults read ~/export_options.plist signingCertificate)
-          team=$(defaults read ~/export_options.plist teamID)
-          profile=$(find '/Users/builder/Library/MobileDevice/Provisioning Profiles' -name "*.mobileprovision")
-          profile_uuid=$(grep UUID -A1 -a "$profile" | grep -io "[-A-F0-9]\{36\}")
-        
-          cat <<EOF > build.json
-          {
-            "ios": {
-              "release": {
-                "codeSignIdentity": "$identity",
-                "developmentTeam": "$team",
-                "packageType": "$package_type",
-                "provisioningProfile": "$profile_uuid"
-              }
-            }
-          }
-          EOF
-          cordova build ios --release --device --buildConfig='build.json' 
+          cordova build ios --release --device
+
+      - name: Create Xcode Archive
+        script: |
+          set -e
+          xcodebuild archive \
+            -workspace "$XCODE_WORKSPACE" \
+            -scheme "$XCODE_SCHEME" \
+            -archivePath output/JbPaladinPatriotsClock.xcarchive \
+            -configuration Release \
+            CODE_SIGN_STYLE=Manual \
+            DEVELOPMENT_TEAM=$CM_DEVELOPER_TEAM \
+            PROVISIONING_PROFILE_SPECIFIER="$CM_PROVISIONING_PROFILE"
+
+      - name: Export IPA File
+        script: |
+          set -e
+          mkdir -p output
+          xcodebuild -exportArchive \
+            -archivePath output/JbPaladinPatriotsClock.xcarchive \
+            -exportOptionsPlist platforms/ios/exportOptions.plist \
+            -exportPath output
 
     artifacts:
-      - platforms/ios/build/device/*.ipa
+      - output/*.ipa  
+      - output/JbPaladinPatriotsClock.xcarchive
+      - platforms/ios/build/device/*.app
       - /tmp/xcodebuild_logs/*.log
-      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
