@@ -99,9 +99,9 @@ workflows:
             }
           }
           EOF
-            cordova build ios --release --device --buildConfig='build.json' 
+          cordova build ios --release --device --buildConfig='build.json' 
 
-   artifacts:
+    artifacts:
       - platforms/ios/build/device/*.ipa
       - /tmp/xcodebuild_logs/*.log
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
