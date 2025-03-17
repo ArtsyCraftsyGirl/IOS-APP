@@ -73,41 +73,30 @@ workflows:
           echo "Cleaning previous build artifacts..."
           cordova clean ios
 
-      - name: Set up code signing settings on Xcode project
+    - name: Set up code signing settings on Xcode project
         script: |
-          set -e
           xcode-project use-profiles
-
-      - name: Verify Signing Identities
+      - name: Build iOS
         script: |
-          set -e
-          security find-identity -p codesigning -v
-
-      - name: Create build.json
-        script: |
-          set -e
-          echo '{
-            "ios": {
-              "developmentTeam": "XAJF22HXCQ",
-              "codeSignIdentity": "Apple Distribution",
-              "signingStyle": "automatic",
-              "packageType": "app-store"
-            }
-          }' > build.json
-
-      - name: Print Working Directory
-        script: |
-          set -e
-          pwd
-          ls -la
-
-      - name: Build iOS App
-        script: |
-          set -e
-           cordova build ios --device --release --buildConfig=./build.json --export-options-plist=/Users/builder/export_options.plist
-
+          package_type=$(defaults read ~/export_options.plist method)
+          identity=$(defaults read ~/export_options.plist signingCertificate)
+          team=$(defaults read ~/export_options.plist teamID)
+          profile=$(find '/Users/builder/Library/MobileDevice/Provisioning Profiles' -name "*.mobileprovision")
+          profile_uuid=$(grep UUID -A1 -a "$profile" | grep -io "[-A-F0-9]\{36\}")
+        
+          cat <<EOF > build.json
+              {
+                "ios": {
+                  "release": {
+                    "codeSignIdentity": "$identity",
+                    "developmentTeam": "$team",
+                    "packageType": "$package_type",
+                    "provisioningProfile": "$profile_uuid"
+                  }
+                }
+              }
+          EOF
+          ionic cordova build ios --release --device --buildConfig='build.json' 
     artifacts:
-      - platforms/ios/build/device/*.ipa
-      - /tmp/xcodebuild_logs/*.log
-      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
-      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+      - /Users/builder/clone/platforms/ios/build/device/*.ipa
+      - /tmp/xcodebuild_logs/*.log           
