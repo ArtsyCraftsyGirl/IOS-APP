@@ -78,36 +78,10 @@ workflows:
           set -e
           xcode-project use-profiles
 
-      - name: Verify Signing Identities
+      - name: Build ipa for distribution
         script: |
-          set -e
-          security find-identity -p codesigning -v
+          xcode-project build-ipa --project "XCODE_PROJECT" --scheme "$XCODE_SCHEME"
 
-      - name: Create build.json
-        script: |
-          set -e
-          echo '{
-            "ios": {
-              "developmentTeam": "XAJF22HXCQ",
-              "codeSignIdentity": "Apple Distribution",
-              "signingStyle": "automatic",
-              "packageType": "app-store"
-            }
-          }' > build.json
-
-      - name: Print Working Directory
-        script: |
-          set -e
-          pwd
-          ls -la
-
-      - name: Build iOS App
-        script: |
-          set -e
-           cordova build ios --device --release --buildConfig=./build.json --export-options-plist=/Users/builder/export_options.plist
-
-    artifacts:
-      - platforms/ios/build/device/*.ipa
-      - /tmp/xcodebuild_logs/*.log
-      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
-      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+      artifacts:
+      - build/ios/ipa/*.ipa
+   
