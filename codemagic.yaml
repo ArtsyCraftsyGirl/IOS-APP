@@ -80,8 +80,7 @@ workflows:
 
       - name: Build ipa for distribution
         script: |
-          xcode-project build-ipa --project "XCODE_PROJECT" --scheme "$XCODE_SCHEME"
+          xcode-project build-ipa --project "$XCODE_WORKSPACE" --scheme "$XCODE_SCHEME"
 
-      artifacts:
+    artifacts:
       - build/ios/ipa/*.ipa
-   
