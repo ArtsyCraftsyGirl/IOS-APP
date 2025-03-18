@@ -54,14 +54,4 @@ workflows:
     artifacts:
       - /Users/builder/clone/platforms/ios/build/Release-iphoneos/JbPaladinPatriotsClock.ipa
       - /tmp/xcodebuild_logs/*.log 
-    publishing:
-      email:
-        recipients:
-          - jeffbirgepaladin@gmail.com
-          - ehllenjoyquezada.creative@gmail.com
-        notify:
-          success: true
-          failure: false
-      app_store_connect:
-        auth: integration
-        submit_to_testflight: true
+   
