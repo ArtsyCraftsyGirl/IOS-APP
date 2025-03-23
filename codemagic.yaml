@@ -10,9 +10,9 @@ workflows:
         - appstore_credentials
       ios_signing:
         provisioning_profiles:
-          - JbPaladinPatriotsClock Distribution Profile
+          - NEW JBPALADIN PROFILE
         certificates:
-          - Distribution Certificate
+          - JbPaladin Certificate
     scripts:
       - name: Install npm dependencies and update Cordova version
         script: | 
