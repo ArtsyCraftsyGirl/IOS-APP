@@ -32,6 +32,8 @@
     </platform>
 
     <platform name="ios">
+    <preference name="CFBundleDisplayName" value="JbPaladinPatriotsClock" />
+
         <!-- Icons -->
         <icon src="res/icon/ios/icon-20.png" width="20" height="20" />
         <icon src="res/icon/ios/icon-40.png" width="40" height="40" />
