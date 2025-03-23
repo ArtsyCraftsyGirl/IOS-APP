@@ -18,17 +18,36 @@ workflows:
         script: | 
           npm install
           npm install -g cordova
-      -  name: Setup Cordova iOS platform
-         script: | 
-           cordova platform remove ios --nosave
-           cordova platform add ios \
-             --confirm \
-             --no-interactive \
-             --noresources \
-             --save
+
+      - name: Remove Cordova splash screen plugin
+        script: | 
+          cordova plugin rm cordova-plugin-splashscreen --nosave || echo "No splash plugin found"
+
+      - name: Setup Cordova iOS platform
+        script: | 
+          cordova platform remove ios --nosave
+          cordova platform add ios \
+            --confirm \
+            --no-interactive \
+            --noresources \
+            --save
+
+      - name: Copy custom icons to the Xcode project
+        script: | 
+          APP_ICON_PATH="res/icon/ios/"
+          IOS_PLATFORM_PATH="platforms/ios/JbPaladinPatriotsClock/Images.xcassets/AppIcon.appiconset/"
+          
+          if [ -d "$APP_ICON_PATH" ]; then
+            cp -R "$APP_ICON_PATH" "$IOS_PLATFORM_PATH"
+            echo "✅ Custom app icons copied successfully."
+          else
+            echo "⚠️ Custom app icons folder not found!"
+          fi
+
       - name: Set up code signing settings on Xcode project
         script: | 
           xcode-project use-profiles --project platforms/ios/JbPaladinPatriotsClock.xcodeproj
+
       - name: Build ipa for distribution
         script: | 
           cat /Users/builder/export_options.plist
@@ -51,7 +70,7 @@ workflows:
           }
           EOF
           cordova build ios --release --device --buildConfig='build.json'
+
     artifacts:
       - /Users/builder/clone/platforms/ios/build/Release-iphoneos/JbPaladinPatriotsClock.ipa
-      - /tmp/xcodebuild_logs/*.log 
-   
+      - /tmp/xcodebuild_logs/*.log
