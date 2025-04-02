@@ -27,7 +27,7 @@ workflows:
           cordova platform add ios \
             --confirm \
             --no-interactive \
-            --save  # Removed --noresources flag
+            --save  
 
       - name: Copy custom icons to the Xcode project
         script: | 
