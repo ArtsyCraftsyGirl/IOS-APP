@@ -17,10 +17,6 @@ workflows:
           npm install
           npm install -g cordova
 
-      - name: Remove Cordova splash screen plugin
-        script: | 
-          cordova plugin rm cordova-plugin-splashscreen --nosave || echo "No splash plugin found"
-
       - name: Setup Cordova iOS platform
         script: | 
           cordova platform remove ios --nosave
