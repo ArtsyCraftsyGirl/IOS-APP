@@ -64,16 +64,20 @@ workflows:
           EOF
           cordova build ios --release --device --buildConfig='build.json'
 
-    # Remove TestFlight upload step
     publishing:
       email:
         recipients:
           - diane.c.yap@gmail.com
           - ehllenjoyquezada.creative@gmail.com
           - anapatricia.mendoza00@gmail.com
+          - user_1@example.com
+          - user_2@example.com
         notify:
           success: true
           failure: false
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
 
     artifacts:
       - /Users/builder/clone/platforms/ios/build/Release-iphoneos/JbPaladinPatriotsClock.ipa
