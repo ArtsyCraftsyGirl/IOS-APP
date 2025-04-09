@@ -44,18 +44,56 @@
         <icon src="res/icon/ios/icon-1024.png" width="1024" height="1024" /> <!-- App Store icon -->
 
         
-        <!-- Splash Screen Configuration -->
-        <splash src="res/screen/ios/splash-640x1136.png" width="640" height="1136" />
-        <splash src="res/screen/ios/splash-750x1334.png" width="750" height="1334" />
-        <splash src="res/screen/ios/splash-1242x2208.png" width="1242" height="2208" />
-        <splash src="res/screen/ios/splash-1125x2436.png" width="1125" height="2436" />
-        <splash src="res/screen/ios/splash-828x1792.png" width="828" height="1792" />
-        <splash src="res/screen/ios/splash-1242x2688.png" width="1242" height="2688" />
-        <splash src="res/screen/ios/splash-1536x2048.png" width="1536" height="2048" />
-        <splash src="res/screen/ios/splash-2048x2732.png" width="2048" height="2732" />
+    <?xml version='1.0' encoding='utf-8'?>
+<widget id="com.jbpaladinpatriotsclock.jbpaladinpatriotsclock" version="1.5.6" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>JbPaladinPatriotsClock</name>
+    <description>This is a unique and revolutionary way of telling time, designed by Jeffrey Wayne Birge and developed by Ehllen Quezada. Our clock doesn't use hands to tell time; it uses lights to tell time.</description>
+    <author email="jeffbirgepaladin@gmail.com">Jeffrey Wayne Birge (Designer/Inventor); Ehllen Quezada (Programmer/Developer)</author>
+    <content src="index.html" />
+    <access origin="*" /> <!-- Allows all local access -->
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
 
-    
+    <!-- Android Configuration -->
+    <platform name="android">
+        <icon src="res/icon/android/icon.png" density="mdpi" />
+        <icon src="res/icon/android/icon.png" density="hdpi" />
+        <icon src="res/icon/android/icon.png" density="xhdpi" />
+        <icon src="res/icon/android/icon.png" density="xxhdpi" />
+        <icon src="res/icon/android/icon.png" density="xxxhdpi" />
+
+        <preference name="android-targetSdkVersion" value="34" />
+        <preference name="android-minSdkVersion" value="27" /> <!-- Added minimum SDK version -->
+        <preference name="android-manifest/application/uses-feature" value="android.hardware.touchscreen" />
+        <preference name="android-manifest/application/uses-feature" value="android.hardware.touchscreen.multitouch" />
+        <preference name="AndroidWindowSplashScreen" value="res/screen/android/splash.png" />
+        <preference name="AndroidWindowSplashScreenBackgroundColor" value="white" />
+        <preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/screen/android/splash.png" /> 
+        <preference name="SplashScreenDelay" value="3000" />
+        <preference name="AndroidPersistentFileLocation" value="Compatibility" />
+        <preference name="android:hardwareAccelerated" value="true" />
+        <preference name="MediaPlaybackRequiresUser Action" value="false" />
+        <preference name="AllowInlineMediaPlayback" value="true" />
+        <preference name="Zoom" value="yes" />
+    </platform>
+
+    <platform name="ios">
+        <preference name="CFBundleDisplayName" value="JbPaladinPatriotsClock" />
+
+        <!-- Icons -->
+        <icon src="res/icon/ios/icon-20.png" width="20" height="20" />
+        <icon src="res/icon/ios/icon-40.png" width="40" height="40" />
+        <icon src="res/icon/ios/icon-60.png" width="60" height="60" />
+        <icon src="res/icon/ios/icon-76.png" width="76" height="76" />
+        <icon src="res/icon/ios/icon-120.png" width="120" height="120" />
+        <icon src="res/icon/ios/icon-180.png" width="180" height="180" />
+        <icon src="res/icon/ios/icon-1024.png" width="1024" height="1024" /> <!-- App Store icon -->
+
+        <!-- Remove static splash screen configurations -->
+        <!-- Add Launch Screen storyboard preference -->
+        <preference name="UILaunchStoryboardName" value="LaunchScreen" />
 
         <preference name="deployment-target" value="12.0" /> <!-- Set minimum iOS version -->
     </platform>
+
 </widget>
