@@ -44,11 +44,6 @@
     <icon src="res/icon/ios/icon-180.png" width="180" height="180" />
     <icon src="res/icon/ios/icon-1024.png" width="1024" height="1024" /> <!-- App Store icon -->
 
-    <!-- Splash Screen Configuration -->
-    <preference name="SplashScreen" value="splash" />
-    <preference name="SplashScreenDelay" value="3000" />
-    <preference name="FadeSplashScreenDuration" value="300" />
-    <preference name="ShowSplashScreenSpinner" value="false" />
 
     <!-- Specify splash screen images -->
     <splash src="res/screen/ios/splash-640x1136.png" width="640" height="1136" />
