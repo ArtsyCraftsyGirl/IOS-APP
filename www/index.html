@@ -11,58 +11,60 @@ body {
     touch-action: pan-x; /* Prevent horizontal panning */
 }
 
-#video-background {
-    transition: opacity 0.5s ease;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    object-fit: cover;
-    z-index: -1; /* Send the video to the background */
-    min-width: 100%;
-    min-height: 100%;
-    opacity: 0; /* Initially hidden */
-    display: none; /* Initially hidden */
-}
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: url('splash-image.png') no-repeat center center; /* Replace with your splash image */
+            background-size: cover;
+            z-index: 1; /* Ensure it's above the main content */
+            opacity: 1; /* Initially visible */
+            transition: opacity 0.5s ease; /* Fade out transition */
+        }
 
+        #main-content {
+            display: none; /* Initially hidden */
+            position: relative; /* Position relative for video background */
+            z-index: 0; /* Below the splash screen */
+        }
 
+        #video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -1; /* Send the video to the background */
+        }
+    </style>
+</head>
+<body>
 
-</style>
+    <div id="splash-screen"></div> <!-- Splash screen element -->
+    <div id="main-content">
+        <video autoplay muted loop id="video-background">
+            <source src="BackgroundVideo.mp4" type="video/mp4">
+         </video>
+    </div>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const splashScreen = document.getElementById('splash-screen');
+            const mainContent = document.getElementById('main-content');
 
-
-
-<video autoplay muted loop id="video-background">
-    <source src="BackgroundVideo.mp4" type="video/mp4">
-</video>
-
-<script>
-
-  // Ensure the video is properly loaded and ready
-    document.addEventListener("DOMContentLoaded", function () {
-        // Add event listener for when the video is ready to play
-        video.addEventListener('canplaythrough', function () {
-            if (currentBackground === 'video') {
-                video.style.display = 'block'; // Show the video
-                video.style.opacity = 1; // Fade in the video
-            }
+            // Show the splash screen for a specified duration (e.g., 3 seconds)
+            setTimeout(() => {
+                splashScreen.style.opacity = 0; // Fade out the splash screen
+                setTimeout(() => {
+                    splashScreen.style.display = 'none'; // Hide the splash screen after fade out
+                    mainContent.style.display = 'block'; // Show the main content
+                }, 500); // Match this duration with the CSS transition duration
+            }, 3000); // Duration to show the splash screen (in milliseconds)
         });
-
-
-  // Add event listener for error handling
-        video.addEventListener('error', function () {
-            console.error("Error loading video.");
-            // If the video fails to load, default to a white background
-            document.body.style.backgroundColor = "white";
-        });
-
-        // Start loading the video
-        video.load();
-    });
-
-</script>
-
+    </script>
 
 <style>
 
