@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="ViewController">
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="sV9-v8-TSd">
+            <objects>
+                <viewController id="ViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="l1Q-H2-QTH" userLabel="LaunchView">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFill" image="Default-1125x2436~iphone.png" translatesAutoresizingMaskIntoConstraints="NO" id="SplashImage">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="SplashImage" firstAttribute="leading" secondItem="l1Q-H2-QTH" secondAttribute="leading" id="leading"/>
+                            <constraint firstItem="SplashImage" firstAttribute="trailing" secondItem="l1Q-H2-QTH" secondAttribute="trailing" id="trailing"/>
+                            <constraint firstItem="SplashImage" firstAttribute="top" secondItem="l1Q-H2-QTH" secondAttribute="top" id="top"/>
+                            <constraint firstItem="SplashImage" firstAttribute="bottom" secondItem="l1Q-H2-QTH" secondAttribute="bottom" id="bottom"/>
+                        </constraints>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="firstResponder" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>
