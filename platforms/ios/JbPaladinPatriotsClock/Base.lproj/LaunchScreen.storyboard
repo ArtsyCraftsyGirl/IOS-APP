@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="ViewController">
     <scenes>
-        <!--View Controller-->
+        <!-- View Controller -->
         <scene sceneID="sV9-v8-TSd">
             <objects>
                 <viewController id="ViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="l1Q-H2-QTH" userLabel="LaunchView">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" contentMode="scaleAspectFill" image="Default-1125x2436~iphone.png" translatesAutoresizingMaskIntoConstraints="NO" id="SplashImage">
+                            <!-- Reference splash images -->
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFill" image="resources/ios/splash/Default-1125x2436~iphone.png" translatesAutoresizingMaskIntoConstraints="NO" id="SplashImage">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                         </subviews>
