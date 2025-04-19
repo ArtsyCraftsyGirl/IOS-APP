@@ -2,36 +2,69 @@ workflows:
   ios-workflow:
     name: iOS Workflow
     max_build_duration: 120
-    instance_type: mac_mini_m2
-    integrations:
-      app_store_connect: Codemagic
     environment:
+      groups:
+        - ios_credentials
+        - appstore_credentials
       ios_signing:
-        distribution_type: app_store
-        bundle_identifier: com.jbpaladinpatriotsclock.jbpaladinpatriotsclock
-      xcode: latest
-      node: latest
+        provisioning_profiles:
+          - Ad hoc Profile
+        certificates:
+          - JbPaladin Certificate
     scripts:
-      - name: Install dependencies
-        script: |
-          npm install -g cordova
+      - name: Install npm dependencies and update Cordova version
+        script: | 
           npm install
-      - name: Build iOS
-        script: |
-          cordova platform add ios
-      - name: Update Deployment Targets
-        script: |
-          # Update the deployment target for CordovaLib
-          sed -i '' 's/IPHONEOS_DEPLOYMENT_TARGET = 11.0;/IPHONEOS_DEPLOYMENT_TARGET = 12.0;/g' platforms/ios/CordovaLib/CordovaLib.xcodeproj/project.pbxproj
-          # Update the deployment target for the main project
-          sed -i '' 's/IPHONEOS_DEPLOYMENT_TARGET = 11.0;/IPHONEOS_DEPLOYMENT_TARGET = 12.0;/g' platforms/ios/JbPaladinPatriotsClock.xcodeproj/project.pbxproj
-          # Update the deployment target for Pods
-          sed -i '' 's/IPHONEOS_DEPLOYMENT_TARGET = 11.0;/IPHONEOS_DEPLOYMENT_TARGET = 12.0;/g' platforms/ios/Pods/Pods.xcodeproj/project.pbxproj
+          npm install -g cordova
+
+      - name: Setup Cordova iOS platform
+        script: | 
+          cordova platform remove ios --nosave
+          cordova platform add ios \
+            --confirm \
+            --no-interactive \
+            --save  
+
+      - name: Copy custom icons to the Xcode project
+        script: | 
+          APP_ICON_PATH="res/icon/ios/"
+          IOS_PLATFORM_PATH="platforms/ios/JbPaladinPatriotsClock/Images.xcassets/AppIcon.appiconset/"
+
+          if [ -d "$APP_ICON_PATH" ]; then
+            cp -R "$APP_ICON_PATH" "$IOS_PLATFORM_PATH"
+            echo "✅ Custom app icons copied successfully."
+          else
+            echo "⚠️ Custom app icons folder not found!"
+          fi
+
       - name: Set up code signing settings on Xcode project
         script: | 
-          xcode-project use-profiles  # Set up code signing profiles
-      - name: Build iOS
-        script: |
-          cordova build ios --release --device
+          xcode-project use-profiles --project platforms/ios/JbPaladinPatriotsClock.xcodeproj
+
+      - name: Build ipa for distribution
+        script: | 
+          cat /Users/builder/export_options.plist
+          package_type=$(defaults read /Users/builder/export_options.plist method)
+          identity=$(defaults read /Users/builder/export_options.plist signingCertificate)
+          team=$(defaults read /Users/builder/export_options.plist teamID)
+          profile=$(find '/Users/builder/Library/MobileDevice/Provisioning Profiles' -name "*.mobileprovision")
+          profile_uuid=$(grep UUID -A1 -a "$profile" | grep -io "[-A-F0-9]\{36\}")
+
+          cat > build.json <<EOF
+          {
+            "ios": {
+              "release": {
+                "codeSignIdentity": "$identity",
+                "developmentTeam": "$team",
+                "packageType": "$package_type",
+                "provisioningProfile": "$profile_uuid"
+              }
+            }
+          }
+          EOF
+          cordova build ios --release --device --buildConfig='build.json'
+
+
     artifacts:
-      - build/ios/*.ipa
+      - /Users/builder/clone/platforms/ios/build/Release-iphoneos/JbPaladinPatriotsClock.ipa
+      - /tmp/xcodebuild_logs/*.log
