@@ -34,29 +34,7 @@ workflows:
             cp -R "$APP_ICON_PATH" "$IOS_PLATFORM_PATH"
             echo "✅ Custom app icons copied successfully."
           else
-            echo "⚠️ Custom app icons folder not found!"
-          fi
-
-      - name: Copy splash screen images to the Xcode project
-        script: | 
-          SPLASH_SCREEN_PATH="platforms/ios/resources/ios/splash"
-          IOS_PLATFORM_PATH="platforms/ios/JbPaladinPatriotsClock/Resources/splash/"
-
-          if [ -d "$SPLASH_SCREEN_PATH" ]; then
-            cp -R "$SPLASH_SCREEN_PATH" "$IOS_PLATFORM_PATH"
-            echo "✅ Custom splash screen images copied successfully."
-          else
-            echo "⚠️ Custom splash screen images folder not found!"
-          fi
-
-      - name: Ensure LaunchScreen.storyboard exists
-        script: |
-          LAUNCH_SCREEN_PATH="platforms/ios/JbPaladinPatriotsClock/Base.lproj/LaunchScreen.storyboard"
-          if [ ! -f "$LAUNCH_SCREEN_PATH" ]; then
-            echo "⚠️ LaunchScreen.storyboard not found! Please check the file location."
-            exit 1
-          else
-            echo "✅ LaunchScreen.storyboard found and ready for build."
+            echo ⚠️ Custom app icons folder not found!"
           fi
 
       - name: Set up code signing settings on Xcode project
