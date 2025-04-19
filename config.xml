@@ -43,7 +43,9 @@
     <icon src="res/icon/ios/icon-120.png" width="120" height="120" />
     <icon src="res/icon/ios/icon-180.png" width="180" height="180" />
     <icon src="res/icon/ios/icon-1024.png" width="1024" height="1024" /> <!-- App Store icon -->
-
+    <preference name="SplashScreen" value="screen" />
+    <preference name="SplashScreenDelay" value="3000" />
+    <preference name="AutoHideSplashScreen" value="true" />
 
     
     <preference name="deployment-target" value="12.0" /> <!-- Set minimum iOS version -->
