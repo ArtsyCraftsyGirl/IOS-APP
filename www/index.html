@@ -11,58 +11,69 @@ body {
     touch-action: pan-x; /* Prevent horizontal panning */
 }
 
-#video-background {
-    transition: opacity 0.5s ease;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    object-fit: cover;
-    z-index: -1; /* Send the video to the background */
-    min-width: 100%;
-    min-height: 100%;
-    opacity: 0; /* Initially hidden */
-    display: none; /* Initially hidden */
-}
+       #video-background {
+            transition: opacity 0.5s ease;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -1; /* Send the video to the background */
+            min-width: 100%;
+            min-height: 100%;
+            opacity: 0; /* Initially hidden */
+            display: none; /* Initially hidden */
+        }
 
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: white; /* Or use an image */
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
 
+<div id="splash-screen">
+    <h1>Loading...</h1>
+</div>
 
-</style>
-
-
-
-
-<video autoplay muted loop id="video-background">
+<video id="video-background" muted loop>
     <source src="BackgroundVideo.mp4" type="video/mp4">
+    Your browser does not support the video tag.
 </video>
 
 <script>
-
-  // Ensure the video is properly loaded and ready
     document.addEventListener("DOMContentLoaded", function () {
-        // Add event listener for when the video is ready to play
+        const video = document.getElementById('video-background');
+        const splashScreen = document.getElementById('splash-screen');
+
+        // Wait for the video to be ready to play
         video.addEventListener('canplaythrough', function () {
-            if (currentBackground === 'video') {
-                video.style.display = 'block'; // Show the video
-                video.style.opacity = 1; // Fade in the video
-            }
+            splashScreen.style.display = 'none'; // Hide the splash screen
+            video.style.display = 'block'; // Show the video
+            video.style.opacity = 1; // Fade in the video
+            video.play(); // Start playing the video
         });
 
-
-  // Add event listener for error handling
+        // Handle video loading errors
         video.addEventListener('error', function () {
             console.error("Error loading video.");
-            // If the video fails to load, default to a white background
-            document.body.style.backgroundColor = "white";
+            document.body.style.backgroundColor = "white"; // Fallback background
         });
 
         // Start loading the video
         video.load();
     });
-
 </script>
-
 
 <style>
 
