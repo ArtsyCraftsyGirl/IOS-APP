@@ -34,9 +34,21 @@ workflows:
             cp -R "$APP_ICON_PATH" "$IOS_PLATFORM_PATH"
             echo "✅ Custom app icons copied successfully."
           else
-            echo ⚠️ Custom app icons folder not found!"
+            echo "⚠️ Custom app icons folder not found!"
           fi
 
+      - name: Copy custom splash screens to the Xcode project
+        script: | 
+          SPLASH_SCREEN_PATH="resources/ios/splash/"
+          IOS_SPLASH_PLATFORM_PATH="platforms/ios/JbPaladinPatriotsClock/Images.xcassets/Splash.imageset/"
+
+          if [ -d "$SPLASH_SCREEN_PATH" ]; then
+            cp -R "$SPLASH_SCREEN_PATH" "$IOS_SPLASH_PLATFORM_PATH"
+            echo "✅ Custom splash screens copied successfully."
+          else
+            echo "⚠️ Custom splash screens folder not found!"
+          fi
+      
       - name: Set up code signing settings on Xcode project
         script: | 
           xcode-project use-profiles --project platforms/ios/JbPaladinPatriotsClock.xcodeproj
@@ -63,7 +75,6 @@ workflows:
           }
           EOF
           cordova build ios --release --device --buildConfig='build.json'
-
 
     artifacts:
       - /Users/builder/clone/platforms/ios/build/Release-iphoneos/JbPaladinPatriotsClock.ipa
