@@ -8,28 +8,7 @@
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
 
-    <!-- Android Configuration -->
-    <platform name="android">
-        <icon src="res/icon/android/icon.png" density="mdpi" />
-        <icon src="res/icon/android/icon.png" density="hdpi" />
-        <icon src="res/icon/android/icon.png" density="xhdpi" />
-        <icon src="res/icon/android/icon.png" density="xxhdpi" />
-        <icon src="res/icon/android/icon.png" density="xxxhdpi" />
-
-        <preference name="android-targetSdkVersion" value="34" />
-        <preference name="android-minSdkVersion" value="27" /> <!-- Added minimum SDK version -->
-        <preference name="android-manifest/application/uses-feature" value="android.hardware.touchscreen" />
-        <preference name="android-manifest/application/uses-feature" value="android.hardware.touchscreen.multitouch" />
-        <preference name="AndroidWindowSplashScreen" value="res/screen/android/splash.png" />
-        <preference name="AndroidWindowSplashScreenBackgroundColor" value="white" />
-        <preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/screen/android/splash.png" /> 
-        <preference name="SplashScreenDelay" value="3000" />
-        <preference name="AndroidPersistentFileLocation" value="Compatibility" />
-        <preference name="android:hardwareAccelerated" value="true" />
-        <preference name="MediaPlaybackRequiresUserAction" value="false" />
-        <preference name="AllowInlineMediaPlayback" value="true" />
-        <preference name="Zoom" value="yes" />
-    </platform>
+    
 
 
 <platform name="ios">
@@ -54,10 +33,12 @@
     <splash src="resources/ios/splash/Default-736h@3x~iphone.png" width="1242" height="2208"/>
     <splash src="resources/ios/splash/Default-828x1792~iphone.png" width="828" height="1792"/>
     
+   
+    
+    <preference name="deployment-target" value="12.0" /> <!-- Set minimum iOS version -->
+</platform>
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="AutoHideSplashScreen" value="true" />
     
-    <preference name="deployment-target" value="12.0" /> <!-- Set minimum iOS version -->
-</platform>
 </widget>
