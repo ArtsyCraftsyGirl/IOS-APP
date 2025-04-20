@@ -37,6 +37,32 @@ body {
     <source src="BackgroundVideo.mp4" type="video/mp4">
 </video>
 
+<script>
+
+  // Ensure the video is properly loaded and ready
+    document.addEventListener("DOMContentLoaded", function () {
+        // Add event listener for when the video is ready to play
+        video.addEventListener('canplaythrough', function () {
+            if (currentBackground === 'video') {
+                video.style.display = 'block'; // Show the video
+                video.style.opacity = 1; // Fade in the video
+            }
+        });
+
+
+  // Add event listener for error handling
+        video.addEventListener('error', function () {
+            console.error("Error loading video.");
+            // If the video fails to load, default to a white background
+            document.body.style.backgroundColor = "white";
+        });
+
+        // Start loading the video
+        video.load();
+    });
+
+</script>
+
 
 <style>
 
