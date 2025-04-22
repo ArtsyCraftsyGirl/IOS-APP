@@ -4,6 +4,51 @@
 <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- This analog clock program was created by Ehllen Quezada a.k.a ELLIE... made with ❤ -->
+
+
+
+ <style>
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: black; /* Initial black background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Make body take full viewport height */
+  font-family: sans-serif; /* Default font */
+}
+
+#splashText {
+  color: white;
+  font-size: 2em;
+  text-align: center;
+}
+
+
+</style>
+</head>
+
+  <div id="splashText">WELCOME TO JB PALADIN PATRIOTS CLOCK</div>
+  
+  
+  <script>
+    setTimeout(function() {
+      document.getElementById('splashText').style.display = 'none';
+      document.getElementById('content').style.display = 'block';
+
+      // Add your clock initialization/update code here
+      // ...
+
+      // Apply your background image after the splash screen disappears
+
+      document.body.style.backgroundImage = "url('liberty.jpg')";
+      document.body.style.backgroundSize = "cover";
+      document.body.style.backgroundRepeat = "no-repeat";
+      document.body.style.backgroundPosition = "center center";
+    }, 3000); // Change this to your desired delay (in milliseconds)
+  </script>
+
 <style>
 
 body {
@@ -11,13 +56,7 @@ body {
     touch-action: pan-x; /* Prevent horizontal panning */
 }
 
-       body {
-            margin: 0;
-            overflow: hidden; /* Prevent scrolling */
-            background: url('liberty.jpg') no-repeat center center fixed; /* Set your background image */
-            background-size: cover; /* Ensure the image covers the entire screen */
-        }
-
+      
 </style>
 
 
