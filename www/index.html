@@ -4,51 +4,6 @@
 <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- This analog clock program was created by Ehllen Quezada a.k.a ELLIE... made with ❤ -->
-
-
-
- <style>
-body {
-  margin: 0;
-  overflow: hidden;
-  background-color: black; /* Initial black background */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; /* Make body take full viewport height */
-  font-family: sans-serif; /* Default font */
-}
-
-#splashText {
-  color: white;
-  font-size: 2em;
-  text-align: center;
-}
-
-
-</style>
-</head>
-
-  <div id="splashText">WELCOME TO JB PALADIN PATRIOTS CLOCK</div>
-  
-  
-  <script>
-    setTimeout(function() {
-      document.getElementById('splashText').style.display = 'none';
-      document.getElementById('content').style.display = 'block';
-
-      // Add your clock initialization/update code here
-      // ...
-
-      // Apply your background image after the splash screen disappears
-
-      document.body.style.backgroundImage = "url('liberty.jpg')";
-      document.body.style.backgroundSize = "cover";
-      document.body.style.backgroundRepeat = "no-repeat";
-      document.body.style.backgroundPosition = "center center";
-    }, 3000); // Change this to your desired delay (in milliseconds)
-  </script>
-
 <style>
 
 body {
@@ -56,12 +11,59 @@ body {
     touch-action: pan-x; /* Prevent horizontal panning */
 }
 
-      
+#video-background {
+    transition: opacity 0.5s ease;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1; /* Send the video to the background */
+    min-width: 100%;
+    min-height: 100%;
+    opacity: 0; /* Initially hidden */
+    display: none; /* Initially hidden */
+}
+
+
+
 </style>
 
 
 
- 
+
+<video autoplay muted loop id="video-background">
+    <source src="BackgroundVideo.mp4" type="video/mp4">
+</video>
+
+<script>
+
+  // Ensure the video is properly loaded and ready
+    document.addEventListener("DOMContentLoaded", function () {
+        // Add event listener for when the video is ready to play
+        video.addEventListener('canplaythrough', function () {
+            if (currentBackground === 'video') {
+                video.style.display = 'block'; // Show the video
+                video.style.opacity = 1; // Fade in the video
+            }
+        });
+
+
+  // Add event listener for error handling
+        video.addEventListener('error', function () {
+            console.error("Error loading video.");
+            // If the video fails to load, default to a white background
+            document.body.style.backgroundColor = "white";
+        });
+
+        // Start loading the video
+        video.load();
+    });
+
+</script>
+
+
 <style>
 
 body {
@@ -76,11 +78,11 @@ body {
 
 <style>
 
-h1 {
+  h1 {
     color: #FFFFFF;
     text-transform: uppercase;
-    font-size: 40px;
-    font-family: 'Open Sans', sans-serif; /* Corrected the font-family */
+    font-size: 25px;
+    font-family: open sans;
     padding: 2px;
     text-align: center;
     margin: 0 auto;
@@ -88,13 +90,13 @@ h1 {
     max-width: 100%;
     width: 100%;
     white-space: nowrap;
-    margin-top: 20px; /* Increase to desired value */
-}
+    margin-top: 0.5rem;
+  }
 
 h3 {
     font-family: 'Open Sans', sans-serif; /* Corrected to have a fallback */
     position: relative; /* Enable positioning */
-    top: -25px; /* Move the text up by 15 pixels */
+    top: -16px; /* Move the text up by 15 pixels */
 }
 
 /* Media query for mobile screens */
