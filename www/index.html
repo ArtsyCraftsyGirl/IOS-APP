@@ -10,15 +10,59 @@ body {
     overflow-x: hidden; /* Prevent horizontal scrolling */
     touch-action: pan-x; /* Prevent horizontal panning */
 }
-  body {
-            background-image: url('liberty.jpg'); /* New background image */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            height: 100vh;
-            margin: 0;
-        }
+
+#video-background {
+    transition: opacity 0.5s ease;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1; /* Send the video to the background */
+    min-width: 100%;
+    min-height: 100%;
+    opacity: 0; /* Initially hidden */
+    display: none; /* Initially hidden */
+}
+
+
+
 </style>
+
+
+
+
+<video autoplay muted loop id="video-background">
+    <source src="BackgroundVideo.mp4" type="video/mp4">
+</video>
+
+<script>
+
+  // Ensure the video is properly loaded and ready
+    document.addEventListener("DOMContentLoaded", function () {
+        // Add event listener for when the video is ready to play
+        video.addEventListener('canplaythrough', function () {
+            if (currentBackground === 'video') {
+                video.style.display = 'block'; // Show the video
+                video.style.opacity = 1; // Fade in the video
+            }
+        });
+
+
+  // Add event listener for error handling
+        video.addEventListener('error', function () {
+            console.error("Error loading video.");
+            // If the video fails to load, default to a white background
+            document.body.style.backgroundColor = "white";
+        });
+
+        // Start loading the video
+        video.load();
+    });
+
+</script>
+
 
 <style>
 
