@@ -22,17 +22,17 @@
     <icon src="res/icon/ios/icon-1024.png" width="1024" height="1024" /> <!-- App Store icon -->
 
     <!-- Splash Screens -->
-    <splash src="resources/ios/splash/Default-1125x2436~iphone.png" width="1125" height="2436"/>
-    <splash src="resources/ios/splash/Default-1242x2688~iphone.png" width="1242" height="2688"/>
-    <splash src="resources/ios/splash/Default-2048x2732~ipad.png" width="2048" height="2732"/>
-    <splash src="resources/ios/splash/Default-568h@2x~iphone.png" width="640" height="1136"/>
-    <splash src="resources/ios/splash/Default-667h@2x~iphone.png" width="750" height="1334"/>
-    <splash src="resources/ios/splash/Default-736h@3x~iphone.png" width="1242" height="2208"/>
-    <splash src="resources/ios/splash/Default-828x1792~iphone.png" width="828" height="1792"/>
+    <splash src="res/screen/ios/splash/Default-1125x2436~iphone.png" width="1125" height="2436"/>
+    <splash src="res/screen/ios/splash/Default-1242x2688~iphone.png" width="1242" height="2688"/>
+    <splash src="res/screen/ios/splash/Default-2048x2732~ipad.png" width="2048" height="2732"/>
+    <splash src="res/screen/ios/splash/Default-568h@2x~iphone.png" width="640" height="1136"/>
+    <splash src="res/screen/ios/splash/Default-667h@2x~iphone.png" width="750" height="1334"/>
+    <splash src="res/screen/ios/splash/Default-736h@3x~iphone.png" width="1242" height="2208"/>
+    <splash src="res/screen/ios/splash/Default-828x1792~iphone.png" width="828" height="1792"/>
 
     <preference name="deployment-target" value="12.0" /> <!-- Set minimum iOS version -->
     <preference name="SplashScreen" value="screen" />
-    <preference name="SplashScreenDelay" value="3000" />
+    <preference name="SplashScreenDelay" value="2000" />
     <preference name="AutoHideSplashScreen" value="true" />
 </platform>
 
