@@ -43,7 +43,7 @@ workflows:
 
       - name: Copy custom splash screens to the Xcode project
         script: | 
-          SPLASH_SCREEN_PATH="resources/ios/splash/"
+          SPLASH_SCREEN_PATH="res/screen/ios/splash/"
           IOS_SPLASH_PLATFORM_PATH="platforms/ios/JbPaladinPatriotsClock/Images.xcassets/Splash.imageset/"
 
           if [ -d "$SPLASH_SCREEN_PATH" ]; then
