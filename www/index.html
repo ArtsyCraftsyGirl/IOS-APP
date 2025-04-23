@@ -11,56 +11,34 @@ body {
     touch-action: pan-x; /* Prevent horizontal panning */
 }
 
-#video-background {
-    transition: opacity 0.5s ease;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    object-fit: cover;
-    z-index: -1; /* Send the video to the background */
-    min-width: 100%;
-    min-height: 100%;
-    opacity: 0; /* Initially hidden */
-    display: none; /* Initially hidden */
-}
 
-
-
-</style>
-
-
-
-
+ </style>
 <video autoplay muted loop id="video-background">
     <source src="BackgroundVideo.mp4" type="video/mp4">
 </video>
 
+<style>
+#video-background {
+    transition: opacity 0.5s ease;
+    position: fixed; /* Fix the video in place */
+    top: 0; /* Align to the top */
+    left: 0; /* Align to the left */
+    width: 100%; /* Set the width to 100% */
+    height: 100%; /* Set height to cover the entire viewport */
+    object-fit: cover; /* Scale the video to cover the container */
+    z-index: -1; /* Place the video behind other content */
+    opacity: 0.1; /* Set a lower opacity for background effect */
+    display: block; /* Ensure the video is displayed */
+    pointer-events: none; /* Prevent any interaction with the video */
+}
+</style>
+
 <script>
-
-  // Ensure the video is properly loaded and ready
-    document.addEventListener("DOMContentLoaded", function () {
-        // Add event listener for when the video is ready to play
-        video.addEventListener('canplaythrough', function () {
-            if (currentBackground === 'video') {
-                video.style.display = 'block'; // Show the video
-                video.style.opacity = 1; // Fade in the video
-            }
-        });
-
-
-  // Add event listener for error handling
-        video.addEventListener('error', function () {
-            console.error("Error loading video.");
-            // If the video fails to load, default to a white background
-            document.body.style.backgroundColor = "white";
-        });
-
-        // Start loading the video
-        video.load();
-    });
-
+document.addEventListener("DOMContentLoaded", function () {
+    const video = document.getElementById('video-background'); // Ensure you have the video element
+    video.load();
+    video.play(); // Play the video automatically
+});
 </script>
 
 
