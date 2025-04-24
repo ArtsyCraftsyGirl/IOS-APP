@@ -75,16 +75,16 @@ h3 {
     }
 }
 
-           header {
-            background-color: black;
-            padding: 4px; /* Adjust padding to fit the new height */
-            text-align: center; /* Center the h3 element */
-            box-sizing: border-box; /* Include padding in full width */
-            width: 100vw; /* Take up the full width of the viewport */
-            margin: 0; /* Remove any left and right margin */
-            position: relative; /* Fix the header to the top of the page */
-            z-index: 1; /* Bring the header to the front */
-        }
+          header {
+    background-color: black;
+    padding: env(safe-area-inset-top) 4px 4px; /* Add safe area inset for top */
+    text-align: center; /* Center the h3 element */
+    box-sizing: border-box; /* Include padding in full width */
+    width: 100vw; /* Take up the full width of the viewport */
+    margin: 0; /* Remove any left and right margin */
+    position: relative; /* Fix the header to the top of the page */
+    z-index: 1; /* Bring the header to the front */
+}
 
    
         /* Media query for larger screens to medium */
