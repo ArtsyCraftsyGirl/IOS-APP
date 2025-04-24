@@ -47,13 +47,12 @@ body {
 </style>
 
 
-
 <style>
 
   h1 {
     color: #FFFFFF;
     text-transform: uppercase;
-    font-size: 25px;
+    font-size: 35px;
     font-family: open sans;
     padding: 2px;
     text-align: center;
@@ -79,16 +78,16 @@ h3 {
     }
 }
 
-          header {
-    background-color: black;
-    padding: env(safe-area-inset-top) 4px 4px; /* Add safe area inset for top */
-    text-align: center; /* Center the h3 element */
-    box-sizing: border-box; /* Include padding in full width */
-    width: 100vw; /* Take up the full width of the viewport */
-    margin: 0; /* Remove any left and right margin */
-    position: relative; /* Fix the header to the top of the page */
-    z-index: 1; /* Bring the header to the front */
-}
+           header {
+            background-color: black;
+            padding: 5px; /* Adjust padding to fit the new height */
+            text-align: center; /* Center the h3 element */
+            box-sizing: border-box; /* Include padding in full width */
+            width: 100vw; /* Take up the full width of the viewport */
+            margin: 0; /* Remove any left and right margin */
+            position: relative; /* Fix the header to the top of the page */
+            z-index: 1; /* Bring the header to the front */
+        }
 
    
         /* Media query for larger screens to medium */
@@ -105,10 +104,12 @@ h3 {
         /* Media query for smaller screens or mobiles */
         @media only screen and (max-width: 767px) {
             header {
-                height: 3.40rem; /* Decrease height for smaller screens */
+                height: 4.55rem; /* Decrease height for smaller screens */
             }
             h3 {
                 font-size: 1.14rem; /* Decrease font size for smaller screens */
+                margin-top: 42px;
+
             }
         }
 
@@ -132,6 +133,8 @@ h3 {
             }
         }
     </style>
+
+
 </head>
 <body>
 <header>
