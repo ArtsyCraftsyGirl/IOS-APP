@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,29 +7,22 @@
     <title>About This Clock</title>
 
 
-<style>
-     body {
-        margin: 0;
-        height: 100vh; /* Ensure the body takes the full height of the viewport */
-        overflow: hidden; /* Prevent scrolling if necessary */
-        background-color: darkblue;
-           }
 
-</style>
 
 
     <style>
      
-body {
-            font-family: 'Open Sans', sans-serif; /* Ensure proper font family */
-            margin: 0;
-            padding: 0;
-            overflow: hidden; /* Prevent scrolling */
-        }
 
+body {
+    font-family: 'Open Sans', sans-serif; /* Ensure proper font family */
+    margin: 0;
+    height: 100vh; /* Ensure the body takes the full height of the viewport */
+    overflow: hidden; /* Prevent scrolling if necessary */
+    background-color: darkblue;
+}
      
 
-   .slideshow-container {
+    .slideshow-container {
             position: relative;
             max-width: 800px;
             max-height: 490px; 
@@ -44,10 +38,9 @@ body {
 /* Media query for larger screens (laptops and desktops) */
 @media (min-width: 601px) {
     .slideshow-container {
-        max-height: 420px; /* Set height to 400px for larger screens */
+        max-height: 380px; /* Set height to 400px for larger screens */
     }
 }
-
 
 
 
@@ -93,6 +86,7 @@ body {
     from { opacity: 0; }
     to { opacity: 1; }
 }
+
 
 
 h1 span {
@@ -180,16 +174,18 @@ h2 span {
 }
 
 img {
-            width: 20%; /* Default size for larger screens */
-            height: auto; /* Maintain aspect ratio */
-            max-width: 300px; /* Limit size on larger screens */
-            margin-bottom: 15px; /* Spacing below the image */
-            border-radius: 50%; /* Rounded corners */
-            overflow: hidden; /* Hide overflow */
-            display: block; /* Block display */
-            margin-left: auto; /* Center horizontally */
-            margin-right: auto; /* Center horizontally */
-        }
+    width: 20%; /* Default size for larger screens */
+    height: auto; /* Maintain aspect ratio */
+    max-width: 300px; /* Limit size on larger screens */
+    margin-top: 23px; /* Add margin to move the image down */
+    margin-bottom: 15px; /* Spacing below the image */
+    border-radius: 50%; /* Rounded corners */
+    overflow: hidden; /* Hide overflow */
+    display: block; /* Block display */
+    margin-left: auto; /* Center horizontally */
+    margin-right: auto; /* Center horizontally */
+}
+
 
         @media only screen and (max-width: 480px) { /* For mobile devices */
             img {
@@ -351,8 +347,8 @@ What's unique in our clock?</p>
            
              <p style="font-weight: bold;">  
 What's unique in our clock? </p>
-<p style="font-weight: bold;">  &#9733; Example 1:  When time is 12:00 o&#39;clock the 12th star lit up to dark-blue color and no stripes are showing </p>
-<p style="font-weight: bold;">  &#9733; Example 2:  When time is 6: 00 o&#39;clock the 6th star lit up to dark-blue color , while the 12th star lit up to light-blue
+<p style="font-weight: bold;">  &#9733; Example 1:  When time is 12:00 o&#39;clock the 12th star lit up to dark-blue color and no stripes are showing </p>
+<p style="font-weight: bold;">  &#9733; Example 2:  When time is 6: 00 o&#39;clock the 6th star lit up to dark-blue color , while the 12th star lit up to light-blue
 color and no stripes are showing </p>
 <p style="font-weight: bold;">  &#9733; Example 3: When time is 12:06, the 12th star lit up to dark-blue color, while the appropriate number of stripes are
 showing after 12th star, the 1st star is lit up to light-blue and then 1 stripe after 1st star. </p>      
@@ -477,7 +473,6 @@ adjustSlideHeight();
 // Optionally call it on window resize
 window.addEventListener('resize', adjustSlideHeight);
 </script>
-
 
 
 
@@ -1391,8 +1386,8 @@ To guide you on how to use our app we have listed here all the icons please read
     color: white; /* Button text color */
     border: none; /* Remove border */
     border-radius: 5px; /* Set border-radius to 5px for square shape */
-    width: 65px; /* Set a smaller fixed width */
-    height: 35px; /* Set a smaller fixed height (should be equal to width) */
+    width: 45px; /* Set a smaller fixed width */
+    height: 25px; /* Set a smaller fixed height (should be equal to width) */
     cursor: pointer; /* Pointer cursor on hover */
     font-size: 24px; /* Increase font size for the Unicode characters */
     margin: 0 5px; /* Add some margin between buttons */
@@ -1407,20 +1402,16 @@ To guide you on how to use our app we have listed here all the icons please read
 }
 /* Adjust the position of the increase text button */
 #increaseText {
-    margin-left: 750px; /* Move it to the right */
-    margin-top: 410px; /* Move it up (negative value) */
+    margin-left: 850px; /* Move it to the right */
+    margin-top: 25px; /* Move it up (negative value) */
 }
-
-
 
 /* Adjust the position of the increase text button */
 #decreaseText {
-    margin-right: 600px; /* Move it to the right */
-    margin-top: 410px; /* Move it up (negative value) */
+    margin-right: 650px; /* Move it to the right */
+    margin-top: 25px; /* Move it up (negative value) */
 }
 </style>
-
-
 
 <script>
 
