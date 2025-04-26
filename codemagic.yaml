@@ -13,7 +13,7 @@ workflows:
           - JbPaladin Certificate
 
     integrations:
-       app_store_connect: Codemagic API       
+       app_store_connect: Codemagic       
     scripts:
       - name: Install npm dependencies and update Cordova version
         script: | 
