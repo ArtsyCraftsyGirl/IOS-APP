@@ -11,6 +11,9 @@ workflows:
           - Production Profile
         certificates:
           - JbPaladin Certificate
+
+    integrations:
+       app_store_connect: Codemagic API       
     scripts:
       - name: Install npm dependencies and update Cordova version
         script: | 
