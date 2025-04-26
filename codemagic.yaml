@@ -32,6 +32,16 @@ workflows:
             --no-interactive \
             --save  
 
+      - name: Set App Uses Non-Exempt Encryption in Info.plist
+        script: |
+          INFO_PLIST_PATH="platforms/ios/JbPaladinPatriotsClock/Info.plist"
+          if [ -f "$INFO_PLIST_PATH" ]; then
+            /usr/libexec/PlistBuddy -c "Add :ITSAppUsesNonExemptEncryption bool false" "$INFO_PLIST_PATH" || echo "Key already exists or error occurred."
+            echo "✅ ITSAppUsesNonExemptEncryption set to false in Info.plist."
+          else
+            echo "⚠️ Info.plist not found!"
+          fi
+
       - name: Copy custom icons to the Xcode project
         script: | 
           APP_ICON_PATH="res/icon/ios/"
