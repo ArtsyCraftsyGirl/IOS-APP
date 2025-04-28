@@ -42,6 +42,28 @@ workflows:
             echo "⚠️ Info.plist not found!"
           fi
 
+      - name: Remove audio background mode from Info.plist
+        script: |
+          INFO_PLIST_PATH="platforms/ios/JbPaladinPatriotsClock/Info.plist"
+          if [ -f "$INFO_PLIST_PATH" ]; then
+            # Check if UIBackgroundModes exists and remove the audio entry
+            if /usr/libexec/PlistBuddy -c "Print :UIBackgroundModes" "$INFO_PLIST_PATH" &> /dev/null; then
+              # Remove the audio entry if it exists
+              /usr/libexec/PlistBuddy -c "Delete :UIBackgroundModes:0" "$INFO_PLIST_PATH" || echo "No audio entry found in UIBackgroundModes or error occurred."
+              # If you want to remove the entire UIBackgroundModes key if it's empty
+              if [ $(/usr/libexec/PlistBuddy -c "Print :UIBackgroundModes" "$INFO_PLIST_PATH" | wc -l) -eq 0 ]; then
+                /usr/libexec/PlistBuddy -c "Delete :UIBackgroundModes" "$INFO_PLIST_PATH"
+                echo "✅ UIBackgroundModes key removed from Info.plist."
+              else
+                echo "✅ Audio entry removed from UIBackgroundModes in Info.plist."
+              fi
+            else
+              echo "⚠️ UIBackgroundModes key not found!"
+            fi
+          else
+            echo "⚠️ Info.plist not found!"
+          fi
+
       - name: Copy custom icons to the Xcode project
         script: | 
           APP_ICON_PATH="res/icon/ios/"
