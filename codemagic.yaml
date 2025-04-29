@@ -78,6 +78,17 @@ workflows:
             echo "⚠️ Info.plist not found!"
           fi
 
+      - name: Verify Info.plist content
+        script: |
+          INFO_PLIST_PATH="platforms/ios/JbPaladinPatriotsClock/Info.plist"
+          if [ -f "$INFO_PLIST_PATH" ]; then
+            echo "✅ Dumping Info.plist content:"
+            /usr/libexec/PlistBuddy -c "Print" "$INFO_PLIST_PATH"
+            cp "$INFO_PLIST_PATH" /tmp/Info.plist
+          else
+            echo "⚠️ Info.plist not found!"
+          fi
+
       - name: Copy custom icons to the Xcode project
         script: | 
           APP_ICON_PATH="res/icon/ios/"
@@ -132,8 +143,6 @@ workflows:
     artifacts:
       - /Users/builder/clone/platforms/ios/build/Release-iphoneos/JbPaladinPatriotsClock.ipa
       - /tmp/xcodebuild_logs/*.log
+      - /tmp/Info.plist
 
-    publishing:
-      app_store_connect:
-        auth: integration
-        submit_to_app_store: true
+  
