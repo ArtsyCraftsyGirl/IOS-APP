@@ -13,7 +13,8 @@ workflows:
           - JbPaladin Certificate
 
     integrations:
-       app_store_connect: Codemagic       
+      app_store_connect: Codemagic       
+
     scripts:
       - name: Install npm dependencies and update Cordova version
         script: | 
@@ -46,16 +47,29 @@ workflows:
         script: |
           INFO_PLIST_PATH="platforms/ios/JbPaladinPatriotsClock/Info.plist"
           if [ -f "$INFO_PLIST_PATH" ]; then
-            # Check if UIBackgroundModes exists and remove the audio entry
+            echo "✅ Info.plist found."
+
             if /usr/libexec/PlistBuddy -c "Print :UIBackgroundModes" "$INFO_PLIST_PATH" &> /dev/null; then
-              # Remove the audio entry if it exists
-              /usr/libexec/PlistBuddy -c "Delete :UIBackgroundModes:0" "$INFO_PLIST_PATH" || echo "No audio entry found in UIBackgroundModes or error occurred."
-              # If you want to remove the entire UIBackgroundModes key if it's empty
-              if [ $(/usr/libexec/PlistBuddy -c "Print :UIBackgroundModes" "$INFO_PLIST_PATH" | wc -l) -eq 0 ]; then
-                /usr/libexec/PlistBuddy -c "Delete :UIBackgroundModes" "$INFO_PLIST_PATH"
-                echo "✅ UIBackgroundModes key removed from Info.plist."
+              echo "✅ UIBackgroundModes key exists, checking for 'audio'..."
+
+              indexes_and_values=$(/usr/libexec/PlistBuddy -c "Print :UIBackgroundModes" "$INFO_PLIST_PATH" | nl -v 0)
+              audio_index=$(echo "$indexes_and_values" | grep '"audio"' | awk '{print $1}')
+
+              if [ ! -z "$audio_index" ]; then
+                echo "✅ Found 'audio' at index $audio_index, removing..."
+                /usr/libexec/PlistBuddy -c "Delete :UIBackgroundModes:$audio_index" "$INFO_PLIST_PATH"
+                echo "✅ 'audio' entry removed."
+
+                remaining_count=$(/usr/libexec/PlistBuddy -c "Print :UIBackgroundModes" "$INFO_PLIST_PATH" | grep -c '[^[:space:]]')
+
+                if [ "$remaining_count" -eq 0 ]; then
+                  echo "✅ UIBackgroundModes is empty. Removing the entire key..."
+                  /usr/libexec/PlistBuddy -c "Delete :UIBackgroundModes" "$INFO_PLIST_PATH"
+                else
+                  echo "✅ Other background modes remain. Not deleting UIBackgroundModes key."
+                fi
               else
-                echo "✅ Audio entry removed from UIBackgroundModes in Info.plist."
+                echo "⚠️ 'audio' not found in UIBackgroundModes. No changes needed."
               fi
             else
               echo "⚠️ UIBackgroundModes key not found!"
@@ -87,7 +101,7 @@ workflows:
           else
             echo "⚠️ Custom splash screens folder not found!"
           fi
-      
+
       - name: Set up code signing settings on Xcode project
         script: | 
           xcode-project use-profiles --project platforms/ios/JbPaladinPatriotsClock.xcodeproj
