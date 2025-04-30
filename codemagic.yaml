@@ -25,6 +25,11 @@ workflows:
         script: |
           cordova plugin add cordova-plugin-splashscreen
 
+      - name: Generate iOS icons using cordova-res
+        script: |
+          npm install -g cordova-res
+          cordova-res ios --skip-config --copy
+
       - name: Setup Cordova iOS platform
         script: | 
           cordova platform remove ios --nosave
@@ -76,18 +81,6 @@ workflows:
             fi
           else
             echo "⚠️ Info.plist not found!"
-          fi
-
-      - name: Copy custom icons to the Xcode project
-        script: | 
-          APP_ICON_PATH="res/icon/ios/"
-          IOS_PLATFORM_PATH="platforms/ios/JbPaladinPatriotsClock/Images.xcassets/AppIcon.appiconset/"
-
-          if [ -d "$APP_ICON_PATH" ]; then
-            cp -R "$APP_ICON_PATH" "$IOS_PLATFORM_PATH"
-            echo "✅ Custom app icons copied successfully."
-          else
-            echo "⚠️ Custom app icons folder not found!"
           fi
 
       - name: Copy custom splash screens to the Xcode project
