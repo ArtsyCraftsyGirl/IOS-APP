@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.jbpaladinpatriotsclock.jbpaladinpatriotsclock" version="1.6.5" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.jbpaladinpatriotsclock.jbpaladinpatriotsclock" version="1.6.6" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>JbPaladinPatriotsClock</name>
     <description>This is a unique and revolutionary way of telling time, designed by Jeffrey Wayne Birge and developed by Ehllen Quezada. Our clock doesn't use hands to tell time; it uses lights to tell time.</description>
     <author email="jeffbirgepaladin@gmail.com">Jeffrey Wayne Birge (Designer/Inventor); Ehllen Quezada (Programmer/Developer)</author>
