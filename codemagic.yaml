@@ -66,6 +66,20 @@ workflows:
             echo "⚠️ Custom splash screens folder not found!"
           fi
 
+      - name: Copy custom app icons to AppIcon.appiconset
+        script: |
+          ICON_SOURCE_PATH="res/icon/ios"
+          ICON_DEST_PATH="platforms/ios/JbPaladinPatriotsClock/Images.xcassets/AppIcon.appiconset/"
+
+          if [ -d "$ICON_SOURCE_PATH" ]; then
+            rm -rf "$ICON_DEST_PATH"
+            mkdir -p "$ICON_DEST_PATH"
+            cp -R "$ICON_SOURCE_PATH/"* "$ICON_DEST_PATH"
+            echo "✅ App icons copied to AppIcon.appiconset."
+          else
+            echo "⚠️ Icon source directory not found!"
+          fi
+
       - name: Set up code signing settings on Xcode project
         script: | 
           xcode-project use-profiles --project platforms/ios/JbPaladinPatriotsClock.xcodeproj
