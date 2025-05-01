@@ -68,7 +68,7 @@ workflows:
 
       - name: Copy custom app icons to AppIcon.appiconset
         script: |
-          ICON_SOURCE_PATH="res/icon/ios"
+          ICON_SOURCE_PATH="res/AppIcon.appiconset"
           ICON_DEST_PATH="platforms/ios/JbPaladinPatriotsClock/Images.xcassets/AppIcon.appiconset/"
 
           if [ -d "$ICON_SOURCE_PATH" ]; then
