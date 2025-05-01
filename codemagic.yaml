@@ -43,6 +43,17 @@ workflows:
             echo "⚠️ Info.plist not found!"
           fi
 
+      - name: Remove background audio mode from Info.plist
+        script: |
+          INFO_PLIST_PATH="platforms/ios/JbPaladinPatriotsClock/Info.plist"
+          if [ -f "$INFO_PLIST_PATH" ]; then
+            /usr/libexec/PlistBuddy -c "Delete :UIBackgroundModes" "$INFO_PLIST_PATH" && \
+            echo "✅ UIBackgroundModes removed from Info.plist." || \
+            echo "⚠️ UIBackgroundModes not found or already removed."
+          else
+            echo "⚠️ Info.plist not found!"
+          fi
+
       - name: Copy custom splash screens to the Xcode project
         script: | 
           SPLASH_SCREEN_PATH="res/screen/ios/splash/"
