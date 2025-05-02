@@ -16,90 +16,7 @@ workflows:
       app_store_connect: Codemagic       
 
     scripts:
-      - name: Install npm dependencies and update Cordova version
-        script: | 
-          npm install
-          npm install -g cordova
-
-      - name: Install Cordova Splash Screen Plugin
-        script: |
-          cordova plugin add cordova-plugin-splashscreen
-
-      - name: Setup Cordova iOS platform
-        script: | 
-          cordova platform remove ios --nosave
-          cordova platform add ios \
-            --confirm \
-            --no-interactive \
-            --save  
-
-      # Remove cordova-plugin-media and cordova-plugin-background-mode from the project
-      - name: Remove Unwanted Plugins
-        script: |
-          cordova plugin rm cordova-plugin-media
-          cordova plugin rm cordova-plugin-background-mode
-          echo "✅ Removed cordova-plugin-media and cordova-plugin-background-mode."
-
-      - name: Set App Uses Non-Exempt Encryption in Info.plist
-        script: |
-          INFO_PLIST_PATH="platforms/ios/JbPaladinPatriotsClock/Info.plist"
-          if [ -f "$INFO_PLIST_PATH" ]; then
-            /usr/libexec/PlistBuddy -c "Add :ITSAppUsesNonExemptEncryption bool false" "$INFO_PLIST_PATH" || echo "Key already exists or error occurred."
-            echo "✅ ITSAppUsesNonExemptEncryption set to false in Info.plist."
-          else
-            echo "⚠️ Info.plist not found!"
-          fi
-
-      - name: Remove Audio Background Mode (If Exists)
-        script: |
-          PLIST_PATH="platforms/ios/JbPaladinPatriotsClock/Info.plist"
-          if [ -f "$PLIST_PATH" ]; then
-            /usr/libexec/PlistBuddy -c "Delete :UIBackgroundModes" "$PLIST_PATH" 2>/dev/null || echo "No UIBackgroundModes found"
-            echo "✅ Removed UIBackgroundModes from Info.plist."
-          else
-            echo "⚠️ Info.plist not found!"
-          fi
-
-      - name: Remove Legacy Icon Keys (If Present)
-        script: |
-          PLIST_PATH="platforms/ios/JbPaladinPatriotsClock/Info.plist"
-          if [ -f "$PLIST_PATH" ]; then
-            /usr/libexec/PlistBuddy -c "Delete :CFBundleIcons~ipad" "$PLIST_PATH" 2>/dev/null || echo "No CFBundleIcons~ipad key found"
-            # Optionally, remove other legacy keys if present (uncomment if needed)
-            # /usr/libexec/PlistBuddy -c "Delete :CFBundleIcons" "$PLIST_PATH" 2>/dev/null || echo "No CFBundleIcons key found"
-            echo "✅ Removed legacy icon keys from Info.plist."
-          else
-            echo "⚠️ Info.plist not found!"
-          fi
-
-      - name: Copy custom splash screens to the Xcode project
-        script: | 
-          SPLASH_SCREEN_PATH="res/screen/ios/splash/"
-          IOS_SPLASH_PLATFORM_PATH="platforms/ios/JbPaladinPatriotsClock/Images.xcassets/Splash.imageset/"
-          if [ -d "$SPLASH_SCREEN_PATH" ]; then
-            cp -R "$SPLASH_SCREEN_PATH" "$IOS_SPLASH_PLATFORM_PATH"
-            echo "✅ Custom splash screens copied successfully."
-          else
-            echo "⚠️ Custom splash screens folder not found!"
-          fi
-
-      - name: Copy custom app icons to AppIcon.appiconset
-        script: |
-          ICON_SOURCE_PATH="res/AppIcon.appiconset"
-          ICON_DEST_PATH="platforms/ios/JbPaladinPatriotsClock/Images.xcassets/AppIcon.appiconset/"
-          if [ -d "$ICON_SOURCE_PATH" ]; then
-            rm -rf "$ICON_DEST_PATH"
-            mkdir -p "$ICON_DEST_PATH"
-            cp -R "$ICON_SOURCE_PATH/"* "$ICON_DEST_PATH"
-            echo "✅ App icons copied to AppIcon.appiconset."
-          else
-            echo "⚠️ Icon source directory not found!"
-          fi
-
-      - name: Set up code signing settings on Xcode project
-        script: | 
-          xcode-project use-profiles --project platforms/ios/JbPaladinPatriotsClock.xcodeproj
-
+      # [all your scripts stay the same as you posted above]
       - name: Build ipa for distribution
         script: | 
           cat /Users/builder/export_options.plist
@@ -127,8 +44,8 @@ workflows:
       - /Users/builder/clone/platforms/ios/build/Release-iphoneos/JbPaladinPatriotsClock.ipa
       - /tmp/xcodebuild_logs/*.log
 
-   publishing:
+    publishing:
       app_store_connect:
         auth: integration
         submit_to_testflight: true
-
+        submit_to_app_store: false
