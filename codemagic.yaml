@@ -130,9 +130,5 @@ workflows:
       - /Users/builder/clone/platforms/ios/build/Release-iphoneos/JbPaladinPatriotsClock.ipa
       - /tmp/xcodebuild_logs/*.log
 
-       publishing:
-      app_store_connect:
-        auth: integration
-        submit_to_app_store: true
 
  
