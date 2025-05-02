@@ -43,17 +43,25 @@ workflows:
             echo "⚠️ Info.plist not found!"
           fi
 
-
-       - name: Clean Background Modes (Pre-Signing)
+      - name: Clean Background Modes (Pre-Signing)
         script: |
           PLIST="platforms/ios/JbPaladinPatriotsClock/Info.plist"
-          /usr/libexec/PlistBuddy -c "Delete :UIBackgroundModes" "$PLIST" 2>/dev/null || true
+
+          if /usr/libexec/PlistBuddy -c "Print :UIBackgroundModes" "$PLIST" &>/dev/null; then
+            COUNT=$(/usr/libexec/PlistBuddy -c "Print :UIBackgroundModes" "$PLIST" | grep -c 'Item')
+            for ((i=0; i<COUNT; i++)); do
+              ITEM=$(/usr/libexec/PlistBuddy -c "Print :UIBackgroundModes:$i" "$PLIST" 2>/dev/null)
+              if [ "$ITEM" == "audio" ]; then
+                /usr/libexec/PlistBuddy -c "Delete :UIBackgroundModes:$i" "$PLIST" && echo "✅ Removed 'audio' background mode"
+                break
+              fi
+            done
+          else
+            echo "ℹ️ No UIBackgroundModes key found in Info.plist"
+          fi
+
           chmod 444 "$PLIST" # Lock against plugin modifications
-          echo "✅ Removed audio background modes from source plist"
-
-
-
-          
+          echo "✅ Finished cleaning background modes"
 
       - name: Copy custom splash screens to the Xcode project
         script: | 
@@ -111,6 +119,3 @@ workflows:
     artifacts:
       - /Users/builder/clone/platforms/ios/build/Release-iphoneos/JbPaladinPatriotsClock.ipa
       - /tmp/xcodebuild_logs/*.log
-
-   
- 
