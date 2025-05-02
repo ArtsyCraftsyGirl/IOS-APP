@@ -60,6 +60,18 @@ workflows:
             echo "⚠️ Info.plist not found!"
           fi
 
+      - name: Remove Legacy Icon Keys (If Present)
+        script: |
+          PLIST_PATH="platforms/ios/JbPaladinPatriotsClock/Info.plist"
+          if [ -f "$PLIST_PATH" ]; then
+            /usr/libexec/PlistBuddy -c "Delete :CFBundleIcons~ipad" "$PLIST_PATH" 2>/dev/null || echo "No CFBundleIcons~ipad key found"
+            # Optionally, remove other legacy keys if present (uncomment if needed)
+            # /usr/libexec/PlistBuddy -c "Delete :CFBundleIcons" "$PLIST_PATH" 2>/dev/null || echo "No CFBundleIcons key found"
+            echo "✅ Removed legacy icon keys from Info.plist."
+          else
+            echo "⚠️ Info.plist not found!"
+          fi
+
       - name: Copy custom splash screens to the Xcode project
         script: | 
           SPLASH_SCREEN_PATH="res/screen/ios/splash/"
@@ -114,6 +126,7 @@ workflows:
     artifacts:
       - /Users/builder/clone/platforms/ios/build/Release-iphoneos/JbPaladinPatriotsClock.ipa
       - /tmp/xcodebuild_logs/*.log
+
     publishing:
       app_store_connect:
         auth: integration
