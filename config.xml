@@ -10,6 +10,7 @@
 
     
 <platform name="ios">
+    <edit-config target="UIBackgroundModes" mode="remove" value="audio" />
     <preference name="CFBundleDisplayName" value="JbPaladinPatriotsClock" />
     
     <!-- Icons -->
@@ -36,7 +37,7 @@
     <preference name="AllowInlineMediaPlayback" value="true" />
     <preference name="MediaPlaybackRequiresUserAction" value="false" />
     
-        <edit-config target="UIBackgroundModes" mode="remove" value="audio" />
+        
 </platform>
 
     
