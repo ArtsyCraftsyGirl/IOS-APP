@@ -43,6 +43,18 @@ workflows:
             echo "⚠️ Info.plist not found!"
           fi
 
+
+       - name: Clean Background Modes (Pre-Signing)
+        script: |
+          PLIST="platforms/ios/JbPaladinPatriotsClock/Info.plist"
+          /usr/libexec/PlistBuddy -c "Delete :UIBackgroundModes" "$PLIST" 2>/dev/null || true
+          chmod 444 "$PLIST" # Lock against plugin modifications
+          echo "✅ Removed audio background modes from source plist"
+
+
+
+          
+
       - name: Copy custom splash screens to the Xcode project
         script: | 
           SPLASH_SCREEN_PATH="res/screen/ios/splash/"
@@ -96,54 +108,9 @@ workflows:
           EOF
           cordova build ios --release --device --buildConfig='build.json'
 
-      - name: Remove 'audio' background mode from built .ipa Info.plist
-        script: |
-          IPA_PATH="/Users/builder/clone/platforms/ios/build/Release-iphoneos/JbPaladinPatriotsClock.ipa"
-          WORK_DIR="/tmp/ipa_mod"
-
-          echo "🔍 Extracting IPA..."
-          mkdir -p "$WORK_DIR"
-          unzip -q "$IPA_PATH" -d "$WORK_DIR"
-
-          APP_PATH=$(find "$WORK_DIR/Payload" -name "*.app" -type d | head -n 1)
-          INFO_PLIST_PATH="$APP_PATH/Info.plist"
-
-          if [ -f "$INFO_PLIST_PATH" ]; then
-            echo "🔧 Modifying Info.plist at $INFO_PLIST_PATH"
-
-            index=0
-            while true; do
-              mode=$(/usr/libexec/PlistBuddy -c "Print :UIBackgroundModes:$index" "$INFO_PLIST_PATH" 2>/dev/null)
-              if [ $? -ne 0 ]; then break; fi
-              if [ "$mode" == "audio" ]; then
-                /usr/libexec/PlistBuddy -c "Delete :UIBackgroundModes:$index" "$INFO_PLIST_PATH"
-                echo "✅ Removed 'audio' from UIBackgroundModes."
-              else
-                index=$((index + 1))
-              fi
-            done
-
-            # Remove the whole key if now empty
-            count=$(/usr/libexec/PlistBuddy -c "Print :UIBackgroundModes" "$INFO_PLIST_PATH" 2>/dev/null | grep -c "String")
-            if [ "$count" -eq 0 ]; then
-              /usr/libexec/PlistBuddy -c "Delete :UIBackgroundModes" "$INFO_PLIST_PATH"
-              echo "🧹 Removed empty UIBackgroundModes array."
-            fi
-          else
-            echo "❌ Info.plist not found in built .ipa"
-          fi
-
-          echo "📦 Repackaging IPA..."
-          cd "$WORK_DIR"
-          zip -qry "JbPaladinPatriotsClock.ipa" Payload
-          mv "JbPaladinPatriotsClock.ipa" "$IPA_PATH"
-          echo "✅ Patched .ipa saved at $IPA_PATH"
-
     artifacts:
       - /Users/builder/clone/platforms/ios/build/Release-iphoneos/JbPaladinPatriotsClock.ipa
       - /tmp/xcodebuild_logs/*.log
 
-    publishing:
-      app_store_connect:
-        auth: integration
-        submit_to_app_store: true
+   
+ 
