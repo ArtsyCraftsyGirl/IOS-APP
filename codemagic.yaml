@@ -33,6 +33,13 @@ workflows:
             --no-interactive \
             --save  
 
+      # Remove cordova-plugin-media and cordova-plugin-background-mode from the project
+      - name: Remove Unwanted Plugins
+        script: |
+          cordova plugin rm cordova-plugin-media
+          cordova plugin rm cordova-plugin-background-mode
+          echo "✅ Removed cordova-plugin-media and cordova-plugin-background-mode."
+
       - name: Set App Uses Non-Exempt Encryption in Info.plist
         script: |
           INFO_PLIST_PATH="platforms/ios/JbPaladinPatriotsClock/Info.plist"
@@ -43,31 +50,20 @@ workflows:
             echo "⚠️ Info.plist not found!"
           fi
 
-      - name: Clean Background Modes (Pre-Signing)
+      - name: Remove Audio Background Mode (If Exists)
         script: |
-          PLIST="platforms/ios/JbPaladinPatriotsClock/Info.plist"
-
-          if /usr/libexec/PlistBuddy -c "Print :UIBackgroundModes" "$PLIST" &>/dev/null; then
-            COUNT=$(/usr/libexec/PlistBuddy -c "Print :UIBackgroundModes" "$PLIST" | grep -c 'Item')
-            for ((i=0; i<COUNT; i++)); do
-              ITEM=$(/usr/libexec/PlistBuddy -c "Print :UIBackgroundModes:$i" "$PLIST" 2>/dev/null)
-              if [ "$ITEM" == "audio" ]; then
-                /usr/libexec/PlistBuddy -c "Delete :UIBackgroundModes:$i" "$PLIST" && echo "✅ Removed 'audio' background mode"
-                break
-              fi
-            done
+          PLIST_PATH="platforms/ios/JbPaladinPatriotsClock/Info.plist"
+          if [ -f "$PLIST_PATH" ]; then
+            /usr/libexec/PlistBuddy -c "Delete :UIBackgroundModes" "$PLIST_PATH" 2>/dev/null || echo "No UIBackgroundModes found"
+            echo "✅ Removed UIBackgroundModes from Info.plist."
           else
-            echo "ℹ️ No UIBackgroundModes key found in Info.plist"
+            echo "⚠️ Info.plist not found!"
           fi
-
-          chmod 444 "$PLIST" # Lock against plugin modifications
-          echo "✅ Finished cleaning background modes"
 
       - name: Copy custom splash screens to the Xcode project
         script: | 
           SPLASH_SCREEN_PATH="res/screen/ios/splash/"
           IOS_SPLASH_PLATFORM_PATH="platforms/ios/JbPaladinPatriotsClock/Images.xcassets/Splash.imageset/"
-
           if [ -d "$SPLASH_SCREEN_PATH" ]; then
             cp -R "$SPLASH_SCREEN_PATH" "$IOS_SPLASH_PLATFORM_PATH"
             echo "✅ Custom splash screens copied successfully."
@@ -79,7 +75,6 @@ workflows:
         script: |
           ICON_SOURCE_PATH="res/AppIcon.appiconset"
           ICON_DEST_PATH="platforms/ios/JbPaladinPatriotsClock/Images.xcassets/AppIcon.appiconset/"
-
           if [ -d "$ICON_SOURCE_PATH" ]; then
             rm -rf "$ICON_DEST_PATH"
             mkdir -p "$ICON_DEST_PATH"
