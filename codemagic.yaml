@@ -43,16 +43,35 @@ workflows:
             echo "⚠️ Info.plist not found!"
           fi
 
-      - name: Remove background audio mode from Info.plist
+           - name: Remove audio from UIBackgroundModes in Info.plist
         script: |
           INFO_PLIST_PATH="platforms/ios/JbPaladinPatriotsClock/Info.plist"
           if [ -f "$INFO_PLIST_PATH" ]; then
-            /usr/libexec/PlistBuddy -c "Delete :UIBackgroundModes" "$INFO_PLIST_PATH" && \
-            echo "✅ UIBackgroundModes removed from Info.plist." || \
-            echo "⚠️ UIBackgroundModes not found or already removed."
+            # Check if UIBackgroundModes array exists
+            /usr/libexec/PlistBuddy -c "Print :UIBackgroundModes" "$INFO_PLIST_PATH" >/dev/null 2>&1
+            if [ $? -eq 0 ]; then
+              # Find and remove audio entry
+              ENTRIES=($(/usr/libexec/PlistBuddy -c "Print :UIBackgroundModes" "$INFO_PLIST_PATH" | sed -n '/^[0-9]/p'))
+              for i in "${!ENTRIES[@]}"; do
+                if [[ "${ENTRIES[$i]}" == "audio" ]]; then
+                  /usr/libexec/PlistBuddy -c "Delete :UIBackgroundModes:$i" "$INFO_PLIST_PATH"
+                  echo "✅ Removed audio entry from UIBackgroundModes at index $i"
+                fi
+              done
+              
+              # Remove array if empty
+              REMAINING_ENTRIES=$(/usr/libexec/PlistBuddy -c "Print :UIBackgroundModes" "$INFO_PLIST_PATH" 2>/dev/null | wc -l)
+              if [ "$REMAINING_ENTRIES" -eq 0 ]; then
+                /usr/libexec/PlistBuddy -c "Delete :UIBackgroundModes" "$INFO_PLIST_PATH"
+                echo "✅ Removed empty UIBackgroundModes array"
+              fi
+            else
+              echo "ℹ️ UIBackgroundModes key does not exist"
+            fi
           else
             echo "⚠️ Info.plist not found!"
           fi
+
 
       - name: Copy custom splash screens to the Xcode project
         script: | 
@@ -110,5 +129,10 @@ workflows:
     artifacts:
       - /Users/builder/clone/platforms/ios/build/Release-iphoneos/JbPaladinPatriotsClock.ipa
       - /tmp/xcodebuild_logs/*.log
+
+       publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_app_store: true
 
  
