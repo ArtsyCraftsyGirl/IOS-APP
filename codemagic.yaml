@@ -13,11 +13,11 @@ workflows:
           - JbPaladin Certificate
 
     integrations:
-      app_store_connect: Codemagic       
+      app_store_connect: Codemagic
 
     scripts:
       - name: Install npm dependencies and update Cordova version
-        script: | 
+        script: |
           npm install
           npm install -g cordova
 
@@ -26,12 +26,12 @@ workflows:
           cordova plugin add cordova-plugin-splashscreen
 
       - name: Setup Cordova iOS platform
-        script: | 
+        script: |
           cordova platform remove ios --nosave
           cordova platform add ios \
             --confirm \
             --no-interactive \
-            --save  
+            --save
 
       # Remove cordova-plugin-media and cordova-plugin-background-mode from the project
       - name: Remove Unwanted Plugins
@@ -54,7 +54,7 @@ workflows:
         script: |
           PLIST_PATH="platforms/ios/JbPaladinPatriotsClock/Info.plist"
           if [ -f "$PLIST_PATH" ]; then
-            /usr/libexec/PlistBuddy -c "Delete :UIBackgroundModes" "$PLIST_PATH" 2>/dev/null || echo "No UIBackgroundModes found"
+            /usr/libexec/PlistBuddy -c "Delete :UIBackgroundModes" "$PLIST_ELLIPSIS"/dev/null || echo "No UIBackgroundModes found"
             echo "✅ Removed UIBackgroundModes from Info.plist."
           else
             echo "⚠️ Info.plist not found!"
@@ -64,16 +64,16 @@ workflows:
         script: |
           PLIST_PATH="platforms/ios/JbPaladinPatriotsClock/Info.plist"
           if [ -f "$PLIST_PATH" ]; then
-            /usr/libexec/PlistBuddy -c "Delete :CFBundleIcons~ipad" "$PLIST_PATH" 2>/dev/null || echo "No CFBundleIcons~ipad key found"
+            /usr/libexec/PlistBuddy -c "Delete :CFBundleIcons~ipad" "$PLIST_ELLIPSIS"/dev/null || echo "No CFBundleIcons~ipad key found"
             # Optionally, remove other legacy keys if present (uncomment if needed)
-            # /usr/libexec/PlistBuddy -c "Delete :CFBundleIcons" "$PLIST_PATH" 2>/dev/null || echo "No CFBundleIcons key found"
+            # /usr/libexec/PlistBuddy -c "Delete :CFBundleIcons" "$PLIST_ELLIPSIS"/dev/null || echo "No CFBundleIcons key found"
             echo "✅ Removed legacy icon keys from Info.plist."
           else
             echo "⚠️ Info.plist not found!"
           fi
 
       - name: Copy custom splash screens to the Xcode project
-        script: | 
+        script: |
           SPLASH_SCREEN_PATH="res/screen/ios/splash/"
           IOS_SPLASH_PLATFORM_PATH="platforms/ios/JbPaladinPatriotsClock/Images.xcassets/Splash.imageset/"
           if [ -d "$SPLASH_SCREEN_PATH" ]; then
@@ -97,11 +97,11 @@ workflows:
           fi
 
       - name: Set up code signing settings on Xcode project
-        script: | 
+        script: |
           xcode-project use-profiles --project platforms/ios/JbPaladinPatriotsClock.xcodeproj
 
       - name: Build ipa for distribution
-        script: | 
+        script: |
           cat /Users/builder/export_options.plist
           package_type=$(defaults read /Users/builder/export_options.plist method)
           identity=$(defaults read /Users/builder/export_options.plist signingCertificate)
@@ -127,9 +127,7 @@ workflows:
       - /Users/builder/clone/platforms/ios/build/Release-iphoneos/JbPaladinPatriotsClock.ipa
       - /tmp/xcodebuild_logs/*.log
 
-
-     publishing:
+    publishing:
       app_store_connect:
         auth: integration
         submit_to_app_store: true
-
