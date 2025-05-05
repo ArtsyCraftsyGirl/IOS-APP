@@ -20,12 +20,7 @@ workflows:
         script: |
           npm install
           npm install -g cordova
-
-      - name: Clean Xcode Derived Data
-        script: |
-          rm -rf ~/Library/Developer/Xcode/DerivedData/*
-          echo "✅ Cleaned Xcode Derived Data."
-
+          
       - name: Install Cordova Splash Screen Plugin
         script: |
           cordova plugin add cordova-plugin-splashscreen
