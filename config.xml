@@ -29,6 +29,7 @@
     <icon src="res/icon/ios/icon-167.png" width="167" height="167"/>
     <icon src="res/icon/ios/icon-144.png" width="144" height="144" />
     <icon src="res/icon/ios/icon-114.png" width="114" height="114" />
+    <icon src="res/icon/ios/icon-240.png" width="240" height="240" />
     <icon src="res/icon/ios/icon-1024.png" width="1024" height="1024" /> <!-- App Store icon -->
 
     <!-- Splash Screens -->
