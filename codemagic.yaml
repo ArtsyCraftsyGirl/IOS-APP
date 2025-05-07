@@ -16,6 +16,18 @@ workflows:
       app_store_connect: Codemagic
 
     scripts:
+      - name: Clean Cordova and Xcode caches
+        script: |
+          echo "🧹 Cleaning Cordova and Xcode caches..."
+          rm -rf platforms/ios
+          rm -rf plugins
+          rm -rf www
+          rm -rf node_modules
+          npm cache clean --force
+          cordova clean ios || true
+          rm -rf ~/Library/Developer/Xcode/DerivedData/*
+          echo "✅ Cache cleanup done."
+
       - name: Install npm dependencies and update Cordova version
         script: |
           npm install
@@ -124,5 +136,3 @@ workflows:
       - /Users/builder/clone/platforms/ios/build/Release-iphoneos/JbPaladinPatriotsClock.ipa
       - /tmp/xcodebuild_logs/*.log
       - platforms/ios/JbPaladinPatriotsClock/Images.xcassets/AppIcon.appiconset/**/*
-
-  
