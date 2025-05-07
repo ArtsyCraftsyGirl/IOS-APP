@@ -15,6 +15,7 @@ workflows:
     integrations:
       app_store_connect: Codemagic
 
+    scripts:
       - name: Install npm dependencies and update Cordova version
         script: |
           npm install
@@ -123,7 +124,7 @@ workflows:
       - /Users/builder/clone/platforms/ios/build/Release-iphoneos/JbPaladinPatriotsClock.ipa
       - /tmp/xcodebuild_logs/*.log
       - platforms/ios/JbPaladinPatriotsClock/Images.xcassets/AppIcon.appiconset/**/*
-      
+
     publishing:
       app_store_connect:
         auth: integration
