@@ -36,6 +36,7 @@
     <icon src="res/icon/ios/icon-39.png" width="39" height="39" />
     <icon src="res/icon/ios/icon-34.png" width="34" height="34" />
     <icon src="res/icon/ios/icon-27.png" width="27" height="27" />
+    <icon src="res/icon/ios/icon-24.png" width="24" height="24" />
     <icon src="res/icon/ios/icon-1024.png" width="1024" height="1024" /> <!-- App Store icon -->
 
     <!-- Splash Screens -->
